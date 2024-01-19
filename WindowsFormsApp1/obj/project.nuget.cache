@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "PWY3C1LVGB1Bv1z9Rer6Q7xZ3uXiWGldKg1wQJUaNdWNIenI+b/hcN+/5g9gaFxHUir/IzWk2eztQTJg7Mkspw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\chenyeyi\\Desktop\\np vscode\\notepad-minus-minus\\WindowsFormsApp1\\WindowsFormsApp1.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\chenyeyi\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\chenyeyi\\.nuget\\packages\\system.data.datasetextensions\\4.5.0\\system.data.datasetextensions.4.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}

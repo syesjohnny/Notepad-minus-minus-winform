@@ -1,0 +1,6 @@
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1\WindowsFormsApp1\bin\Release\net8.0-windows\app.publish\WindowsFormsApp1.exe
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1\WindowsFormsApp1\bin\Release\net8.0-windows\app.publish\WindowsFormsApp1.dll
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1\WindowsFormsApp1\bin\Release\net8.0-windows\app.publish\WindowsFormsApp1.deps.json
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1\WindowsFormsApp1\bin\Release\net8.0-windows\app.publish\WindowsFormsApp1.runtimeconfig.json
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1\WindowsFormsApp1\bin\Release\net8.0-windows\app.publish\WindowsFormsApp1.dll.config
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1\WindowsFormsApp1\bin\Release\net8.0-windows\app.publish\WindowsFormsApp1.pdb

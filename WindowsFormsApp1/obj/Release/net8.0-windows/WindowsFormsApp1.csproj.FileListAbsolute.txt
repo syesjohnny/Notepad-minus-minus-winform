@@ -1,0 +1,34 @@
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1\WindowsFormsApp1\bin\Release\net8.0-windows\WindowsFormsApp1.exe
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1\WindowsFormsApp1\bin\Release\net8.0-windows\WindowsFormsApp1.dll.config
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1\WindowsFormsApp1\bin\Release\net8.0-windows\WindowsFormsApp1.deps.json
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1\WindowsFormsApp1\bin\Release\net8.0-windows\WindowsFormsApp1.runtimeconfig.json
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1\WindowsFormsApp1\bin\Release\net8.0-windows\WindowsFormsApp1.dll
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1\WindowsFormsApp1\bin\Release\net8.0-windows\WindowsFormsApp1.pdb
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1\WindowsFormsApp1\obj\Release\net8.0-windows\WindowsFormsApp1.Form1.resources
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1\WindowsFormsApp1\obj\Release\net8.0-windows\WindowsFormsApp1.Properties.Resources.resources
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1\WindowsFormsApp1\obj\Release\net8.0-windows\WindowsFormsApp1.csproj.GenerateResource.cache
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1\WindowsFormsApp1\obj\Release\net8.0-windows\WindowsFormsApp1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1\WindowsFormsApp1\obj\Release\net8.0-windows\WindowsFormsApp1.csproj.CoreCompileInputs.cache
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1\WindowsFormsApp1\obj\Release\net8.0-windows\WindowsFormsApp1.sourcelink.json
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1\WindowsFormsApp1\obj\Release\net8.0-windows\WindowsFormsApp1.dll
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1\WindowsFormsApp1\obj\Release\net8.0-windows\refint\WindowsFormsApp1.dll
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1\WindowsFormsApp1\obj\Release\net8.0-windows\WindowsFormsApp1.pdb
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1\WindowsFormsApp1\obj\Release\net8.0-windows\WindowsFormsApp1.genruntimeconfig.cache
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1\WindowsFormsApp1\obj\Release\net8.0-windows\ref\WindowsFormsApp1.dll
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1 - 複製\WindowsFormsApp1\bin\Release\net8.0-windows\WindowsFormsApp1.exe
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1 - 複製\WindowsFormsApp1\bin\Release\net8.0-windows\WindowsFormsApp1.dll.config
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1 - 複製\WindowsFormsApp1\bin\Release\net8.0-windows\WindowsFormsApp1.deps.json
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1 - 複製\WindowsFormsApp1\bin\Release\net8.0-windows\WindowsFormsApp1.runtimeconfig.json
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1 - 複製\WindowsFormsApp1\bin\Release\net8.0-windows\WindowsFormsApp1.dll
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1 - 複製\WindowsFormsApp1\bin\Release\net8.0-windows\WindowsFormsApp1.pdb
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1 - 複製\WindowsFormsApp1\obj\Release\net8.0-windows\WindowsFormsApp1.Form1.resources
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1 - 複製\WindowsFormsApp1\obj\Release\net8.0-windows\WindowsFormsApp1.Properties.Resources.resources
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1 - 複製\WindowsFormsApp1\obj\Release\net8.0-windows\WindowsFormsApp1.csproj.GenerateResource.cache
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1 - 複製\WindowsFormsApp1\obj\Release\net8.0-windows\WindowsFormsApp1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1 - 複製\WindowsFormsApp1\obj\Release\net8.0-windows\WindowsFormsApp1.csproj.CoreCompileInputs.cache
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1 - 複製\WindowsFormsApp1\obj\Release\net8.0-windows\WindowsFormsApp1.sourcelink.json
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1 - 複製\WindowsFormsApp1\obj\Release\net8.0-windows\WindowsFormsApp1.dll
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1 - 複製\WindowsFormsApp1\obj\Release\net8.0-windows\refint\WindowsFormsApp1.dll
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1 - 複製\WindowsFormsApp1\obj\Release\net8.0-windows\WindowsFormsApp1.pdb
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1 - 複製\WindowsFormsApp1\obj\Release\net8.0-windows\WindowsFormsApp1.genruntimeconfig.cache
+C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1 - 複製\WindowsFormsApp1\obj\Release\net8.0-windows\ref\WindowsFormsApp1.dll
