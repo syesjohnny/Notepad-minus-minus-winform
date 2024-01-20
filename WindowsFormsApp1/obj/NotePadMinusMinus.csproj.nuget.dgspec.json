@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\tgg\\Source\\Repos\\Notepad-minus-minus\\WindowsFormsApp1\\NotePadMinusMinus.csproj": {}
+    "C:\\Users\\tgg\\source\\repos\\Notepad-minus-minus\\WindowsFormsApp1\\NotePadMinusMinus.csproj": {}
   },
   "projects": {
-    "C:\\Users\\tgg\\Source\\Repos\\Notepad-minus-minus\\WindowsFormsApp1\\NotePadMinusMinus.csproj": {
+    "C:\\Users\\tgg\\source\\repos\\Notepad-minus-minus\\WindowsFormsApp1\\NotePadMinusMinus.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tgg\\Source\\Repos\\Notepad-minus-minus\\WindowsFormsApp1\\NotePadMinusMinus.csproj",
+        "projectUniqueName": "C:\\Users\\tgg\\source\\repos\\Notepad-minus-minus\\WindowsFormsApp1\\NotePadMinusMinus.csproj",
         "projectName": "NotePadMinusMinus",
-        "projectPath": "C:\\Users\\tgg\\Source\\Repos\\Notepad-minus-minus\\WindowsFormsApp1\\NotePadMinusMinus.csproj",
+        "projectPath": "C:\\Users\\tgg\\source\\repos\\Notepad-minus-minus\\WindowsFormsApp1\\NotePadMinusMinus.csproj",
         "packagesPath": "C:\\Users\\tgg\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tgg\\Source\\Repos\\Notepad-minus-minus\\WindowsFormsApp1\\obj\\",
+        "outputPath": "C:\\Users\\tgg\\source\\repos\\Notepad-minus-minus\\WindowsFormsApp1\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "E:\\Microsoft Visual Studio\\Shared\\NuGetPackages",

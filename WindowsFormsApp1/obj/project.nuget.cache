@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "EYnkuKWeejJKCdNDVWKkj+v1VVvJmH+H12/nLswHqGkZ3FpLZXHPNWcdw8eim8k6mi3qE9OSb9GoHT7PnJje0w==",
+  "dgSpecHash": "j827hHA67nhZ3WLi/v2Rr/VYwEPUwASg68FXGPnxhXpW6D9B/iRPxVrqb21fG8ZEIXlIXIAySXagUkqGUH14/w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\tgg\\Source\\Repos\\Notepad-minus-minus\\WindowsFormsApp1\\NotePadMinusMinus.csproj",
+  "projectFilePath": "C:\\Users\\tgg\\source\\repos\\Notepad-minus-minus\\WindowsFormsApp1\\NotePadMinusMinus.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\tgg\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\tgg\\.nuget\\packages\\system.data.datasetextensions\\4.5.0\\system.data.datasetextensions.4.5.0.nupkg.sha512"
