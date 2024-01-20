@@ -445,7 +445,7 @@ namespace NotePadMinusMinus
 				// Switch back to normal mode
 				this.WindowState = previousWindowState; // Restore the previous window state
 				this.FormBorderStyle = FormBorderStyle.Sizable; // Restore window borders
-				fullScreenToolStripMenuItem.Checked = false;
+				FullScreenToggleMenuItem.Checked = false;
 			}
 			else
 			{
@@ -453,13 +453,13 @@ namespace NotePadMinusMinus
 				previousWindowState = this.WindowState; // Store the previous window state
 				this.FormBorderStyle = FormBorderStyle.None; // Hide window borders
 				this.WindowState = FormWindowState.Maximized; // Set directly to maximize
-				fullScreenToolStripMenuItem.Checked = true;
+				FullScreenToggleMenuItem.Checked = true;
 			}
 		}
 
 		private void exitfull(object sender, KeyEventArgs e)
 		{
-			if (e.KeyCode == Keys.Escape && fullScreenToolStripMenuItem.Checked == true)
+			if (e.KeyCode == Keys.Escape && FullScreenToggleMenuItem.Checked == true)
 			{
 				ToggleFullScreen();
 			}
