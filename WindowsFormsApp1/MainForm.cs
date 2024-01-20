@@ -29,13 +29,6 @@ namespace NotePadMinusMinus
 	}
 	public partial class MainForm : Form
 	{
-		private float currentFontSize = 0;
-		private FormWindowState previousWindowState;
-		private int horizontalScrollPosition = 0;
-		private bool showLink = false;
-		private string linktext = "";
-		// waiting for re-constructing
-
 		#region BackendFields
 		private float _zoom = 1;
 		private int _length = 0;
@@ -43,12 +36,37 @@ namespace NotePadMinusMinus
 		private int _atLine = 0;
 		private int _atColumn = 0;
 		private int _atChar = 0;
+		private FileSaveChangeFlag _saveChangeFlag = FileSaveChangeFlag.NoChange;
+		private string _currentFilePath = "";
 		#endregion
 
 		#region Properties
-		public static string CurrentFilePath { get; set; } = ""; 
-		public static FileSaveChangeFlag SaveChangeFlag { get; set; } = FileSaveChangeFlag.NoChange;
+		private FormWindowState PreviousWindowState { get; set; }
 		public CloseMode AppCloseMode { get; set; } = CloseMode.CloseAll;
+		public string CurrentFilePath
+		{
+			get
+			{
+				return _currentFilePath;
+			}
+			set
+			{
+				_currentFilePath = value;
+				SetTitle();
+			}
+		}
+		public FileSaveChangeFlag SaveChangeFlag
+		{
+			get
+			{
+				return _saveChangeFlag;
+			}
+			set
+			{
+				_saveChangeFlag = value;
+				SetTitle();
+			}
+		}
 		public float Zoom
 		{
 			get
@@ -101,14 +119,16 @@ namespace NotePadMinusMinus
 			undoToolStripMenuItem1.Enabled = false;
 			ActionRedoMenuItem.Enabled = false;
 			redoToolStripMenuItem1.Enabled = false;
-			CopyDirectoryWithFileMenuItem.Enabled = (CurrentFilePath != "");
-			CopyFileMenuItem.Enabled = (CurrentFilePath != "");
-			CopyDirectoryOnlyMenuItem.Enabled = (CurrentFilePath != "");
-			OpenFileFolderSubMenu.Enabled = (CurrentFilePath != "");
-			CopyToClipboardSubMenu.Enabled = (CurrentFilePath != "");
 
-			ActionPasteMenuItem.Enabled = (Clipboard.ContainsText() == true);
-			pasteToolStripMenuItem1.Enabled = (Clipboard.ContainsText() == true);
+			bool isFilePathEmpty = string.IsNullOrEmpty(CurrentFilePath);
+			CopyDirectoryWithFileMenuItem.Enabled = isFilePathEmpty;
+			CopyFileMenuItem.Enabled = isFilePathEmpty;
+			CopyDirectoryOnlyMenuItem.Enabled = isFilePathEmpty;
+			OpenFileFolderSubMenu.Enabled = isFilePathEmpty;
+			CopyToClipboardSubMenu.Enabled = isFilePathEmpty;
+
+			ActionPasteMenuItem.Enabled = Clipboard.ContainsText();
+			pasteToolStripMenuItem1.Enabled = Clipboard.ContainsText();
 			ActionCopyMenuItem.Enabled = false;
 			copyToolStripMenuItem1.Enabled = false;
 			ActionDeleteMenuItem.Enabled = false;
@@ -118,21 +138,26 @@ namespace NotePadMinusMinus
 			ReOpenMenuItem.Enabled = false;
 			OpenInMSNotepadMenuItem.Enabled = false;
 
-
-			this.Text = "Unnamed";
-
-
+			SetTitle();
 		}
 		#endregion
-		private void EditingArea_MouseWheelEvent(object sender, MouseEventArgs e)
+
+		#region Misc
+		private void SetTitle()
 		{
-			// Handle the MouseWheel event here
-			if (Control.ModifierKeys == Keys.Control)
-			{
-				// Ctrl key is pressed while scrolling
-				Zoom = EditingArea.ZoomFactor;
-			}
+			bool isEmpty = string.IsNullOrEmpty(CurrentFilePath);
+			this.Text = string.Format(
+				"{0}{1} {2}{3}{4}",
+				SaveChangeFlag == FileSaveChangeFlag.NoChange ? "" : "*",
+				isEmpty ? "Unnamed" : Path.GetFileName(CurrentFilePath),
+				isEmpty ? "" : "(",
+				CurrentFilePath,
+				isEmpty ? "" : ")"
+			);
 		}
+		#endregion
+
+		#region File operations
 		private void NewFileEvent(object sender, EventArgs e)
 		{
 			if (SaveChangeFlag == FileSaveChangeFlag.Changed)
@@ -154,14 +179,11 @@ namespace NotePadMinusMinus
 			// Reset the CurrentFilePath and clear the RichTextBox
 			CurrentFilePath = "";
 			EditingArea.Clear();
-			this.Text = "Unnamed";
 		}
-
 		private void SaveFileEvent(object sender, EventArgs e)
 		{
 			SaveFile();
 		}
-
 		private void SaveAsEvent(object sender, EventArgs e)
 		{
 			SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -179,7 +201,6 @@ namespace NotePadMinusMinus
 				CopyDirectoryOnlyMenuItem.Enabled = (CurrentFilePath != "");
 			}
 		}
-
 		private void OpenFileEvent(object sender, EventArgs e)
 		{
 			if (SaveChangeFlag == FileSaveChangeFlag.Changed)
@@ -203,13 +224,11 @@ namespace NotePadMinusMinus
 			{
 				CurrentFilePath = openFileDialog.FileName;
 				EditingArea.LoadFile(openFileDialog.FileName, RichTextBoxStreamType.PlainText);
-				this.Text = Path.GetFileName(CurrentFilePath) + " (" + CurrentFilePath + ")";
 				int charCount = EditingArea.TextLength;
 				int lineCount = EditingArea.Lines.Length;
 				DocumentLengthInfo = (charCount, lineCount);
 			}
 		}
-
 		private bool SaveFile()
 		{
 			if (string.IsNullOrEmpty(CurrentFilePath))
@@ -225,7 +244,6 @@ namespace NotePadMinusMinus
 					{
 						streamWriter.Write(EditingArea.Text);
 						SaveChangeFlag = 0;
-						this.Text = Path.GetFileName(saveFileDialog.FileName) + " (" + saveFileDialog.FileName + ")";
 						CopyDirectoryWithFileMenuItem.Enabled = (CurrentFilePath != "");
 						CopyFileMenuItem.Enabled = (CurrentFilePath != "");
 						CopyDirectoryOnlyMenuItem.Enabled = (CurrentFilePath != "");
@@ -243,12 +261,92 @@ namespace NotePadMinusMinus
 				{
 					streamWriter.Write(EditingArea.Text);
 					SaveChangeFlag = 0;
-					this.Text = Path.GetFileName(CurrentFilePath) + " (" + CurrentFilePath + ")";
 				}
 			}
 			return true;
 		}
+		private void OpenInMSNotepadMenuItem_Click(object sender, EventArgs e)
+		{
+			Process.Start(new ProcessStartInfo
+			{
+				FileName = CurrentFilePath,
+				UseShellExecute = true
+			});
+		}
+		private void DeletePermanentlyMenuItem_Click(object sender, EventArgs e)
+		{
+			DialogResult result = MessageBox.Show("Really? You can't get back your file after you delete it", "Warning", MessageBoxButtons.YesNoCancel);
+			if (result == DialogResult.Yes)
+			{
+				File.Delete(CurrentFilePath);
+			}
+			EditingArea.Text = "";
+			CurrentFilePath = "";
+			int charCount = EditingArea.TextLength;
+			int lineCount = EditingArea.Lines.Length;
+			DocumentLengthInfo = (charCount, lineCount);
+		}
+		private void RemoveFileMenuItem_Click(object sender, EventArgs e)
+		{
+			DialogResult result = MessageBox.Show("Really?", "Warning", MessageBoxButtons.YesNoCancel);
+			if (result == DialogResult.Yes)
+			{
+				FileSystem.DeleteFile(CurrentFilePath, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+			}
+			EditingArea.Text = "";
+			CurrentFilePath = "";
+			int charCount = EditingArea.TextLength;
+			int lineCount = EditingArea.Lines.Length;
+			DocumentLengthInfo = (charCount, lineCount);
+		}
+		private void OpenInExplorer(object sender, EventArgs e)
+		{
+			if (!string.IsNullOrEmpty(CurrentFilePath) && File.Exists(CurrentFilePath))
+			{
+				string folderPath = Path.GetDirectoryName(CurrentFilePath);
+				Process.Start("explorer.exe", folderPath);
+			}
+		}
+		private void OpenInCMD(object sender, EventArgs e)
+		{
+			if (!string.IsNullOrEmpty(CurrentFilePath) && File.Exists(CurrentFilePath))
+			{
+				// Get the directory containing the current file
+				string folderPath = Path.GetDirectoryName(CurrentFilePath);
 
+				// Open a new Command Prompt window and set its current directory
+				Process.Start("cmd", $"/k cd /d \"{folderPath}\"");
+			}
+		}
+		private void ReOpenMenuItem_Click(object sender, EventArgs e)
+		{
+			if (SaveChangeFlag == FileSaveChangeFlag.Changed)
+			{
+				if (!string.IsNullOrEmpty(EditingArea.Text) && (string.IsNullOrEmpty(CurrentFilePath) || File.Exists(CurrentFilePath)))
+				{
+					DialogResult result = MessageBox.Show("Do you want to save changes?", "Warning", MessageBoxButtons.YesNoCancel);
+
+					if (result == DialogResult.Yes)
+					{
+						SaveFile();
+					}
+					else if (result == DialogResult.Cancel)
+					{
+						// User clicked Cancel, do nothing
+						return;
+					}
+				}
+			}
+			EditingArea.LoadFile(CurrentFilePath, RichTextBoxStreamType.PlainText);
+			int charCount = EditingArea.TextLength;
+			int lineCount = EditingArea.Lines.Length;
+			DocumentLengthInfo = (charCount, lineCount);
+
+
+		}
+		#endregion
+
+		#region Exiting
 		private void ExitEvent(object sender, EventArgs e)
 		{
 			Application.Exit();
@@ -277,8 +375,19 @@ namespace NotePadMinusMinus
 				}
 			}
 		}
+		#endregion
 
-		private void SaveAllChanges(object sender, EventArgs e)
+		#region Editing area events
+		private void EditingArea_MouseWheelEvent(object sender, MouseEventArgs e)
+		{
+			// Handle the MouseWheel event here
+			if (Control.ModifierKeys == Keys.Control)
+			{
+				// Ctrl key is pressed while scrolling
+				Zoom = EditingArea.ZoomFactor;
+			}
+		}
+		private void OnEditingAreaTextChange(object sender, EventArgs e)
 		{
 			if (CurrentFilePath == "")
 			{
@@ -306,52 +415,41 @@ namespace NotePadMinusMinus
 			undoToolStripMenuItem1.Enabled = EditingArea.CanUndo;
 			ActionRedoMenuItem.Enabled = EditingArea.CanRedo;
 			redoToolStripMenuItem1.Enabled = EditingArea.CanRedo;
-			ReOpenMenuItem.Enabled = (CurrentFilePath != "");
-			OpenInMSNotepadMenuItem.Enabled = (CurrentFilePath != "");
+			bool isPathEmpty = string.IsNullOrEmpty(CurrentFilePath);
+			ReOpenMenuItem.Enabled = isPathEmpty;
+			OpenInMSNotepadMenuItem.Enabled = isPathEmpty;
 			//change change change change change change change change change change change
-			if (CurrentFilePath != "")
-			{
-				if (SaveChangeFlag == FileSaveChangeFlag.Changed)
-				{
-					this.Text = "*" + Path.GetFileName(CurrentFilePath) + " (" + CurrentFilePath + ")";
-				}
-				else
-				{
-					this.Text = Path.GetFileName(CurrentFilePath) + " (" + CurrentFilePath + ")";
-				}
-
-			}
-			else
-			{
-				if (EditingArea.Text == "")
-				{
-					this.Text = "Unnamed";
-				}
-				else
-				{
-					this.Text = "*Unnamed";
-				}
-			}
-			CopyDirectoryWithFileMenuItem.Enabled = (CurrentFilePath != "");
-			CopyFileMenuItem.Enabled = (CurrentFilePath != "");
-			CopyDirectoryOnlyMenuItem.Enabled = (CurrentFilePath != "");
-			OpenFileFolderSubMenu.Enabled = (CurrentFilePath != "");
-			CopyToClipboardSubMenu.Enabled = (CurrentFilePath != "");
-			ActionPasteMenuItem.Enabled = (Clipboard.ContainsText() == true);
-			pasteToolStripMenuItem1.Enabled = (Clipboard.ContainsText() == true);
+			// ^ ???
+			CopyDirectoryWithFileMenuItem.Enabled = isPathEmpty;
+			CopyFileMenuItem.Enabled = isPathEmpty;
+			CopyDirectoryOnlyMenuItem.Enabled = isPathEmpty;
+			OpenFileFolderSubMenu.Enabled = isPathEmpty;
+			CopyToClipboardSubMenu.Enabled = isPathEmpty;
+			ActionPasteMenuItem.Enabled = Clipboard.ContainsText() == true;
+			pasteToolStripMenuItem1.Enabled = Clipboard.ContainsText() == true;
 		}
-
-		private void textuasview(object sender, EventArgs e)
+		private void EditingAreaOnSelectionChange(object sender, EventArgs e)
 		{
-			// Update the label to show the current caret position
-			int caretPosition = EditingArea.SelectionStart + 1; // Caret position is zero-based
-			int line = EditingArea.GetLineFromCharIndex(EditingArea.SelectionStart) + 1;
-			int column = EditingArea.SelectionStart - EditingArea.GetFirstCharIndexOfCurrentLine() + 1;
+			string[] lines = EditingArea.Lines;
+			int charCounter = 0;
+			int lineCounter = 0;
+			int lineNowLength = 0;
+			char[] texts = EditingArea.Text.ToCharArray();
 
-			CursorPosInfo = (line, column, caretPosition);
-			int charCount = EditingArea.TextLength;
-			int lineCount = EditingArea.Lines.Length;
-			DocumentLengthInfo = (charCount, lineCount);
+			for (int i = 0; i < texts.Length && i < EditingArea.SelectionStart; i++)
+			{
+				charCounter++;
+				lineNowLength++;
+				char charAt = texts[i];
+				if (charAt == '\n')
+				{
+					lineCounter++;
+					lineNowLength = 0;
+				}
+			}
+
+			CursorPosInfo = (++lineCounter, ++lineNowLength, EditingArea.SelectionStart + 1);
+			DocumentLengthInfo = (EditingArea.TextLength, EditingArea.Lines.Length);
 			if (EditingArea.SelectionLength > 0)
 			{
 				ActionCopyMenuItem.Enabled = true;
@@ -372,56 +470,30 @@ namespace NotePadMinusMinus
 				cutToolStripMenuItem1.Enabled = false;
 			}
 		}
-
-		private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+		private void OpenLink(object sender, LinkClickedEventArgs e)
 		{
-			EditingArea.Undo();
+			if (EditingArea.DetectUrls)
+			{
+				var ps = new ProcessStartInfo(e.LinkText)
+				{
+					UseShellExecute = true,
+					Verb = "open"
+				};
+				Process.Start(ps);
+			}
 		}
+		#endregion
 
-		private void redoToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			EditingArea.Redo();
-		}
+		#region Editing actions
+		private void UndoMenuItem_Click(object sender, EventArgs e) => EditingArea.Undo();
+		private void RedoMenuItem_Click(object sender, EventArgs e) => EditingArea.Redo();
+		private void CutMenuItem_Click(object sender, EventArgs e) => EditingArea.Cut();
+		private void CopyMenuItem_Click(object sender, EventArgs e) => EditingArea.Copy();
+		private void PasteMenuItem_Click(object sender, EventArgs e) => EditingArea.Paste();
+		private void DeleteMenuItem_Click(object sender, EventArgs e) => EditingArea.SelectedText = "";
+		private void SelectMenuItem_Click(object sender, EventArgs e) => EditingArea.SelectAll();
 
-		private void cutToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			EditingArea.Cut();
-		}
-
-		private void copyToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			EditingArea.Copy();
-		}
-
-		private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			EditingArea.Paste();
-		}
-
-		private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			EditingArea.SelectedText = "";
-		}
-
-		private void seleteAllToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			EditingArea.SelectAll();
-		}
-
-
-		private void wordWrapToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			float previousFontSize = EditingArea.ZoomFactor;
-			EditingArea.WordWrap = !EditingArea.WordWrap;
-			EditingArea.ZoomFactor = previousFontSize;
-		}
-
-		private void statusToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			toolStrip1.Visible = !toolStrip1.Visible;
-		}
-
-		private void timeDateToolStripMenuItem_Click(object sender, EventArgs e)
+		private void InsertDateTime(object sender, EventArgs e)
 		{
 			DateTime now = DateTime.Now;
 
@@ -431,81 +503,68 @@ namespace NotePadMinusMinus
 			// 插入到 RichTextBox 中
 			EditingArea.SelectedText = formattedDateTime;
 		}
+
 		private string GetPeriod(DateTime dateTime)
 		{
-			return dateTime.Hour >= 12 ? "p.m." : "a.m.";
+			return dateTime.Hour >= 12 ? "P.M." : "A.M.";
 		}
-
-		private void newWindowsToolStripMenuItem_Click(object sender, EventArgs e)
+		private void CopyDirectoryPath(object sender, EventArgs e)
 		{
-			MainForm newForm = new MainForm();
-			newForm.Show();
+			Clipboard.SetText(Path.GetDirectoryName(CurrentFilePath));
 		}
-		private void ToggleFullScreen()
+		#endregion
+
+		#region View operations
+		private void ToggleWordWarp(object sender, EventArgs e)
+		{
+			float previousFontSize = EditingArea.ZoomFactor; // ????
+			EditingArea.WordWrap = !EditingArea.WordWrap;
+			EditingArea.ZoomFactor = previousFontSize; // ???
+		}
+		private void ToggleStatus(object sender, EventArgs e)
+		{
+			toolStrip1.Visible = !toolStrip1.Visible;
+		}
+		private void ToggleFullScreen(object _, EventArgs _1)
 		{
 			if (this.FormBorderStyle == FormBorderStyle.None)
 			{
 				// Switch back to normal mode
-				this.WindowState = previousWindowState; // Restore the previous window state
+				this.WindowState = PreviousWindowState; // Restore the previous window state
 				this.FormBorderStyle = FormBorderStyle.Sizable; // Restore window borders
 				FullScreenToggleMenuItem.Checked = false;
 			}
 			else
 			{
 				// Switch to full-screen mode
-				previousWindowState = this.WindowState; // Store the previous window state
+				PreviousWindowState = this.WindowState; // Store the previous window state
 				this.FormBorderStyle = FormBorderStyle.None; // Hide window borders
 				this.WindowState = FormWindowState.Maximized; // Set directly to maximize
 				FullScreenToggleMenuItem.Checked = true;
 			}
 		}
-
-		private void exitfull(object sender, KeyEventArgs e)
-		{
-			if (e.KeyCode == Keys.Escape && FullScreenToggleMenuItem.Checked == true)
-			{
-				ToggleFullScreen();
-			}
-		}
-
-
-		private void directoryWithFileToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			Clipboard.SetText(Path.GetDirectoryName(CurrentFilePath));
-		}
-
-		private void fullScreenToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			ToggleFullScreen();
-		}
-
-		private void alwaysOnTopToolStripMenuItem_Click(object sender, EventArgs e)
+		private void ToggleAlwaysOnTop(object sender, EventArgs e)
 		{
 			this.TopMost = !this.TopMost;
 		}
-
-		private void inExplorerToolStripMenuItem_Click(object sender, EventArgs e)
+		private void ToggleShowLinks(object sender, EventArgs e)
 		{
-			if (!string.IsNullOrEmpty(CurrentFilePath) && File.Exists(CurrentFilePath))
+			EditingArea.DetectUrls = !EditingArea.DetectUrls;
+		}
+		private void ToggleReadOnlyMode(object sender, EventArgs e)
+		{
+			EditingArea.ReadOnly = !EditingArea.ReadOnly;
+		}
+
+		private void ExitFullscreen(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Escape && FullScreenToggleMenuItem.Checked == true)
 			{
-				string folderPath = Path.GetDirectoryName(CurrentFilePath);
-				Process.Start("explorer.exe", folderPath);
+				ToggleFullScreen(null, null);
 			}
 		}
 
-		private void cMDToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			if (!string.IsNullOrEmpty(CurrentFilePath) && File.Exists(CurrentFilePath))
-			{
-				// Get the directory containing the current file
-				string folderPath = Path.GetDirectoryName(CurrentFilePath);
-
-				// Open a new Command Prompt window and set its current directory
-				Process.Start("cmd", $"/k cd /d \"{folderPath}\"");
-			}
-		}
-
-		private void zoomInToolStripMenuItem_Click_1(object sender, EventArgs e)
+		private void ZoomIn(object sender, EventArgs e)
 		{
 			if (EditingArea.ZoomFactor < 4.95)
 			{
@@ -513,8 +572,7 @@ namespace NotePadMinusMinus
 			}
 			Zoom = EditingArea.ZoomFactor;
 		}
-
-		private void zoomOutToolStripMenuItem_Click_1(object sender, EventArgs e)
+		private void ZoomOut(object sender, EventArgs e)
 		{
 			if (EditingArea.ZoomFactor > 0.1)
 			{
@@ -529,112 +587,26 @@ namespace NotePadMinusMinus
 			}
 			Zoom = EditingArea.ZoomFactor;
 		}
-
-		private void resetZoomToolStripMenuItem_Click_1(object sender, EventArgs e)
+		private void ResetZoom(object sender, EventArgs e)
 		{
 			EditingArea.ZoomFactor = 1f;
 			Zoom = EditingArea.ZoomFactor;
 		}
+		#endregion
 
-		private void processlink(object sender, LinkClickedEventArgs e)
+		#region Windows
+		private void OpenNewWindow(object sender, EventArgs e)
 		{
-			if (showLink)
-			{
-				var ps = new ProcessStartInfo(e.LinkText)
-				{
-					UseShellExecute = true,
-					Verb = "open"
-				};
-				Process.Start(ps);
-			}
+			MainForm newForm = new MainForm();
+			newForm.Show();
 		}
-
-		private void showLinksToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			showLink = !showLink;
-			EditingArea.DetectUrls = !EditingArea.DetectUrls;
-		}
-
-		private void goToToolStripMenuItem_Click(object sender, EventArgs e)
+		private void GoToMenuItem_Click(object sender, EventArgs e)
 		{
 			Goto Goto = new Goto(this);
 			Goto.Owner = this;
 			Goto.Show();
 		}
-
-		private void readonlyToolStripMenuItem_Click_1(object sender, EventArgs e)
-		{
-			EditingArea.ReadOnly = !EditingArea.ReadOnly;
-		}
-
-		private void reopenToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			if (SaveChangeFlag == FileSaveChangeFlag.Changed)
-			{
-				if (!string.IsNullOrEmpty(EditingArea.Text) && (string.IsNullOrEmpty(CurrentFilePath) || File.Exists(CurrentFilePath)))
-				{
-					DialogResult result = MessageBox.Show("Do you want to save changes?", "Warning", MessageBoxButtons.YesNoCancel);
-
-					if (result == DialogResult.Yes)
-					{
-						SaveFile();
-					}
-					else if (result == DialogResult.Cancel)
-					{
-						// User clicked Cancel, do nothing
-						return;
-					}
-				}
-			}
-			EditingArea.LoadFile(CurrentFilePath, RichTextBoxStreamType.PlainText);
-			this.Text = Path.GetFileName(CurrentFilePath) + " (" + CurrentFilePath + ")";
-			int charCount = EditingArea.TextLength;
-			int lineCount = EditingArea.Lines.Length;
-			DocumentLengthInfo = (charCount, lineCount);
-
-
-		}
-
-		private void openInDeafultNotepadToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			Process.Start(new ProcessStartInfo
-			{
-				FileName = CurrentFilePath,
-				UseShellExecute = true
-			});
-		}
-
-		private void toolStripMenuItem1_Click(object sender, EventArgs e)
-		{
-			DialogResult result = MessageBox.Show("Really? You can't get back your file after you delete it", "Warning", MessageBoxButtons.YesNoCancel);
-			if (result == DialogResult.Yes)
-			{
-				File.Delete(CurrentFilePath);
-			}
-			EditingArea.Text = "";
-			CurrentFilePath = "";
-			this.Text = "Unnamed";
-			int charCount = EditingArea.TextLength;
-			int lineCount = EditingArea.Lines.Length;
-			DocumentLengthInfo = (charCount, lineCount);
-		}
-
-		private void moveToTrashcanToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			DialogResult result = MessageBox.Show("Really?", "Warning", MessageBoxButtons.YesNoCancel);
-			if (result == DialogResult.Yes)
-			{
-				FileSystem.DeleteFile(CurrentFilePath, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
-			}
-			EditingArea.Text = "";
-			CurrentFilePath = "";
-			this.Text = "Unnamed";
-			int charCount = EditingArea.TextLength;
-			int lineCount = EditingArea.Lines.Length;
-			DocumentLengthInfo = (charCount, lineCount);
-		}
-
-		private void getPHPHelpToolStripMenuItem_Click(object sender, EventArgs e)
+		private void GetPHPHelpMenuItem_Click(object sender, EventArgs e)
 		{
 			var ps = new ProcessStartInfo("https://www.php.net/" + EditingArea.SelectedText)
 			{
@@ -643,8 +615,7 @@ namespace NotePadMinusMinus
 			};
 			Process.Start(ps);
 		}
-
-		private void wikipediaSearchToolStripMenuItem_Click(object sender, EventArgs e)
+		private void SearchInWikipediaMenuItem_Click(object sender, EventArgs e)
 		{
 			var ps = new ProcessStartInfo("https://.wikipedia.org/wiki/Special:Search?search=" + EditingArea.SelectedText)
 			{
@@ -653,33 +624,30 @@ namespace NotePadMinusMinus
 			};
 			Process.Start(ps);
 		}
-
-		private void searchInWebsiteToolStripMenuItem_Click(object sender, EventArgs e)
+		private void SearchInWebsiteMenuItem_Click(object sender, EventArgs e)
 		{
-
+			string linkText;
 			if (EditingArea.SelectedText == "")
-			{
-				linktext = EditingArea.Lines[EditingArea.GetLineFromCharIndex(EditingArea.SelectionStart)];
+			{ // why use a field when local variable is already applicable
+				linkText = EditingArea.Lines[EditingArea.GetLineFromCharIndex(EditingArea.SelectionStart)];
 			}
 			else
 			{
-				linktext = EditingArea.SelectedText;
+				linkText = EditingArea.SelectedText;
 			}
-			var ps = new ProcessStartInfo("https://www.google.com/search?q=" + linktext)
+			var ps = new ProcessStartInfo("https://www.google.com/search?q=" + linkText)
 			{
 				UseShellExecute = true,
 				Verb = "open"
 			};
 			Process.Start(ps);
 		}
-
-		private void runToolStripMenuItem1_Click(object sender, EventArgs e)
+		private void RunMenuItem_Click(object sender, EventArgs e)
 		{
 			Run Run = new Run();
 			Run.Owner = this;
 			Run.Show();
 		}
-
-
+		#endregion
 	}
 }
