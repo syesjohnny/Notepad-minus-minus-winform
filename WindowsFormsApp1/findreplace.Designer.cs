@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApp1
+﻿namespace NotePadMinusMinus
 {
     partial class findreplace
     {

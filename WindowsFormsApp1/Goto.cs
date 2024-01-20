@@ -10,109 +10,109 @@ using System.Windows.Forms;
 using static System.Windows.Forms.DataFormats;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
-namespace WindowsFormsApp1
+namespace NotePadMinusMinus
 {
 
-    public partial class Goto : Form
-    {
-        private Form1 richform;
-        public Goto(Form1 form1)
-        {
-            InitializeComponent();
-            richform = form1;
-        }
+	public partial class Goto : Form
+	{
+		private MainForm _mainForm;
+		public Goto(MainForm form1)
+		{
+			InitializeComponent();
+			_mainForm = form1;
+		}
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+		private void Cancel_Click(object sender, EventArgs e)
+		{
+			this.Close();
+		}
 
-        private void buttongo_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (radioButton1.Checked == true)
-                {
-                    int lineNumber;
-                    try
-                    {
-                        lineNumber = Convert.ToInt32(textBox1.Text) - 1;
-                    }
-                    catch (Exception)
-                    {
-                        lineNumber = 2147483647;
-                    }
+		private void Go_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				if (OptionLine.Checked == true)
+				{
+					int lineNumber;
+					try
+					{
+						lineNumber = Convert.ToInt32(GotoInput.Text) - 1;
+					}
+					catch (Exception)
+					{
+						lineNumber = 2147483647;
+					}
 
-                    int totalLines = richform.richTextBox1.Lines.Length;
+					int totalLines = _mainForm.EditingArea.Lines.Length;
 
-                    if (lineNumber >= 0 && lineNumber < totalLines)
-                    {
-                        int lineStartIndex = richform.richTextBox1.GetFirstCharIndexFromLine(lineNumber);
-                        richform.richTextBox1.SelectionStart = lineStartIndex;
-                        richform.richTextBox1.SelectionLength = 0;
-                        richform.richTextBox1.ScrollToCaret();
-                    }
-                    else if (lineNumber!=0)
-                    {
-                        int lastLineIndex = richform.richTextBox1.Lines.Length - 1;
-                        richform.richTextBox1.SelectionStart = richform.richTextBox1.GetFirstCharIndexFromLine(lastLineIndex);
-                        richform.richTextBox1.SelectionLength = 0;
-                        richform.richTextBox1.ScrollToCaret();
-                    }
-                }
-                else
-                {
-                    int charIndex;
-                    try
-                    {
-                        charIndex = Convert.ToInt32(textBox1.Text) - 1;
-                    }
-                    catch (Exception)
-                    {
-                        charIndex = 2147483647;
-                    }
-                    if (charIndex >= 0 && charIndex <= richform.richTextBox1.Text.Length)
-                    {
-                        richform.richTextBox1.SelectionStart = charIndex;
-                        richform.richTextBox1.ScrollToCaret();
-                    }
-                    else if (textBox1.Text!="")
-                    {
-                        richform.richTextBox1.SelectionStart = richform.richTextBox1.Text.Length;
-                        richform.richTextBox1.SelectionLength = 0;
-                        richform.richTextBox1.ScrollToCaret();
-                    }
-                }
-            }
-            catch (Exception)
-            { }
-        }
+					if (lineNumber >= 0 && lineNumber < totalLines)
+					{
+						int lineStartIndex = _mainForm.EditingArea.GetFirstCharIndexFromLine(lineNumber);
+						_mainForm.EditingArea.SelectionStart = lineStartIndex;
+						_mainForm.EditingArea.SelectionLength = 0;
+						_mainForm.EditingArea.ScrollToCaret();
+					}
+					else if (lineNumber != 0)
+					{
+						int lastLineIndex = _mainForm.EditingArea.Lines.Length - 1;
+						_mainForm.EditingArea.SelectionStart = _mainForm.EditingArea.GetFirstCharIndexFromLine(lastLineIndex);
+						_mainForm.EditingArea.SelectionLength = 0;
+						_mainForm.EditingArea.ScrollToCaret();
+					}
+				}
+				else
+				{
+					int charIndex;
+					try
+					{
+						charIndex = Convert.ToInt32(GotoInput.Text) - 1;
+					}
+					catch (Exception)
+					{
+						charIndex = 2147483647;
+					}
+					if (charIndex >= 0 && charIndex <= _mainForm.EditingArea.Text.Length)
+					{
+						_mainForm.EditingArea.SelectionStart = charIndex;
+						_mainForm.EditingArea.ScrollToCaret();
+					}
+					else if (GotoInput.Text != "")
+					{
+						_mainForm.EditingArea.SelectionStart = _mainForm.EditingArea.Text.Length;
+						_mainForm.EditingArea.SelectionLength = 0;
+						_mainForm.EditingArea.ScrollToCaret();
+					}
+				}
+			}
+			catch (Exception)
+			{ }
+		}
 
-        private void intonlyinput(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '\b')
-            {
-                e.Handled = true; // Suppress the key press
-            }
-        }
+		private void GotoInputEvent(object sender, KeyPressEventArgs e)
+		{
+			if (!char.IsDigit(e.KeyChar) && e.KeyChar != '\b')
+			{
+				e.Handled = true; // Suppress the key press
+			}
+		}
 
-        private void radioButton1_Click(object sender, EventArgs e)
-        {
-            if (radioButton1.Checked == false)
-            {
-                radioButton1.Checked = true;
-                radioButton2.Checked = false;
-            }
-        }
+		private void OptionLine_Click(object sender, EventArgs e)
+		{
+			if (OptionLine.Checked == false)
+			{
+				OptionLine.Checked = true;
+				OptionPos.Checked = false;
+			}
+		}
 
-        private void radioButton2_Click(object sender, EventArgs e)
-        {
-            if (radioButton2.Checked == false)
-            {
-                radioButton2.Checked = true;
-                radioButton1.Checked = false;
-            }
-        }
+		private void OptionPos_Click(object sender, EventArgs e)
+		{
+			if (OptionPos.Checked == false)
+			{
+				OptionPos.Checked = true;
+				OptionLine.Checked = false;
+			}
+		}
 
-    }
+	}
 }

@@ -14,6 +14,4 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = WindowsFormsApp1
-build_property.ProjectDir = C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1 - 複製\WindowsFormsApp1\
-build_property.EnableComHosting = 
-build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.ProjectDir = C:\Users\tgg\source\repos\Notepad-minus-minus\WindowsFormsApp1\

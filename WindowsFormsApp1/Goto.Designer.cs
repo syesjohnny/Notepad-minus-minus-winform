@@ -1,130 +1,152 @@
-﻿namespace WindowsFormsApp1
+﻿namespace NotePadMinusMinus
 {
-    partial class Goto
-    {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
+	partial class Goto
+	{
+		/// <summary>
+		/// Required designer variable.
+		/// </summary>
+		private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+		/// <summary>
+		/// Clean up any resources being used.
+		/// </summary>
+		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing && (components != null))
+			{
+				components.Dispose();
+			}
+			base.Dispose(disposing);
+		}
 
-        #region Windows Form Designer generated code
+		#region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
-            label1 = new System.Windows.Forms.Label();
-            textBox1 = new System.Windows.Forms.TextBox();
-            buttongo = new System.Windows.Forms.Button();
-            button2 = new System.Windows.Forms.Button();
-            radioButton1 = new System.Windows.Forms.RadioButton();
-            radioButton2 = new System.Windows.Forms.RadioButton();
-            SuspendLayout();
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(38, 37);
-            label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(46, 19);
-            label1.TabIndex = 0;
-            label1.Text = "Goto:";
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new System.Drawing.Point(38, 76);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new System.Drawing.Size(408, 27);
-            textBox1.TabIndex = 1;
-            textBox1.KeyPress += intonlyinput;
-            // 
-            // buttongo
-            // 
-            buttongo.Location = new System.Drawing.Point(88, 131);
-            buttongo.Name = "buttongo";
-            buttongo.Size = new System.Drawing.Size(94, 29);
-            buttongo.TabIndex = 2;
-            buttongo.Text = "Go";
-            buttongo.UseVisualStyleBackColor = true;
-            buttongo.Click += buttongo_Click;
-            // 
-            // button2
-            // 
-            button2.Location = new System.Drawing.Point(294, 131);
-            button2.Name = "button2";
-            button2.Size = new System.Drawing.Size(94, 29);
-            button2.TabIndex = 3;
-            button2.Text = "Cancel";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
-            // 
-            // radioButton1
-            // 
-            radioButton1.AutoSize = true;
-            radioButton1.Checked = true;
-            radioButton1.Location = new System.Drawing.Point(131, 37);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new System.Drawing.Size(55, 23);
-            radioButton1.TabIndex = 4;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "line";
-            radioButton1.UseVisualStyleBackColor = true;
-            radioButton1.Click += radioButton1_Click;
-            // 
-            // radioButton2
-            // 
-            radioButton2.AutoSize = true;
-            radioButton2.Location = new System.Drawing.Point(209, 35);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new System.Drawing.Size(55, 23);
-            radioButton2.TabIndex = 5;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "pos";
-            radioButton2.UseVisualStyleBackColor = true;
-            radioButton2.Click += radioButton2_Click;
-            // 
-            // Goto
-            // 
-            AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(485, 188);
-            Controls.Add(radioButton2);
-            Controls.Add(radioButton1);
-            Controls.Add(button2);
-            Controls.Add(buttongo);
-            Controls.Add(textBox1);
-            Controls.Add(label1);
-            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            MaximizeBox = false;
-            MinimizeBox = false;
-            Name = "Goto";
-            Text = "Goto";
-            ResumeLayout(false);
-            PerformLayout();
-        }
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
+		{
+			OptionLabel = new System.Windows.Forms.Label();
+			GotoInput = new System.Windows.Forms.TextBox();
+			GoButton = new System.Windows.Forms.Button();
+			CancelGotoButton = new System.Windows.Forms.Button();
+			OptionLine = new System.Windows.Forms.RadioButton();
+			OptionPos = new System.Windows.Forms.RadioButton();
+			OptionsGroupBox = new System.Windows.Forms.GroupBox();
+			OptionsGroupBox.SuspendLayout();
+			SuspendLayout();
+			// 
+			// OptionLabel
+			// 
+			OptionLabel.AutoSize = true;
+			OptionLabel.Location = new System.Drawing.Point(14, 23);
+			OptionLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			OptionLabel.Name = "OptionLabel";
+			OptionLabel.Size = new System.Drawing.Size(36, 15);
+			OptionLabel.TabIndex = 0;
+			OptionLabel.Text = "Goto:";
+			// 
+			// GotoInput
+			// 
+			GotoInput.Location = new System.Drawing.Point(30, 60);
+			GotoInput.Margin = new System.Windows.Forms.Padding(2);
+			GotoInput.Name = "GotoInput";
+			GotoInput.Size = new System.Drawing.Size(318, 23);
+			GotoInput.TabIndex = 1;
+			GotoInput.KeyPress += GotoInputEvent;
+			// 
+			// GoButton
+			// 
+			GoButton.Location = new System.Drawing.Point(68, 103);
+			GoButton.Margin = new System.Windows.Forms.Padding(2);
+			GoButton.Name = "GoButton";
+			GoButton.Size = new System.Drawing.Size(73, 23);
+			GoButton.TabIndex = 2;
+			GoButton.Text = "Go";
+			GoButton.UseVisualStyleBackColor = true;
+			GoButton.Click += Go_Click;
+			// 
+			// CancelGotoButton
+			// 
+			CancelGotoButton.Location = new System.Drawing.Point(229, 103);
+			CancelGotoButton.Margin = new System.Windows.Forms.Padding(2);
+			CancelGotoButton.Name = "CancelGotoButton";
+			CancelGotoButton.Size = new System.Drawing.Size(73, 23);
+			CancelGotoButton.TabIndex = 3;
+			CancelGotoButton.Text = "Cancel";
+			CancelGotoButton.UseVisualStyleBackColor = true;
+			CancelGotoButton.Click += Cancel_Click;
+			// 
+			// OptionLine
+			// 
+			OptionLine.AutoSize = true;
+			OptionLine.Checked = true;
+			OptionLine.Location = new System.Drawing.Point(53, 21);
+			OptionLine.Margin = new System.Windows.Forms.Padding(2);
+			OptionLine.Name = "OptionLine";
+			OptionLine.Size = new System.Drawing.Size(44, 19);
+			OptionLine.TabIndex = 4;
+			OptionLine.TabStop = true;
+			OptionLine.Text = "line";
+			OptionLine.UseVisualStyleBackColor = true;
+			OptionLine.Click += OptionLine_Click;
+			// 
+			// OptionPos
+			// 
+			OptionPos.AutoSize = true;
+			OptionPos.Location = new System.Drawing.Point(101, 21);
+			OptionPos.Margin = new System.Windows.Forms.Padding(2);
+			OptionPos.Name = "OptionPos";
+			OptionPos.Size = new System.Drawing.Size(44, 19);
+			OptionPos.TabIndex = 5;
+			OptionPos.TabStop = true;
+			OptionPos.Text = "pos";
+			OptionPos.UseVisualStyleBackColor = true;
+			OptionPos.Click += OptionPos_Click;
+			// 
+			// OptionsGroupBox
+			// 
+			OptionsGroupBox.Controls.Add(OptionLabel);
+			OptionsGroupBox.Controls.Add(OptionPos);
+			OptionsGroupBox.Controls.Add(OptionLine);
+			OptionsGroupBox.Location = new System.Drawing.Point(30, 6);
+			OptionsGroupBox.Name = "OptionsGroupBox";
+			OptionsGroupBox.Size = new System.Drawing.Size(200, 49);
+			OptionsGroupBox.TabIndex = 6;
+			OptionsGroupBox.TabStop = false;
+			OptionsGroupBox.Text = "Options";
+			// 
+			// Goto
+			// 
+			AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+			AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			ClientSize = new System.Drawing.Size(377, 148);
+			Controls.Add(OptionsGroupBox);
+			Controls.Add(CancelGotoButton);
+			Controls.Add(GoButton);
+			Controls.Add(GotoInput);
+			FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+			Margin = new System.Windows.Forms.Padding(2);
+			MaximizeBox = false;
+			MinimizeBox = false;
+			Name = "Goto";
+			Text = "Goto";
+			OptionsGroupBox.ResumeLayout(false);
+			OptionsGroupBox.PerformLayout();
+			ResumeLayout(false);
+			PerformLayout();
+		}
 
-        #endregion
+		#endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button2;
-        public System.Windows.Forms.Button buttongo;
-        public System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.RadioButton radioButton2;
-        public System.Windows.Forms.RadioButton radioButton1;
-    }
+		private System.Windows.Forms.Label OptionLabel;
+		private System.Windows.Forms.Button CancelGotoButton;
+		public System.Windows.Forms.Button GoButton;
+		public System.Windows.Forms.TextBox GotoInput;
+		public System.Windows.Forms.RadioButton OptionLine;
+		private System.Windows.Forms.GroupBox OptionsGroupBox;
+		public System.Windows.Forms.RadioButton OptionPos;
+	}
 }
