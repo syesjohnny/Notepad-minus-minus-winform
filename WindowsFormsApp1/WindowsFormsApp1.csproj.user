@@ -9,7 +9,7 @@
     <ErrorReportUrlHistory />
     <FallbackCulture>zh-TW</FallbackCulture>
     <VerifyUploadedFiles>false</VerifyUploadedFiles>
-    <_LastSelectedProfileId>C:\Users\chenyeyi\Desktop\np vscode\WindowsFormsApp1\WindowsFormsApp1\Properties\PublishProfiles\ClickOnceProfile.pubxml</_LastSelectedProfileId>
+    <_LastSelectedProfileId>C:\Users\chenyeyi\Desktop\np vscode\notepad-minus-minus\WindowsFormsApp1\Properties\PublishProfiles\ClickOnceProfile1.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
   <ItemGroup>
     <Compile Update="findreplace.cs">

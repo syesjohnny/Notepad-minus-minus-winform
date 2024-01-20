@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.FileIO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,7 +20,7 @@ namespace WindowsFormsApp1
 
     public partial class Form1 : Form
     {
-        
+
         public static string currentFilePath = "";
         private int saveChangeFlag = 0;
         private float currentFontSize = 0;
@@ -27,6 +28,7 @@ namespace WindowsFormsApp1
         private int horizontalScrollPosition = 0;
         private bool showLink = false;
         private string linktext = "";
+        private int exitapp = 0;
         public Form1()
         {
 
@@ -54,10 +56,12 @@ namespace WindowsFormsApp1
             deleteToolStripMenuItem1.Enabled = false;
             cutToolStripMenuItem.Enabled = false;
             cutToolStripMenuItem1.Enabled = false;
+            reopenToolStripMenuItem.Enabled = false;
+            openInDeafultNotepadToolStripMenuItem.Enabled = false;
 
 
             this.Text = "Unnamed";
-            
+
 
         }
         private void richTextBox1_MouseWheel(object sender, MouseEventArgs e)
@@ -187,59 +191,12 @@ namespace WindowsFormsApp1
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (saveChangeFlag == 1)
-            {
-                DialogResult result = MessageBox.Show("Do you want to save changes before exiting?", "Warning", MessageBoxButtons.YesNoCancel);
-
-                if (result == DialogResult.Yes)
-                {
-                    if (SaveFile())
-                    {
-                        Application.Exit();
-                    }
-                }
-                else if (result == DialogResult.No)
-                {
-                    Application.Exit();
-                }
-                else if (result == DialogResult.Cancel)
-                {
-                    return;
-                }
-            }
-            else
-            {
-                Application.Exit();
-            }
-
-
+            Application.Exit();
         }
         private void closeWindowsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (saveChangeFlag == 1)
-            {
-                DialogResult result = MessageBox.Show("Do you want to save changes before exiting?", "Warning", MessageBoxButtons.YesNoCancel);
-
-                if (result == DialogResult.Yes)
-                {
-                    if (SaveFile())
-                    {
-                        this.Close();
-                    }
-                }
-                else if (result == DialogResult.No)
-                {
-                    this.Close();
-                }
-                else if (result == DialogResult.Cancel)
-                {
-                    return;
-                }
-            }
-            else
-            {
-                this.Close();
-            }
+            exitapp = 1;
+            this.Close();
         }
         private void exitconfirm(object sender, FormClosingEventArgs e)
         {
@@ -249,9 +206,9 @@ namespace WindowsFormsApp1
 
                 if (result == DialogResult.Yes)
                 {
-                    if (SaveFile())
+                    if (!SaveFile())
                     {
-                        Application.Exit();
+                        e.Cancel = true;
                     }
                 }
                 else if (result == DialogResult.Cancel)
@@ -261,14 +218,20 @@ namespace WindowsFormsApp1
                 }
             }
 
-            Application.Exit();
         }
 
         private void savechange(object sender, EventArgs e)
         {
             if (currentFilePath == "")
             {
-                saveChangeFlag = 1;
+                if (richTextBox1.Text == "")
+                {
+                    saveChangeFlag = 0;
+                }
+                else
+                {
+                    saveChangeFlag = 1;
+                }
             }
             else
             {
@@ -316,6 +279,8 @@ namespace WindowsFormsApp1
             copyToCliboardToolStripMenuItem.Enabled = (currentFilePath != "");
             pasteToolStripMenuItem.Enabled = (Clipboard.ContainsText() == true);
             pasteToolStripMenuItem1.Enabled = (Clipboard.ContainsText() == true);
+            reopenToolStripMenuItem.Enabled = (currentFilePath != "");
+            openInDeafultNotepadToolStripMenuItem.Enabled = (currentFilePath != "");
         }
 
         private void textuasview(object sender, EventArgs e)
@@ -538,14 +503,9 @@ namespace WindowsFormsApp1
             Goto.Owner = this;
             Goto.Show();
 
-            
 
 
-        }
 
-        private void readOnlyToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            richTextBox1.ReadOnly = !richTextBox1.ReadOnly;
         }
 
         private void getPHPHelpToolStripMenuItem_Click(object sender, EventArgs e)
@@ -594,6 +554,76 @@ namespace WindowsFormsApp1
             Run.Show();
         }
 
+        private void readonlyToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            richTextBox1.ReadOnly = !richTextBox1.ReadOnly;
+        }
 
+        private void reopenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (saveChangeFlag == 1)
+            {
+                if (!string.IsNullOrEmpty(richTextBox1.Text) && (string.IsNullOrEmpty(currentFilePath) || File.Exists(currentFilePath)))
+                {
+                    DialogResult result = MessageBox.Show("Do you want to save changes?", "Warning", MessageBoxButtons.YesNoCancel);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        SaveFile();
+                    }
+                    else if (result == DialogResult.Cancel)
+                    {
+                        // User clicked Cancel, do nothing
+                        return;
+                    }
+                }
+            }
+            richTextBox1.LoadFile(currentFilePath, RichTextBoxStreamType.PlainText);
+            this.Text = Path.GetFileName(currentFilePath) + " (" + currentFilePath + ")";
+            int charCount = richTextBox1.TextLength;
+            int lineCount = richTextBox1.Lines.Length;
+            toolStripLabel3.Text = $"Length: {charCount}, Lines: {lineCount}";
+
+
+        }
+
+        private void openInDeafultNotepadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = currentFilePath,
+                UseShellExecute = true
+            });
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Really? You can't get back your file after you delete it", "Warning", MessageBoxButtons.YesNoCancel);
+            if (result == DialogResult.Yes)
+            {
+                File.Delete(currentFilePath);
+            }
+            richTextBox1.Text = "";
+            currentFilePath = "";
+            this.Text = "Unnamed";
+            int charCount = richTextBox1.TextLength;
+            int lineCount = richTextBox1.Lines.Length;
+            toolStripLabel3.Text = $"Length: {charCount}, Lines: {lineCount}";
+        }
+
+        private void moveToTrashcanToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Really?", "Warning", MessageBoxButtons.YesNoCancel);
+            if (result == DialogResult.Yes)
+            {
+                FileSystem.DeleteFile(currentFilePath, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+            }
+            richTextBox1.Text="";
+            currentFilePath = "";
+            this.Text = "Unnamed";
+            int charCount = richTextBox1.TextLength;
+            int lineCount = richTextBox1.Lines.Length;
+            toolStripLabel3.Text = $"Length: {charCount}, Lines: {lineCount}";
+        }
     }
 }
