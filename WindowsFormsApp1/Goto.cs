@@ -29,63 +29,35 @@ namespace NotePadMinusMinus
 
 		private void Go_Click(object sender, EventArgs e)
 		{
-			try
+			if (OptionLine.Checked == true)
 			{
-				if (OptionLine.Checked == true)
-				{
-					int lineNumber;
-					try
-					{
-						lineNumber = Convert.ToInt32(GotoInput.Text) - 1;
-					}
-					catch (Exception)
-					{
-						lineNumber = 2147483647;
-					}
+				// TryParse returns false if failed
+				if (!int.TryParse(GotoInput.Text, out int lineNumber)) lineNumber = int.MaxValue;
+				lineNumber--;
 
-					int totalLines = _mainForm.EditingArea.Lines.Length;
-
-					if (lineNumber >= 0 && lineNumber < totalLines)
-					{
-						int lineStartIndex = _mainForm.EditingArea.GetFirstCharIndexFromLine(lineNumber);
-						_mainForm.EditingArea.SelectionStart = lineStartIndex;
-						_mainForm.EditingArea.SelectionLength = 0;
-						_mainForm.EditingArea.ScrollToCaret();
-					}
-					else if (lineNumber != 0)
-					{
-						int lastLineIndex = _mainForm.EditingArea.Lines.Length - 1;
-						_mainForm.EditingArea.SelectionStart = _mainForm.EditingArea.GetFirstCharIndexFromLine(lastLineIndex);
-						_mainForm.EditingArea.SelectionLength = 0;
-						_mainForm.EditingArea.ScrollToCaret();
-					}
-				}
-				else
+				int totalLines = _mainForm.EditingArea.Lines.Length - 1;
+				if (lineNumber > totalLines && !IgnoreOverflowCheckBox.Checked)
 				{
-					int charIndex;
-					try
-					{
-						charIndex = Convert.ToInt32(GotoInput.Text) - 1;
-					}
-					catch (Exception)
-					{
-						charIndex = 2147483647;
-					}
-					if (charIndex >= 0 && charIndex <= _mainForm.EditingArea.Text.Length)
-					{
-						_mainForm.EditingArea.SelectionStart = charIndex;
-						_mainForm.EditingArea.ScrollToCaret();
-					}
-					else if (GotoInput.Text != "")
-					{
-						_mainForm.EditingArea.SelectionStart = _mainForm.EditingArea.Text.Length;
-						_mainForm.EditingArea.SelectionLength = 0;
-						_mainForm.EditingArea.ScrollToCaret();
-					}
+					MessageBox.Show("The line you wanted to go is over the document!", "Error", MessageBoxButtons.OK);
+					return;
 				}
+
+				int lineStartIndex = _mainForm.EditingArea.GetFirstCharIndexFromLine(Utils.Range(0, lineNumber, totalLines));
+				_mainForm.EditingArea.SelectionStart = lineStartIndex;
+				_mainForm.EditingArea.SelectionLength = 0;
+				_mainForm.EditingArea.ScrollToCaret();
 			}
-			catch (Exception)
-			{ }
+			else if (OptionPos.Checked == true) // add readability
+			{
+				if (!int.TryParse(GotoInput.Text, out int charIndex)) charIndex = int.MaxValue;
+				charIndex--;
+
+				int length = _mainForm.EditingArea.Text.Length - 1;
+
+				_mainForm.EditingArea.SelectionStart = Utils.Range(0, charIndex, length);
+				_mainForm.EditingArea.SelectionLength = 0;
+				_mainForm.EditingArea.ScrollToCaret();
+			}
 		}
 
 		private void GotoInputEvent(object sender, KeyPressEventArgs e)

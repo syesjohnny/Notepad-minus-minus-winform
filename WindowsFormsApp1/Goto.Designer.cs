@@ -35,6 +35,7 @@
 			OptionLine = new System.Windows.Forms.RadioButton();
 			OptionPos = new System.Windows.Forms.RadioButton();
 			OptionsGroupBox = new System.Windows.Forms.GroupBox();
+			IgnoreOverflowCheckBox = new System.Windows.Forms.CheckBox();
 			OptionsGroupBox.SuspendLayout();
 			SuspendLayout();
 			// 
@@ -50,7 +51,7 @@
 			// 
 			// GotoInput
 			// 
-			GotoInput.Location = new System.Drawing.Point(30, 60);
+			GotoInput.Location = new System.Drawing.Point(30, 76);
 			GotoInput.Margin = new System.Windows.Forms.Padding(2);
 			GotoInput.Name = "GotoInput";
 			GotoInput.Size = new System.Drawing.Size(318, 23);
@@ -59,7 +60,7 @@
 			// 
 			// GoButton
 			// 
-			GoButton.Location = new System.Drawing.Point(68, 103);
+			GoButton.Location = new System.Drawing.Point(83, 114);
 			GoButton.Margin = new System.Windows.Forms.Padding(2);
 			GoButton.Name = "GoButton";
 			GoButton.Size = new System.Drawing.Size(73, 23);
@@ -70,7 +71,7 @@
 			// 
 			// CancelGotoButton
 			// 
-			CancelGotoButton.Location = new System.Drawing.Point(229, 103);
+			CancelGotoButton.Location = new System.Drawing.Point(211, 114);
 			CancelGotoButton.Margin = new System.Windows.Forms.Padding(2);
 			CancelGotoButton.Name = "CancelGotoButton";
 			CancelGotoButton.Size = new System.Drawing.Size(73, 23);
@@ -108,15 +109,26 @@
 			// 
 			// OptionsGroupBox
 			// 
+			OptionsGroupBox.Controls.Add(IgnoreOverflowCheckBox);
 			OptionsGroupBox.Controls.Add(OptionLabel);
 			OptionsGroupBox.Controls.Add(OptionPos);
 			OptionsGroupBox.Controls.Add(OptionLine);
 			OptionsGroupBox.Location = new System.Drawing.Point(30, 6);
 			OptionsGroupBox.Name = "OptionsGroupBox";
-			OptionsGroupBox.Size = new System.Drawing.Size(200, 49);
+			OptionsGroupBox.Size = new System.Drawing.Size(200, 65);
 			OptionsGroupBox.TabIndex = 6;
 			OptionsGroupBox.TabStop = false;
 			OptionsGroupBox.Text = "Options";
+			// 
+			// IgnoreOverflowCheckBox
+			// 
+			IgnoreOverflowCheckBox.AutoSize = true;
+			IgnoreOverflowCheckBox.Location = new System.Drawing.Point(53, 40);
+			IgnoreOverflowCheckBox.Name = "IgnoreOverflowCheckBox";
+			IgnoreOverflowCheckBox.Size = new System.Drawing.Size(111, 19);
+			IgnoreOverflowCheckBox.TabIndex = 6;
+			IgnoreOverflowCheckBox.Text = "Ignore Overflow";
+			IgnoreOverflowCheckBox.UseVisualStyleBackColor = true;
 			// 
 			// Goto
 			// 
@@ -148,5 +160,6 @@
 		public System.Windows.Forms.RadioButton OptionLine;
 		private System.Windows.Forms.GroupBox OptionsGroupBox;
 		public System.Windows.Forms.RadioButton OptionPos;
+		private System.Windows.Forms.CheckBox IgnoreOverflowCheckBox;
 	}
 }

@@ -330,7 +330,7 @@ namespace NotePadMinusMinus
 			// 
 			ActionUndoMenuItem.Name = "ActionUndoMenuItem";
 			ActionUndoMenuItem.ShortcutKeys = Keys.Control | Keys.Z;
-			ActionUndoMenuItem.Size = new System.Drawing.Size(171, 22);
+			ActionUndoMenuItem.Size = new System.Drawing.Size(172, 22);
 			ActionUndoMenuItem.Text = "Undo";
 			ActionUndoMenuItem.Click += UndoMenuItem_Click;
 			// 
@@ -338,20 +338,20 @@ namespace NotePadMinusMinus
 			// 
 			ActionRedoMenuItem.Name = "ActionRedoMenuItem";
 			ActionRedoMenuItem.ShortcutKeys = Keys.Control | Keys.Y;
-			ActionRedoMenuItem.Size = new System.Drawing.Size(171, 22);
+			ActionRedoMenuItem.Size = new System.Drawing.Size(172, 22);
 			ActionRedoMenuItem.Text = "Redo";
 			ActionRedoMenuItem.Click += RedoMenuItem_Click;
 			// 
 			// EditMenuSeparator1
 			// 
 			EditMenuSeparator1.Name = "EditMenuSeparator1";
-			EditMenuSeparator1.Size = new System.Drawing.Size(168, 6);
+			EditMenuSeparator1.Size = new System.Drawing.Size(169, 6);
 			// 
 			// ActionCutMenuItem
 			// 
 			ActionCutMenuItem.Name = "ActionCutMenuItem";
 			ActionCutMenuItem.ShortcutKeys = Keys.Control | Keys.X;
-			ActionCutMenuItem.Size = new System.Drawing.Size(171, 22);
+			ActionCutMenuItem.Size = new System.Drawing.Size(172, 22);
 			ActionCutMenuItem.Text = "Cut";
 			ActionCutMenuItem.Click += CutMenuItem_Click;
 			// 
@@ -359,7 +359,7 @@ namespace NotePadMinusMinus
 			// 
 			ActionCopyMenuItem.Name = "ActionCopyMenuItem";
 			ActionCopyMenuItem.ShortcutKeys = Keys.Control | Keys.C;
-			ActionCopyMenuItem.Size = new System.Drawing.Size(171, 22);
+			ActionCopyMenuItem.Size = new System.Drawing.Size(172, 22);
 			ActionCopyMenuItem.Text = "Copy";
 			ActionCopyMenuItem.Click += CopyMenuItem_Click;
 			// 
@@ -367,7 +367,7 @@ namespace NotePadMinusMinus
 			// 
 			ActionPasteMenuItem.Name = "ActionPasteMenuItem";
 			ActionPasteMenuItem.ShortcutKeys = Keys.Control | Keys.A;
-			ActionPasteMenuItem.Size = new System.Drawing.Size(171, 22);
+			ActionPasteMenuItem.Size = new System.Drawing.Size(172, 22);
 			ActionPasteMenuItem.Text = "Paste";
 			ActionPasteMenuItem.Click += PasteMenuItem_Click;
 			// 
@@ -375,7 +375,7 @@ namespace NotePadMinusMinus
 			// 
 			ActionDeleteMenuItem.Name = "ActionDeleteMenuItem";
 			ActionDeleteMenuItem.ShortcutKeys = Keys.Delete;
-			ActionDeleteMenuItem.Size = new System.Drawing.Size(171, 22);
+			ActionDeleteMenuItem.Size = new System.Drawing.Size(172, 22);
 			ActionDeleteMenuItem.Text = "Delete";
 			ActionDeleteMenuItem.Click += DeleteMenuItem_Click;
 			// 
@@ -383,20 +383,20 @@ namespace NotePadMinusMinus
 			// 
 			ActionSelectAllMenuItem.Name = "ActionSelectAllMenuItem";
 			ActionSelectAllMenuItem.ShortcutKeys = Keys.Control | Keys.A;
-			ActionSelectAllMenuItem.Size = new System.Drawing.Size(171, 22);
+			ActionSelectAllMenuItem.Size = new System.Drawing.Size(172, 22);
 			ActionSelectAllMenuItem.Text = "Selete All";
 			ActionSelectAllMenuItem.Click += SelectMenuItem_Click;
 			// 
 			// EditMenuSeparator2
 			// 
 			EditMenuSeparator2.Name = "EditMenuSeparator2";
-			EditMenuSeparator2.Size = new System.Drawing.Size(168, 6);
+			EditMenuSeparator2.Size = new System.Drawing.Size(169, 6);
 			// 
 			// InsertDateTimeMenuItem
 			// 
 			InsertDateTimeMenuItem.Name = "InsertDateTimeMenuItem";
 			InsertDateTimeMenuItem.ShortcutKeys = Keys.F5;
-			InsertDateTimeMenuItem.Size = new System.Drawing.Size(171, 22);
+			InsertDateTimeMenuItem.Size = new System.Drawing.Size(172, 22);
 			InsertDateTimeMenuItem.Text = "Time/Date";
 			InsertDateTimeMenuItem.Click += InsertDateTime;
 			// 
@@ -404,57 +404,57 @@ namespace NotePadMinusMinus
 			// 
 			CopyToClipboardSubMenu.DropDownItems.AddRange(new ToolStripItem[] { CopyDirectoryWithFileMenuItem, CopyDirectoryOnlyMenuItem, CopyFileMenuItem });
 			CopyToClipboardSubMenu.Name = "CopyToClipboardSubMenu";
-			CopyToClipboardSubMenu.Size = new System.Drawing.Size(171, 22);
+			CopyToClipboardSubMenu.Size = new System.Drawing.Size(172, 22);
 			CopyToClipboardSubMenu.Text = "Copy to Clipboard";
 			// 
 			// CopyDirectoryWithFileMenuItem
 			// 
 			CopyDirectoryWithFileMenuItem.Name = "CopyDirectoryWithFileMenuItem";
-			CopyDirectoryWithFileMenuItem.Size = new System.Drawing.Size(180, 22);
+			CopyDirectoryWithFileMenuItem.Size = new System.Drawing.Size(171, 22);
 			CopyDirectoryWithFileMenuItem.Text = "Directory With File";
 			CopyDirectoryWithFileMenuItem.Click += CopyDirectoryPath;
 			// 
 			// CopyDirectoryOnlyMenuItem
 			// 
 			CopyDirectoryOnlyMenuItem.Name = "CopyDirectoryOnlyMenuItem";
-			CopyDirectoryOnlyMenuItem.Size = new System.Drawing.Size(180, 22);
+			CopyDirectoryOnlyMenuItem.Size = new System.Drawing.Size(171, 22);
 			CopyDirectoryOnlyMenuItem.Text = "Directory";
 			// 
 			// CopyFileMenuItem
 			// 
 			CopyFileMenuItem.Name = "CopyFileMenuItem";
-			CopyFileMenuItem.Size = new System.Drawing.Size(180, 22);
+			CopyFileMenuItem.Size = new System.Drawing.Size(171, 22);
 			CopyFileMenuItem.Text = "File";
 			// 
 			// EditMenuSeparator3
 			// 
 			EditMenuSeparator3.Name = "EditMenuSeparator3";
-			EditMenuSeparator3.Size = new System.Drawing.Size(168, 6);
+			EditMenuSeparator3.Size = new System.Drawing.Size(169, 6);
 			// 
 			// GoToMenuItem
 			// 
 			GoToMenuItem.Name = "GoToMenuItem";
-			GoToMenuItem.Size = new System.Drawing.Size(171, 22);
+			GoToMenuItem.Size = new System.Drawing.Size(172, 22);
 			GoToMenuItem.Text = "Go To";
 			GoToMenuItem.Click += GoToMenuItem_Click;
 			// 
 			// SearchInWebsiteMenuItem
 			// 
 			SearchInWebsiteMenuItem.Name = "SearchInWebsiteMenuItem";
-			SearchInWebsiteMenuItem.Size = new System.Drawing.Size(171, 22);
-			SearchInWebsiteMenuItem.Text = "Search In Website";
+			SearchInWebsiteMenuItem.Size = new System.Drawing.Size(172, 22);
+			SearchInWebsiteMenuItem.Text = "Search In Websites";
 			SearchInWebsiteMenuItem.Click += SearchInWebsiteMenuItem_Click;
 			// 
 			// EditMenuSeparator4
 			// 
 			EditMenuSeparator4.Name = "EditMenuSeparator4";
-			EditMenuSeparator4.Size = new System.Drawing.Size(168, 6);
+			EditMenuSeparator4.Size = new System.Drawing.Size(169, 6);
 			// 
 			// ReadonlyModeMenuItem
 			// 
 			ReadonlyModeMenuItem.CheckOnClick = true;
 			ReadonlyModeMenuItem.Name = "ReadonlyModeMenuItem";
-			ReadonlyModeMenuItem.Size = new System.Drawing.Size(171, 22);
+			ReadonlyModeMenuItem.Size = new System.Drawing.Size(172, 22);
 			ReadonlyModeMenuItem.Text = "Readonly";
 			ReadonlyModeMenuItem.Click += ToggleReadOnlyMode;
 			// 
@@ -469,7 +469,7 @@ namespace NotePadMinusMinus
 			// 
 			ZoomSubMenu.DropDownItems.AddRange(new ToolStripItem[] { ZoomInMenuItem, ZoomOutMenuItem, ResetZoomMenuItem });
 			ZoomSubMenu.Name = "ZoomSubMenu";
-			ZoomSubMenu.Size = new System.Drawing.Size(180, 22);
+			ZoomSubMenu.Size = new System.Drawing.Size(156, 22);
 			ZoomSubMenu.Text = "Zoom";
 			// 
 			// ZoomInMenuItem
@@ -502,7 +502,7 @@ namespace NotePadMinusMinus
 			WordWarpToggleMenuItem.CheckOnClick = true;
 			WordWarpToggleMenuItem.CheckState = CheckState.Checked;
 			WordWarpToggleMenuItem.Name = "WordWarpToggleMenuItem";
-			WordWarpToggleMenuItem.Size = new System.Drawing.Size(180, 22);
+			WordWarpToggleMenuItem.Size = new System.Drawing.Size(156, 22);
 			WordWarpToggleMenuItem.Text = "Word Wrap";
 			WordWarpToggleMenuItem.Click += ToggleWordWarp;
 			// 
@@ -512,34 +512,34 @@ namespace NotePadMinusMinus
 			StatusToggleMenuItem.CheckOnClick = true;
 			StatusToggleMenuItem.CheckState = CheckState.Checked;
 			StatusToggleMenuItem.Name = "StatusToggleMenuItem";
-			StatusToggleMenuItem.Size = new System.Drawing.Size(180, 22);
+			StatusToggleMenuItem.Size = new System.Drawing.Size(156, 22);
 			StatusToggleMenuItem.Text = "Status ";
 			StatusToggleMenuItem.Click += ToggleStatus;
 			// 
 			// ViewMenuSeparator1
 			// 
 			ViewMenuSeparator1.Name = "ViewMenuSeparator1";
-			ViewMenuSeparator1.Size = new System.Drawing.Size(177, 6);
+			ViewMenuSeparator1.Size = new System.Drawing.Size(153, 6);
 			// 
 			// ShowLinksToggleItem
 			// 
 			ShowLinksToggleItem.CheckOnClick = true;
 			ShowLinksToggleItem.Name = "ShowLinksToggleItem";
-			ShowLinksToggleItem.Size = new System.Drawing.Size(180, 22);
+			ShowLinksToggleItem.Size = new System.Drawing.Size(156, 22);
 			ShowLinksToggleItem.Text = "Show Links";
 			ShowLinksToggleItem.Click += ToggleShowLinks;
 			// 
 			// ViewMenuSeparator2
 			// 
 			ViewMenuSeparator2.Name = "ViewMenuSeparator2";
-			ViewMenuSeparator2.Size = new System.Drawing.Size(177, 6);
+			ViewMenuSeparator2.Size = new System.Drawing.Size(153, 6);
 			// 
 			// FullScreenToggleMenuItem
 			// 
 			FullScreenToggleMenuItem.CheckOnClick = true;
 			FullScreenToggleMenuItem.Name = "FullScreenToggleMenuItem";
 			FullScreenToggleMenuItem.ShortcutKeys = Keys.F11;
-			FullScreenToggleMenuItem.Size = new System.Drawing.Size(180, 22);
+			FullScreenToggleMenuItem.Size = new System.Drawing.Size(156, 22);
 			FullScreenToggleMenuItem.Text = "Full Screen";
 			FullScreenToggleMenuItem.Click += ToggleFullScreen;
 			// 
@@ -547,7 +547,7 @@ namespace NotePadMinusMinus
 			// 
 			AlwaysOnTopToggleMenuItem.CheckOnClick = true;
 			AlwaysOnTopToggleMenuItem.Name = "AlwaysOnTopToggleMenuItem";
-			AlwaysOnTopToggleMenuItem.Size = new System.Drawing.Size(180, 22);
+			AlwaysOnTopToggleMenuItem.Size = new System.Drawing.Size(156, 22);
 			AlwaysOnTopToggleMenuItem.Text = "Always On top";
 			AlwaysOnTopToggleMenuItem.Click += ToggleAlwaysOnTop;
 			// 
@@ -561,26 +561,26 @@ namespace NotePadMinusMinus
 			// RunMenuItem
 			// 
 			RunMenuItem.Name = "RunMenuItem";
-			RunMenuItem.Size = new System.Drawing.Size(180, 22);
+			RunMenuItem.Size = new System.Drawing.Size(164, 22);
 			RunMenuItem.Text = "Run";
 			RunMenuItem.Click += RunMenuItem_Click;
 			// 
 			// RunMenuSeparator1
 			// 
 			RunMenuSeparator1.Name = "RunMenuSeparator1";
-			RunMenuSeparator1.Size = new System.Drawing.Size(177, 6);
+			RunMenuSeparator1.Size = new System.Drawing.Size(161, 6);
 			// 
 			// GetPHPHelpMenuItem
 			// 
 			GetPHPHelpMenuItem.Name = "GetPHPHelpMenuItem";
-			GetPHPHelpMenuItem.Size = new System.Drawing.Size(180, 22);
+			GetPHPHelpMenuItem.Size = new System.Drawing.Size(164, 22);
 			GetPHPHelpMenuItem.Text = "Get PHP Help";
 			GetPHPHelpMenuItem.Click += GetPHPHelpMenuItem_Click;
 			// 
 			// WikipediaSearchMenuItem
 			// 
 			WikipediaSearchMenuItem.Name = "WikipediaSearchMenuItem";
-			WikipediaSearchMenuItem.Size = new System.Drawing.Size(180, 22);
+			WikipediaSearchMenuItem.Size = new System.Drawing.Size(164, 22);
 			WikipediaSearchMenuItem.Text = "Wikipedia Search";
 			WikipediaSearchMenuItem.Click += SearchInWikipediaMenuItem_Click;
 			// 
