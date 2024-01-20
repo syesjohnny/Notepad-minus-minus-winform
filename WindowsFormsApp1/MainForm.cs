@@ -19,21 +19,22 @@ namespace NotePadMinusMinus
 {
 	public enum FileSaveChangeFlag
 	{
-		NoChange = 0,
-		Changed = 1
+		NoChange,
+		Changed
 	}
-
+	public enum CloseMode
+	{
+		CloseAll,
+		CloseThisWindow
+	}
 	public partial class MainForm : Form
 	{
-
-		public static string currentFilePath = ""; // waiting for re-constructing
-		private int saveChangeFlag = 0;
 		private float currentFontSize = 0;
 		private FormWindowState previousWindowState;
 		private int horizontalScrollPosition = 0;
 		private bool showLink = false;
 		private string linktext = "";
-		private int exitapp = 0;
+		// waiting for re-constructing
 
 		#region BackendFields
 		private float _zoom = 1;
@@ -45,6 +46,9 @@ namespace NotePadMinusMinus
 		#endregion
 
 		#region Properties
+		public static string CurrentFilePath { get; set; } = ""; 
+		public static FileSaveChangeFlag SaveChangeFlag { get; set; } = FileSaveChangeFlag.NoChange;
+		public CloseMode AppCloseMode { get; set; } = CloseMode.CloseAll;
 		public float Zoom
 		{
 			get
@@ -97,11 +101,11 @@ namespace NotePadMinusMinus
 			undoToolStripMenuItem1.Enabled = false;
 			ActionRedoMenuItem.Enabled = false;
 			redoToolStripMenuItem1.Enabled = false;
-			CopyDirectoryWithFileMenuItem.Enabled = (currentFilePath != "");
-			CopyFileMenuItem.Enabled = (currentFilePath != "");
-			CopyDirectoryOnlyMenuItem.Enabled = (currentFilePath != "");
-			OpenFileFolderSubMenu.Enabled = (currentFilePath != "");
-			CopyToClipboardSubMenu.Enabled = (currentFilePath != "");
+			CopyDirectoryWithFileMenuItem.Enabled = (CurrentFilePath != "");
+			CopyFileMenuItem.Enabled = (CurrentFilePath != "");
+			CopyDirectoryOnlyMenuItem.Enabled = (CurrentFilePath != "");
+			OpenFileFolderSubMenu.Enabled = (CurrentFilePath != "");
+			CopyToClipboardSubMenu.Enabled = (CurrentFilePath != "");
 
 			ActionPasteMenuItem.Enabled = (Clipboard.ContainsText() == true);
 			pasteToolStripMenuItem1.Enabled = (Clipboard.ContainsText() == true);
@@ -129,10 +133,10 @@ namespace NotePadMinusMinus
 				Zoom = EditingArea.ZoomFactor;
 			}
 		}
-		private void newToolStripMenuItem_Click(object sender, EventArgs e)
+		private void NewFileEvent(object sender, EventArgs e)
 		{
-			if (saveChangeFlag == 1)
-				if (!string.IsNullOrEmpty(EditingArea.Text) && (string.IsNullOrEmpty(currentFilePath) || File.Exists(currentFilePath)))
+			if (SaveChangeFlag == FileSaveChangeFlag.Changed)
+				if (!string.IsNullOrEmpty(EditingArea.Text) && (string.IsNullOrEmpty(CurrentFilePath) || File.Exists(CurrentFilePath)))
 				{
 					DialogResult result = MessageBox.Show("Do you want to save changes?", "Warning", MessageBoxButtons.YesNoCancel);
 
@@ -147,18 +151,18 @@ namespace NotePadMinusMinus
 					}
 				}
 
-			// Reset the currentFilePath and clear the RichTextBox
-			currentFilePath = "";
+			// Reset the CurrentFilePath and clear the RichTextBox
+			CurrentFilePath = "";
 			EditingArea.Clear();
 			this.Text = "Unnamed";
 		}
 
-		private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+		private void SaveFileEvent(object sender, EventArgs e)
 		{
 			SaveFile();
 		}
 
-		private void saveAsToolStripMenuItem1_Click(object sender, EventArgs e)
+		private void SaveAsEvent(object sender, EventArgs e)
 		{
 			SaveFileDialog saveFileDialog = new SaveFileDialog();
 			saveFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
@@ -167,18 +171,18 @@ namespace NotePadMinusMinus
 
 			if (result == DialogResult.OK)
 			{
-				currentFilePath = saveFileDialog.FileName;
+				CurrentFilePath = saveFileDialog.FileName;
 				EditingArea.SaveFile(saveFileDialog.FileName, RichTextBoxStreamType.PlainText);
-				saveChangeFlag = 0;
-				CopyDirectoryWithFileMenuItem.Enabled = (currentFilePath != "");
-				CopyFileMenuItem.Enabled = (currentFilePath != "");
-				CopyDirectoryOnlyMenuItem.Enabled = (currentFilePath != "");
+				SaveChangeFlag = 0;
+				CopyDirectoryWithFileMenuItem.Enabled = (CurrentFilePath != "");
+				CopyFileMenuItem.Enabled = (CurrentFilePath != "");
+				CopyDirectoryOnlyMenuItem.Enabled = (CurrentFilePath != "");
 			}
 		}
 
-		private void openToolStripMenuItem_Click(object sender, EventArgs e)
+		private void OpenFileEvent(object sender, EventArgs e)
 		{
-			if (saveChangeFlag == 1)
+			if (SaveChangeFlag == FileSaveChangeFlag.Changed)
 			{
 				DialogResult result = MessageBox.Show("Do you want to save changes?", "Warning", MessageBoxButtons.YesNoCancel);
 
@@ -197,9 +201,9 @@ namespace NotePadMinusMinus
 
 			if (openFileDialog.ShowDialog() == DialogResult.OK)
 			{
-				currentFilePath = openFileDialog.FileName;
+				CurrentFilePath = openFileDialog.FileName;
 				EditingArea.LoadFile(openFileDialog.FileName, RichTextBoxStreamType.PlainText);
-				this.Text = Path.GetFileName(currentFilePath) + " (" + currentFilePath + ")";
+				this.Text = Path.GetFileName(CurrentFilePath) + " (" + CurrentFilePath + ")";
 				int charCount = EditingArea.TextLength;
 				int lineCount = EditingArea.Lines.Length;
 				DocumentLengthInfo = (charCount, lineCount);
@@ -208,7 +212,7 @@ namespace NotePadMinusMinus
 
 		private bool SaveFile()
 		{
-			if (string.IsNullOrEmpty(currentFilePath))
+			if (string.IsNullOrEmpty(CurrentFilePath))
 			{
 				SaveFileDialog saveFileDialog = new SaveFileDialog();
 				saveFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
@@ -216,15 +220,15 @@ namespace NotePadMinusMinus
 
 				if (saveFileDialog.ShowDialog() == DialogResult.OK)
 				{
-					currentFilePath = saveFileDialog.FileName;
-					using (StreamWriter streamWriter = new StreamWriter(currentFilePath))
+					CurrentFilePath = saveFileDialog.FileName;
+					using (StreamWriter streamWriter = new StreamWriter(CurrentFilePath))
 					{
 						streamWriter.Write(EditingArea.Text);
-						saveChangeFlag = 0;
+						SaveChangeFlag = 0;
 						this.Text = Path.GetFileName(saveFileDialog.FileName) + " (" + saveFileDialog.FileName + ")";
-						CopyDirectoryWithFileMenuItem.Enabled = (currentFilePath != "");
-						CopyFileMenuItem.Enabled = (currentFilePath != "");
-						CopyDirectoryOnlyMenuItem.Enabled = (currentFilePath != "");
+						CopyDirectoryWithFileMenuItem.Enabled = (CurrentFilePath != "");
+						CopyFileMenuItem.Enabled = (CurrentFilePath != "");
+						CopyDirectoryOnlyMenuItem.Enabled = (CurrentFilePath != "");
 
 					}
 				}
@@ -235,26 +239,25 @@ namespace NotePadMinusMinus
 			}
 			else
 			{
-				using (StreamWriter streamWriter = new StreamWriter(currentFilePath))
+				using (StreamWriter streamWriter = new StreamWriter(CurrentFilePath))
 				{
 					streamWriter.Write(EditingArea.Text);
-					saveChangeFlag = 0;
-					this.Text = Path.GetFileName(currentFilePath) + " (" + currentFilePath + ")";
+					SaveChangeFlag = 0;
+					this.Text = Path.GetFileName(CurrentFilePath) + " (" + CurrentFilePath + ")";
 				}
 			}
 			return true;
 		}
 
-		private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+		private void ExitEvent(object sender, EventArgs e)
 		{
 			Application.Exit();
 		}
-		private void closeWindowsToolStripMenuItem_Click(object sender, EventArgs e)
+		private void CloseWindowEvent(object sender, EventArgs e)
 		{
-			exitapp = 1;
 			this.Close();
 		}
-		private void exitconfirm(object sender, FormClosingEventArgs e)
+		private void ExitConfirm(object sender, FormClosingEventArgs e)
 		{
 			if (!string.IsNullOrEmpty(EditingArea.Text))
 			{
@@ -275,46 +278,46 @@ namespace NotePadMinusMinus
 			}
 		}
 
-		private void savechange(object sender, EventArgs e)
+		private void SaveAllChanges(object sender, EventArgs e)
 		{
-			if (currentFilePath == "")
+			if (CurrentFilePath == "")
 			{
 				if (EditingArea.Text == "")
 				{
-					saveChangeFlag = 0;
+					SaveChangeFlag = FileSaveChangeFlag.NoChange;
 				}
 				else
 				{
-					saveChangeFlag = 1;
+					SaveChangeFlag = FileSaveChangeFlag.Changed;
 				}
 			}
 			else
 			{
-				if (EditingArea.Text == File.ReadAllText(currentFilePath))
+				if (EditingArea.Text == File.ReadAllText(CurrentFilePath))
 				{
-					saveChangeFlag = 0;
+					SaveChangeFlag = FileSaveChangeFlag.NoChange;
 				}
 				else
 				{
-					saveChangeFlag = 1;
+					SaveChangeFlag = FileSaveChangeFlag.Changed;
 				}
 			}
 			ActionUndoMenuItem.Enabled = EditingArea.CanUndo;
 			undoToolStripMenuItem1.Enabled = EditingArea.CanUndo;
 			ActionRedoMenuItem.Enabled = EditingArea.CanRedo;
 			redoToolStripMenuItem1.Enabled = EditingArea.CanRedo;
-			ReOpenMenuItem.Enabled = (currentFilePath != "");
-			OpenInMSNotepadMenuItem.Enabled = (currentFilePath != "");
+			ReOpenMenuItem.Enabled = (CurrentFilePath != "");
+			OpenInMSNotepadMenuItem.Enabled = (CurrentFilePath != "");
 			//change change change change change change change change change change change
-			if (currentFilePath != "")
+			if (CurrentFilePath != "")
 			{
-				if (saveChangeFlag == 1)
+				if (SaveChangeFlag == FileSaveChangeFlag.Changed)
 				{
-					this.Text = "*" + Path.GetFileName(currentFilePath) + " (" + currentFilePath + ")";
+					this.Text = "*" + Path.GetFileName(CurrentFilePath) + " (" + CurrentFilePath + ")";
 				}
 				else
 				{
-					this.Text = Path.GetFileName(currentFilePath) + " (" + currentFilePath + ")";
+					this.Text = Path.GetFileName(CurrentFilePath) + " (" + CurrentFilePath + ")";
 				}
 
 			}
@@ -329,11 +332,11 @@ namespace NotePadMinusMinus
 					this.Text = "*Unnamed";
 				}
 			}
-			CopyDirectoryWithFileMenuItem.Enabled = (currentFilePath != "");
-			CopyFileMenuItem.Enabled = (currentFilePath != "");
-			CopyDirectoryOnlyMenuItem.Enabled = (currentFilePath != "");
-			OpenFileFolderSubMenu.Enabled = (currentFilePath != "");
-			CopyToClipboardSubMenu.Enabled = (currentFilePath != "");
+			CopyDirectoryWithFileMenuItem.Enabled = (CurrentFilePath != "");
+			CopyFileMenuItem.Enabled = (CurrentFilePath != "");
+			CopyDirectoryOnlyMenuItem.Enabled = (CurrentFilePath != "");
+			OpenFileFolderSubMenu.Enabled = (CurrentFilePath != "");
+			CopyToClipboardSubMenu.Enabled = (CurrentFilePath != "");
 			ActionPasteMenuItem.Enabled = (Clipboard.ContainsText() == true);
 			pasteToolStripMenuItem1.Enabled = (Clipboard.ContainsText() == true);
 		}
@@ -468,7 +471,7 @@ namespace NotePadMinusMinus
 
 		private void directoryWithFileToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			Clipboard.SetText(Path.GetDirectoryName(currentFilePath));
+			Clipboard.SetText(Path.GetDirectoryName(CurrentFilePath));
 		}
 
 		private void fullScreenToolStripMenuItem_Click(object sender, EventArgs e)
@@ -483,19 +486,19 @@ namespace NotePadMinusMinus
 
 		private void inExplorerToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			if (!string.IsNullOrEmpty(currentFilePath) && File.Exists(currentFilePath))
+			if (!string.IsNullOrEmpty(CurrentFilePath) && File.Exists(CurrentFilePath))
 			{
-				string folderPath = Path.GetDirectoryName(currentFilePath);
+				string folderPath = Path.GetDirectoryName(CurrentFilePath);
 				Process.Start("explorer.exe", folderPath);
 			}
 		}
 
 		private void cMDToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			if (!string.IsNullOrEmpty(currentFilePath) && File.Exists(currentFilePath))
+			if (!string.IsNullOrEmpty(CurrentFilePath) && File.Exists(CurrentFilePath))
 			{
 				// Get the directory containing the current file
-				string folderPath = Path.GetDirectoryName(currentFilePath);
+				string folderPath = Path.GetDirectoryName(CurrentFilePath);
 
 				// Open a new Command Prompt window and set its current directory
 				Process.Start("cmd", $"/k cd /d \"{folderPath}\"");
@@ -566,9 +569,9 @@ namespace NotePadMinusMinus
 
 		private void reopenToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			if (saveChangeFlag == 1)
+			if (SaveChangeFlag == FileSaveChangeFlag.Changed)
 			{
-				if (!string.IsNullOrEmpty(EditingArea.Text) && (string.IsNullOrEmpty(currentFilePath) || File.Exists(currentFilePath)))
+				if (!string.IsNullOrEmpty(EditingArea.Text) && (string.IsNullOrEmpty(CurrentFilePath) || File.Exists(CurrentFilePath)))
 				{
 					DialogResult result = MessageBox.Show("Do you want to save changes?", "Warning", MessageBoxButtons.YesNoCancel);
 
@@ -583,8 +586,8 @@ namespace NotePadMinusMinus
 					}
 				}
 			}
-			EditingArea.LoadFile(currentFilePath, RichTextBoxStreamType.PlainText);
-			this.Text = Path.GetFileName(currentFilePath) + " (" + currentFilePath + ")";
+			EditingArea.LoadFile(CurrentFilePath, RichTextBoxStreamType.PlainText);
+			this.Text = Path.GetFileName(CurrentFilePath) + " (" + CurrentFilePath + ")";
 			int charCount = EditingArea.TextLength;
 			int lineCount = EditingArea.Lines.Length;
 			DocumentLengthInfo = (charCount, lineCount);
@@ -596,7 +599,7 @@ namespace NotePadMinusMinus
 		{
 			Process.Start(new ProcessStartInfo
 			{
-				FileName = currentFilePath,
+				FileName = CurrentFilePath,
 				UseShellExecute = true
 			});
 		}
@@ -606,10 +609,10 @@ namespace NotePadMinusMinus
 			DialogResult result = MessageBox.Show("Really? You can't get back your file after you delete it", "Warning", MessageBoxButtons.YesNoCancel);
 			if (result == DialogResult.Yes)
 			{
-				File.Delete(currentFilePath);
+				File.Delete(CurrentFilePath);
 			}
 			EditingArea.Text = "";
-			currentFilePath = "";
+			CurrentFilePath = "";
 			this.Text = "Unnamed";
 			int charCount = EditingArea.TextLength;
 			int lineCount = EditingArea.Lines.Length;
@@ -621,10 +624,10 @@ namespace NotePadMinusMinus
 			DialogResult result = MessageBox.Show("Really?", "Warning", MessageBoxButtons.YesNoCancel);
 			if (result == DialogResult.Yes)
 			{
-				FileSystem.DeleteFile(currentFilePath, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+				FileSystem.DeleteFile(CurrentFilePath, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
 			}
 			EditingArea.Text = "";
-			currentFilePath = "";
+			CurrentFilePath = "";
 			this.Text = "Unnamed";
 			int charCount = EditingArea.TextLength;
 			int lineCount = EditingArea.Lines.Length;

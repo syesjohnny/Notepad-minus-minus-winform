@@ -120,7 +120,7 @@ namespace NotePadMinusMinus
 			EditingArea.Text = "";
 			EditingArea.LinkClicked += processlink;
 			EditingArea.SelectionChanged += textuasview;
-			EditingArea.TextChanged += savechange;
+			EditingArea.TextChanged += SaveAllChanges;
 			EditingArea.KeyDown += exitfull;
 			// 
 			// contextMenuStrip1
@@ -203,7 +203,7 @@ namespace NotePadMinusMinus
 			NewFileMenuItem.ShortcutKeys = Keys.Control | Keys.N;
 			NewFileMenuItem.Size = new System.Drawing.Size(227, 22);
 			NewFileMenuItem.Text = "New";
-			NewFileMenuItem.Click += newToolStripMenuItem_Click;
+			NewFileMenuItem.Click += NewFileEvent;
 			// 
 			// OpenFileMenuItem
 			// 
@@ -211,7 +211,7 @@ namespace NotePadMinusMinus
 			OpenFileMenuItem.ShortcutKeys = Keys.Control | Keys.O;
 			OpenFileMenuItem.Size = new System.Drawing.Size(227, 22);
 			OpenFileMenuItem.Text = "Open";
-			OpenFileMenuItem.Click += openToolStripMenuItem_Click;
+			OpenFileMenuItem.Click += OpenFileEvent;
 			// 
 			// SaveFileMenuItem
 			// 
@@ -219,7 +219,7 @@ namespace NotePadMinusMinus
 			SaveFileMenuItem.ShortcutKeys = Keys.Control | Keys.S;
 			SaveFileMenuItem.Size = new System.Drawing.Size(227, 22);
 			SaveFileMenuItem.Text = "Save";
-			SaveFileMenuItem.Click += saveToolStripMenuItem_Click;
+			SaveFileMenuItem.Click += SaveFileEvent;
 			// 
 			// SaveAsMenuItem
 			// 
@@ -227,7 +227,7 @@ namespace NotePadMinusMinus
 			SaveAsMenuItem.ShortcutKeys = Keys.Control | Keys.Shift | Keys.S;
 			SaveAsMenuItem.Size = new System.Drawing.Size(227, 22);
 			SaveAsMenuItem.Text = "Save As";
-			SaveAsMenuItem.Click += saveAsToolStripMenuItem1_Click;
+			SaveAsMenuItem.Click += SaveAsEvent;
 			// 
 			// FileMenuSperator1
 			// 
@@ -274,7 +274,7 @@ namespace NotePadMinusMinus
 			CloseWindowMenuItem.ShortcutKeys = Keys.Control | Keys.Shift | Keys.W;
 			CloseWindowMenuItem.Size = new System.Drawing.Size(227, 22);
 			CloseWindowMenuItem.Text = "Close Window";
-			CloseWindowMenuItem.Click += closeWindowsToolStripMenuItem_Click;
+			CloseWindowMenuItem.Click += CloseWindowEvent;
 			// 
 			// ExitMenuItem
 			// 
@@ -282,7 +282,7 @@ namespace NotePadMinusMinus
 			ExitMenuItem.ShortcutKeys = Keys.Control | Keys.W;
 			ExitMenuItem.Size = new System.Drawing.Size(227, 22);
 			ExitMenuItem.Text = "Exit";
-			ExitMenuItem.Click += exitToolStripMenuItem_Click;
+			ExitMenuItem.Click += ExitEvent;
 			// 
 			// ReOpenMenuItem
 			// 
@@ -633,7 +633,7 @@ namespace NotePadMinusMinus
 			Margin = new Padding(2, 3, 2, 3);
 			Name = "MainForm";
 			Text = "MainForm";
-			FormClosing += exitconfirm;
+			FormClosing += ExitConfirm;
 			contextMenuStrip1.ResumeLayout(false);
 			TopMenuStrip.ResumeLayout(false);
 			TopMenuStrip.PerformLayout();
