@@ -93,26 +93,26 @@ namespace NotePadMinusMinus
 			Zoom = 1;
 			EditingArea.WordWrap = true;
 			EditingArea.MouseWheel += new MouseEventHandler(EditingArea_MouseWheelEvent);
-			undoToolStripMenuItem.Enabled = false;
+			ActionUndoMenuItem.Enabled = false;
 			undoToolStripMenuItem1.Enabled = false;
-			redoToolStripMenuItem.Enabled = false;
+			ActionRedoMenuItem.Enabled = false;
 			redoToolStripMenuItem1.Enabled = false;
-			directoryWithFileToolStripMenuItem.Enabled = (currentFilePath != "");
-			fileToolStripMenuItem1.Enabled = (currentFilePath != "");
-			directoryToolStripMenuItem.Enabled = (currentFilePath != "");
-			openFileFolderToolStripMenuItem.Enabled = (currentFilePath != "");
-			copyToCliboardToolStripMenuItem.Enabled = (currentFilePath != "");
+			CopyDirectoryWithFileMenuItem.Enabled = (currentFilePath != "");
+			CopyFileMenuItem.Enabled = (currentFilePath != "");
+			CopyDirectoryOnlyMenuItem.Enabled = (currentFilePath != "");
+			OpenFileFolderSubMenu.Enabled = (currentFilePath != "");
+			CopyToClipboardSubMenu.Enabled = (currentFilePath != "");
 
-			pasteToolStripMenuItem.Enabled = (Clipboard.ContainsText() == true);
+			ActionPasteMenuItem.Enabled = (Clipboard.ContainsText() == true);
 			pasteToolStripMenuItem1.Enabled = (Clipboard.ContainsText() == true);
-			copyToolStripMenuItem.Enabled = false;
+			ActionCopyMenuItem.Enabled = false;
 			copyToolStripMenuItem1.Enabled = false;
-			deleteToolStripMenuItem.Enabled = false;
+			ActionDeleteMenuItem.Enabled = false;
 			deleteToolStripMenuItem1.Enabled = false;
-			cutToolStripMenuItem.Enabled = false;
+			ActionCutMenuItem.Enabled = false;
 			cutToolStripMenuItem1.Enabled = false;
-			reopenToolStripMenuItem.Enabled = false;
-			openInDeafultNotepadToolStripMenuItem.Enabled = false;
+			ReOpenMenuItem.Enabled = false;
+			OpenInMSNotepadMenuItem.Enabled = false;
 
 
 			this.Text = "Unnamed";
@@ -170,9 +170,9 @@ namespace NotePadMinusMinus
 				currentFilePath = saveFileDialog.FileName;
 				EditingArea.SaveFile(saveFileDialog.FileName, RichTextBoxStreamType.PlainText);
 				saveChangeFlag = 0;
-				directoryWithFileToolStripMenuItem.Enabled = (currentFilePath != "");
-				fileToolStripMenuItem1.Enabled = (currentFilePath != "");
-				directoryToolStripMenuItem.Enabled = (currentFilePath != "");
+				CopyDirectoryWithFileMenuItem.Enabled = (currentFilePath != "");
+				CopyFileMenuItem.Enabled = (currentFilePath != "");
+				CopyDirectoryOnlyMenuItem.Enabled = (currentFilePath != "");
 			}
 		}
 
@@ -222,9 +222,9 @@ namespace NotePadMinusMinus
 						streamWriter.Write(EditingArea.Text);
 						saveChangeFlag = 0;
 						this.Text = Path.GetFileName(saveFileDialog.FileName) + " (" + saveFileDialog.FileName + ")";
-						directoryWithFileToolStripMenuItem.Enabled = (currentFilePath != "");
-						fileToolStripMenuItem1.Enabled = (currentFilePath != "");
-						directoryToolStripMenuItem.Enabled = (currentFilePath != "");
+						CopyDirectoryWithFileMenuItem.Enabled = (currentFilePath != "");
+						CopyFileMenuItem.Enabled = (currentFilePath != "");
+						CopyDirectoryOnlyMenuItem.Enabled = (currentFilePath != "");
 
 					}
 				}
@@ -299,12 +299,12 @@ namespace NotePadMinusMinus
 					saveChangeFlag = 1;
 				}
 			}
-			undoToolStripMenuItem.Enabled = EditingArea.CanUndo;
+			ActionUndoMenuItem.Enabled = EditingArea.CanUndo;
 			undoToolStripMenuItem1.Enabled = EditingArea.CanUndo;
-			redoToolStripMenuItem.Enabled = EditingArea.CanRedo;
+			ActionRedoMenuItem.Enabled = EditingArea.CanRedo;
 			redoToolStripMenuItem1.Enabled = EditingArea.CanRedo;
-			reopenToolStripMenuItem.Enabled = (currentFilePath != "");
-			openInDeafultNotepadToolStripMenuItem.Enabled = (currentFilePath != "");
+			ReOpenMenuItem.Enabled = (currentFilePath != "");
+			OpenInMSNotepadMenuItem.Enabled = (currentFilePath != "");
 			//change change change change change change change change change change change
 			if (currentFilePath != "")
 			{
@@ -329,12 +329,12 @@ namespace NotePadMinusMinus
 					this.Text = "*Unnamed";
 				}
 			}
-			directoryWithFileToolStripMenuItem.Enabled = (currentFilePath != "");
-			fileToolStripMenuItem1.Enabled = (currentFilePath != "");
-			directoryToolStripMenuItem.Enabled = (currentFilePath != "");
-			openFileFolderToolStripMenuItem.Enabled = (currentFilePath != "");
-			copyToCliboardToolStripMenuItem.Enabled = (currentFilePath != "");
-			pasteToolStripMenuItem.Enabled = (Clipboard.ContainsText() == true);
+			CopyDirectoryWithFileMenuItem.Enabled = (currentFilePath != "");
+			CopyFileMenuItem.Enabled = (currentFilePath != "");
+			CopyDirectoryOnlyMenuItem.Enabled = (currentFilePath != "");
+			OpenFileFolderSubMenu.Enabled = (currentFilePath != "");
+			CopyToClipboardSubMenu.Enabled = (currentFilePath != "");
+			ActionPasteMenuItem.Enabled = (Clipboard.ContainsText() == true);
 			pasteToolStripMenuItem1.Enabled = (Clipboard.ContainsText() == true);
 		}
 
@@ -351,21 +351,21 @@ namespace NotePadMinusMinus
 			DocumentLengthInfo = (charCount, lineCount);
 			if (EditingArea.SelectionLength > 0)
 			{
-				copyToolStripMenuItem.Enabled = true;
+				ActionCopyMenuItem.Enabled = true;
 				copyToolStripMenuItem1.Enabled = true;
-				deleteToolStripMenuItem.Enabled = true;
+				ActionDeleteMenuItem.Enabled = true;
 				deleteToolStripMenuItem1.Enabled = true;
-				cutToolStripMenuItem.Enabled = true;
+				ActionCutMenuItem.Enabled = true;
 				cutToolStripMenuItem1.Enabled = true;
 
 			}
 			else
 			{
-				copyToolStripMenuItem.Enabled = false;
+				ActionCopyMenuItem.Enabled = false;
 				copyToolStripMenuItem1.Enabled = false;
-				deleteToolStripMenuItem.Enabled = false;
+				ActionDeleteMenuItem.Enabled = false;
 				deleteToolStripMenuItem1.Enabled = false;
-				cutToolStripMenuItem.Enabled = false;
+				ActionCutMenuItem.Enabled = false;
 				cutToolStripMenuItem1.Enabled = false;
 			}
 		}
@@ -627,7 +627,7 @@ namespace NotePadMinusMinus
 			currentFilePath = "";
 			this.Text = "Unnamed";
 			int charCount = EditingArea.TextLength;
-			int lineCount = EditingArea.Lines.Length; 
+			int lineCount = EditingArea.Lines.Length;
 			DocumentLengthInfo = (charCount, lineCount);
 		}
 
