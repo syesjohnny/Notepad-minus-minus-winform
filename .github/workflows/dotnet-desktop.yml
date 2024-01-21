@@ -57,13 +57,13 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 7.0.x
         
     - name: Restore dependencies
       run: dotnet restore
       
     - name: Build
-      run: dotnet build NotePadMinusMinus.sln --output .\bin\ --configuration Debug
+      run: dotnet build NotePadMinusMinus.sln --output .\bin\ --configuration Debug --self-contained
 
     - uses: actions/upload-artifact@v4
       with:

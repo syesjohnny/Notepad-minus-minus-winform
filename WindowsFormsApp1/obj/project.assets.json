@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net5.0-windows7.0": {
+    "net7.0-windows10.0.19041": {
       "Microsoft.CSharp/4.7.0": {
         "type": "package",
         "compile": {
@@ -113,7 +113,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net5.0-windows7.0": [
+    "net7.0-windows10.0.19041": [
       "Microsoft.CSharp >= 4.7.0",
       "System.Data.DataSetExtensions >= 4.5.0"
     ]
@@ -126,11 +126,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\tgg\\Source\\Repos\\Notepad-minus-minus\\WindowsFormsApp1\\NotePadMinusMinus.csproj",
+      "projectUniqueName": "C:\\Users\\tgg\\source\\repos\\Notepad-minus-minus\\WindowsFormsApp1\\NotePadMinusMinus.csproj",
       "projectName": "NotePadMinusMinus",
-      "projectPath": "C:\\Users\\tgg\\Source\\Repos\\Notepad-minus-minus\\WindowsFormsApp1\\NotePadMinusMinus.csproj",
+      "projectPath": "C:\\Users\\tgg\\source\\repos\\Notepad-minus-minus\\WindowsFormsApp1\\NotePadMinusMinus.csproj",
       "packagesPath": "C:\\Users\\tgg\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\tgg\\Source\\Repos\\Notepad-minus-minus\\WindowsFormsApp1\\obj\\",
+      "outputPath": "C:\\Users\\tgg\\source\\repos\\Notepad-minus-minus\\WindowsFormsApp1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "E:\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -142,7 +142,7 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net5.0-windows7.0"
+        "net7.0-windows10.0.19041.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -150,8 +150,8 @@
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net5.0-windows7.0": {
-          "targetAlias": "net5.0-windows7.0",
+        "net7.0-windows10.0.19041": {
+          "targetAlias": "net7.0-windows10.0.19041.0",
           "projectReferences": {}
         }
       },
@@ -162,8 +162,8 @@
       }
     },
     "frameworks": {
-      "net5.0-windows7.0": {
-        "targetAlias": "net5.0-windows7.0",
+      "net7.0-windows10.0.19041": {
+        "targetAlias": "net7.0-windows10.0.19041.0",
         "dependencies": {
           "Microsoft.CSharp": {
             "target": "Package",
@@ -185,8 +185,17 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.Windows.SDK.NET.Ref",
+            "version": "[10.0.19041.28, 10.0.19041.28]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          },
+          "Microsoft.Windows.SDK.NET.Ref": {
             "privateAssets": "all"
           },
           "Microsoft.WindowsDesktop.App.WindowsForms": {
