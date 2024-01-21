@@ -35,8 +35,8 @@
             OptionLine = new System.Windows.Forms.RadioButton();
             OptionPos = new System.Windows.Forms.RadioButton();
             OptionsGroupBox = new System.Windows.Forms.GroupBox();
-            OptionLabel2 = new System.Windows.Forms.Label();
             IgnoreOverflowCheckBox = new System.Windows.Forms.CheckBox();
+            OptionLabel2 = new System.Windows.Forms.Label();
             OptionsGroupBox.SuspendLayout();
             SuspendLayout();
             // 
@@ -45,9 +45,9 @@
             OptionLabel.AutoSize = true;
             OptionLabel.Location = new System.Drawing.Point(18, 29);
             OptionLabel.Name = "OptionLabel";
-            OptionLabel.Size = new System.Drawing.Size(46, 19);
+            OptionLabel.Size = new System.Drawing.Size(32, 19);
             OptionLabel.TabIndex = 0;
-            OptionLabel.Text = "Goto:";
+            OptionLabel.Text = "Go:";
             // 
             // GotoInput
             // 
@@ -115,15 +115,6 @@
             OptionsGroupBox.TabStop = false;
             OptionsGroupBox.Text = "Options";
             // 
-            // OptionLabel2
-            // 
-            OptionLabel2.AutoSize = true;
-            OptionLabel2.Location = new System.Drawing.Point(18, 61);
-            OptionLabel2.Name = "OptionLabel2";
-            OptionLabel2.Size = new System.Drawing.Size(126, 19);
-            OptionLabel2.TabIndex = 9;
-            OptionLabel2.Text = "Ignore Overflow:";
-            // 
             // IgnoreOverflowCheckBox
             // 
             IgnoreOverflowCheckBox.AutoSize = true;
@@ -134,6 +125,15 @@
             IgnoreOverflowCheckBox.Size = new System.Drawing.Size(18, 17);
             IgnoreOverflowCheckBox.TabIndex = 10;
             IgnoreOverflowCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // OptionLabel2
+            // 
+            OptionLabel2.AutoSize = true;
+            OptionLabel2.Location = new System.Drawing.Point(18, 61);
+            OptionLabel2.Name = "OptionLabel2";
+            OptionLabel2.Size = new System.Drawing.Size(126, 19);
+            OptionLabel2.TabIndex = 9;
+            OptionLabel2.Text = "Ignore Overflow:";
             // 
             // Goto
             // 
@@ -148,7 +148,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "Goto";
-            Text = "Goto";
+            Text = "Go To";
             OptionsGroupBox.ResumeLayout(false);
             OptionsGroupBox.PerformLayout();
             ResumeLayout(false);
