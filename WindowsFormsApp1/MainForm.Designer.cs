@@ -531,6 +531,7 @@ namespace NotePadMinusMinus
             SentenceCaseMenuItem.Name = "SentenceCaseMenuItem";
             SentenceCaseMenuItem.Size = new System.Drawing.Size(246, 26);
             SentenceCaseMenuItem.Text = "Sentence Case";
+            SentenceCaseMenuItem.Click += SentenceCaseMenuItem_Click;
             // 
             // SentenceCaseBlendMenuItem
             // 

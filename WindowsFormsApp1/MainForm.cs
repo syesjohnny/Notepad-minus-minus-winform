@@ -727,18 +727,10 @@ namespace NotePadMinusMinus
 
         private void ProperCaseBlendMenuItem_Click(object sender, EventArgs e)
         {
-            int selectionStart = EditingArea.SelectionStart;
-            int selectionLength = EditingArea.SelectionLength;
-            string[] words = EditingArea.SelectedText.Split(' ');
-            for (int i = 0; i < words.Length; i++)
-            {
-                if (!string.IsNullOrEmpty(words[i]))
-                {
-                    words[i] = char.ToUpper(words[i][0]) + words[i].Substring(1);
-                }
-            }
-            EditingArea.SelectedText = string.Join(" ", words);
-            EditingArea.Select(selectionStart, selectionLength);
+        }
+
+        private void SentenceCaseMenuItem_Click(object sender, EventArgs e)
+        {
         }
     }
 }
