@@ -95,7 +95,7 @@
 			ReplaceAllButton.Enabled = false;
 			ReplaceAllButton.Location = new System.Drawing.Point(272, 128);
 			ReplaceAllButton.Name = "ReplaceAllButton";
-			ReplaceAllButton.Size = new System.Drawing.Size(75, 23);
+			ReplaceAllButton.Size = new System.Drawing.Size(103, 23);
 			ReplaceAllButton.TabIndex = 5;
 			ReplaceAllButton.Text = "Replace All";
 			ReplaceAllButton.UseVisualStyleBackColor = true;
