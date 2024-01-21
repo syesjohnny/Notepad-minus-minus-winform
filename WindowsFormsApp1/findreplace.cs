@@ -53,6 +53,10 @@ namespace NotePadMinusMinus
 			if (searchStringIndexStart < 0) goto Failed;
 			_mainForm.EditingArea.SelectionStart = searchStringIndexStart;
 			_mainForm.EditingArea.SelectionLength = FindInput.Text.Length;
+
+			_mainForm.Focus(); // bring to front
+			_mainForm.BringToFront();
+			_mainForm.EditingArea.Focus(); 
 			return;
 
 		Failed:

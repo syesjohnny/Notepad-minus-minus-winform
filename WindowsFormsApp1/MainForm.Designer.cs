@@ -76,6 +76,7 @@ namespace NotePadMinusMinus
 			CopyFileMenuItem = new ToolStripMenuItem();
 			EditMenuSeparator3 = new ToolStripSeparator();
 			GoToMenuItem = new ToolStripMenuItem();
+			FindReplaceMenuItem = new ToolStripMenuItem();
 			SearchInWebsiteMenuItem = new ToolStripMenuItem();
 			EditMenuSeparator4 = new ToolStripSeparator();
 			ReadonlyModeMenuItem = new ToolStripMenuItem();
@@ -101,7 +102,6 @@ namespace NotePadMinusMinus
 			ZoomInfoText = new ToolStripLabel();
 			BottomToolStripSperatorLeft = new ToolStripSeparator();
 			DocInfoText = new ToolStripLabel();
-			FindReplaceMenuItem = new ToolStripMenuItem();
 			contextMenuStrip1.SuspendLayout();
 			TopMenuStrip.SuspendLayout();
 			toolStrip1.SuspendLayout();
@@ -385,7 +385,7 @@ namespace NotePadMinusMinus
 			ActionSelectAllMenuItem.Name = "ActionSelectAllMenuItem";
 			ActionSelectAllMenuItem.ShortcutKeys = Keys.Control | Keys.A;
 			ActionSelectAllMenuItem.Size = new System.Drawing.Size(180, 22);
-			ActionSelectAllMenuItem.Text = "Selete All";
+			ActionSelectAllMenuItem.Text = "Select All";
 			ActionSelectAllMenuItem.Click += SelectMenuItem_Click;
 			// 
 			// EditMenuSeparator2
@@ -439,6 +439,13 @@ namespace NotePadMinusMinus
 			GoToMenuItem.Text = "Go To";
 			GoToMenuItem.Click += GoToMenuItem_Click;
 			// 
+			// FindReplaceMenuItem
+			// 
+			FindReplaceMenuItem.Name = "FindReplaceMenuItem";
+			FindReplaceMenuItem.Size = new System.Drawing.Size(180, 22);
+			FindReplaceMenuItem.Text = "Find/replace";
+			FindReplaceMenuItem.Click += FindReplaceMenuItem_Click;
+			// 
 			// SearchInWebsiteMenuItem
 			// 
 			SearchInWebsiteMenuItem.Name = "SearchInWebsiteMenuItem";
@@ -470,7 +477,7 @@ namespace NotePadMinusMinus
 			// 
 			ZoomSubMenu.DropDownItems.AddRange(new ToolStripItem[] { ZoomInMenuItem, ZoomOutMenuItem, ResetZoomMenuItem });
 			ZoomSubMenu.Name = "ZoomSubMenu";
-			ZoomSubMenu.Size = new System.Drawing.Size(156, 22);
+			ZoomSubMenu.Size = new System.Drawing.Size(180, 22);
 			ZoomSubMenu.Text = "Zoom";
 			// 
 			// ZoomInMenuItem
@@ -503,7 +510,7 @@ namespace NotePadMinusMinus
 			WordWarpToggleMenuItem.CheckOnClick = true;
 			WordWarpToggleMenuItem.CheckState = CheckState.Checked;
 			WordWarpToggleMenuItem.Name = "WordWarpToggleMenuItem";
-			WordWarpToggleMenuItem.Size = new System.Drawing.Size(156, 22);
+			WordWarpToggleMenuItem.Size = new System.Drawing.Size(180, 22);
 			WordWarpToggleMenuItem.Text = "Word Wrap";
 			WordWarpToggleMenuItem.Click += ToggleWordWarp;
 			// 
@@ -513,34 +520,34 @@ namespace NotePadMinusMinus
 			StatusToggleMenuItem.CheckOnClick = true;
 			StatusToggleMenuItem.CheckState = CheckState.Checked;
 			StatusToggleMenuItem.Name = "StatusToggleMenuItem";
-			StatusToggleMenuItem.Size = new System.Drawing.Size(156, 22);
+			StatusToggleMenuItem.Size = new System.Drawing.Size(180, 22);
 			StatusToggleMenuItem.Text = "Status ";
 			StatusToggleMenuItem.Click += ToggleStatus;
 			// 
 			// ViewMenuSeparator1
 			// 
 			ViewMenuSeparator1.Name = "ViewMenuSeparator1";
-			ViewMenuSeparator1.Size = new System.Drawing.Size(153, 6);
+			ViewMenuSeparator1.Size = new System.Drawing.Size(177, 6);
 			// 
 			// ShowLinksToggleItem
 			// 
 			ShowLinksToggleItem.CheckOnClick = true;
 			ShowLinksToggleItem.Name = "ShowLinksToggleItem";
-			ShowLinksToggleItem.Size = new System.Drawing.Size(156, 22);
+			ShowLinksToggleItem.Size = new System.Drawing.Size(180, 22);
 			ShowLinksToggleItem.Text = "Show Links";
 			ShowLinksToggleItem.Click += ToggleShowLinks;
 			// 
 			// ViewMenuSeparator2
 			// 
 			ViewMenuSeparator2.Name = "ViewMenuSeparator2";
-			ViewMenuSeparator2.Size = new System.Drawing.Size(153, 6);
+			ViewMenuSeparator2.Size = new System.Drawing.Size(177, 6);
 			// 
 			// FullScreenToggleMenuItem
 			// 
 			FullScreenToggleMenuItem.CheckOnClick = true;
 			FullScreenToggleMenuItem.Name = "FullScreenToggleMenuItem";
 			FullScreenToggleMenuItem.ShortcutKeys = Keys.F11;
-			FullScreenToggleMenuItem.Size = new System.Drawing.Size(156, 22);
+			FullScreenToggleMenuItem.Size = new System.Drawing.Size(180, 22);
 			FullScreenToggleMenuItem.Text = "Full Screen";
 			FullScreenToggleMenuItem.Click += ToggleFullScreen;
 			// 
@@ -548,7 +555,7 @@ namespace NotePadMinusMinus
 			// 
 			AlwaysOnTopToggleMenuItem.CheckOnClick = true;
 			AlwaysOnTopToggleMenuItem.Name = "AlwaysOnTopToggleMenuItem";
-			AlwaysOnTopToggleMenuItem.Size = new System.Drawing.Size(156, 22);
+			AlwaysOnTopToggleMenuItem.Size = new System.Drawing.Size(180, 22);
 			AlwaysOnTopToggleMenuItem.Text = "Always On top";
 			AlwaysOnTopToggleMenuItem.Click += ToggleAlwaysOnTop;
 			// 
@@ -562,26 +569,26 @@ namespace NotePadMinusMinus
 			// RunMenuItem
 			// 
 			RunMenuItem.Name = "RunMenuItem";
-			RunMenuItem.Size = new System.Drawing.Size(164, 22);
+			RunMenuItem.Size = new System.Drawing.Size(180, 22);
 			RunMenuItem.Text = "Run";
 			RunMenuItem.Click += RunMenuItem_Click;
 			// 
 			// RunMenuSeparator1
 			// 
 			RunMenuSeparator1.Name = "RunMenuSeparator1";
-			RunMenuSeparator1.Size = new System.Drawing.Size(161, 6);
+			RunMenuSeparator1.Size = new System.Drawing.Size(177, 6);
 			// 
 			// GetPHPHelpMenuItem
 			// 
 			GetPHPHelpMenuItem.Name = "GetPHPHelpMenuItem";
-			GetPHPHelpMenuItem.Size = new System.Drawing.Size(164, 22);
+			GetPHPHelpMenuItem.Size = new System.Drawing.Size(180, 22);
 			GetPHPHelpMenuItem.Text = "Get PHP Help";
 			GetPHPHelpMenuItem.Click += GetPHPHelpMenuItem_Click;
 			// 
 			// WikipediaSearchMenuItem
 			// 
 			WikipediaSearchMenuItem.Name = "WikipediaSearchMenuItem";
-			WikipediaSearchMenuItem.Size = new System.Drawing.Size(164, 22);
+			WikipediaSearchMenuItem.Size = new System.Drawing.Size(180, 22);
 			WikipediaSearchMenuItem.Text = "Wikipedia Search";
 			WikipediaSearchMenuItem.Click += SearchInWikipediaMenuItem_Click;
 			// 
@@ -621,13 +628,6 @@ namespace NotePadMinusMinus
 			DocInfoText.Name = "DocInfoText";
 			DocInfoText.Size = new System.Drawing.Size(49, 22);
 			DocInfoText.Text = "DocInfo";
-			// 
-			// FindReplaceMenuItem
-			// 
-			FindReplaceMenuItem.Name = "FindReplaceMenuItem";
-			FindReplaceMenuItem.Size = new System.Drawing.Size(180, 22);
-			FindReplaceMenuItem.Text = "Find/replace";
-			FindReplaceMenuItem.Click += FindReplaceMenuItem_Click;
 			// 
 			// MainForm
 			// 
