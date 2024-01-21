@@ -101,6 +101,7 @@ namespace NotePadMinusMinus
 			ZoomInfoText = new ToolStripLabel();
 			BottomToolStripSperatorLeft = new ToolStripSeparator();
 			DocInfoText = new ToolStripLabel();
+			FindReplaceMenuItem = new ToolStripMenuItem();
 			contextMenuStrip1.SuspendLayout();
 			TopMenuStrip.SuspendLayout();
 			toolStrip1.SuspendLayout();
@@ -321,7 +322,7 @@ namespace NotePadMinusMinus
 			// 
 			// EditMenu
 			// 
-			EditMenu.DropDownItems.AddRange(new ToolStripItem[] { ActionUndoMenuItem, ActionRedoMenuItem, EditMenuSeparator1, ActionCutMenuItem, ActionCopyMenuItem, ActionPasteMenuItem, ActionDeleteMenuItem, ActionSelectAllMenuItem, EditMenuSeparator2, InsertDateTimeMenuItem, CopyToClipboardSubMenu, EditMenuSeparator3, GoToMenuItem, SearchInWebsiteMenuItem, EditMenuSeparator4, ReadonlyModeMenuItem });
+			EditMenu.DropDownItems.AddRange(new ToolStripItem[] { ActionUndoMenuItem, ActionRedoMenuItem, EditMenuSeparator1, ActionCutMenuItem, ActionCopyMenuItem, ActionPasteMenuItem, ActionDeleteMenuItem, ActionSelectAllMenuItem, EditMenuSeparator2, InsertDateTimeMenuItem, CopyToClipboardSubMenu, EditMenuSeparator3, GoToMenuItem, FindReplaceMenuItem, SearchInWebsiteMenuItem, EditMenuSeparator4, ReadonlyModeMenuItem });
 			EditMenu.Name = "EditMenu";
 			EditMenu.Size = new System.Drawing.Size(39, 20);
 			EditMenu.Text = "Edit";
@@ -330,7 +331,7 @@ namespace NotePadMinusMinus
 			// 
 			ActionUndoMenuItem.Name = "ActionUndoMenuItem";
 			ActionUndoMenuItem.ShortcutKeys = Keys.Control | Keys.Z;
-			ActionUndoMenuItem.Size = new System.Drawing.Size(172, 22);
+			ActionUndoMenuItem.Size = new System.Drawing.Size(180, 22);
 			ActionUndoMenuItem.Text = "Undo";
 			ActionUndoMenuItem.Click += UndoMenuItem_Click;
 			// 
@@ -338,20 +339,20 @@ namespace NotePadMinusMinus
 			// 
 			ActionRedoMenuItem.Name = "ActionRedoMenuItem";
 			ActionRedoMenuItem.ShortcutKeys = Keys.Control | Keys.Y;
-			ActionRedoMenuItem.Size = new System.Drawing.Size(172, 22);
+			ActionRedoMenuItem.Size = new System.Drawing.Size(180, 22);
 			ActionRedoMenuItem.Text = "Redo";
 			ActionRedoMenuItem.Click += RedoMenuItem_Click;
 			// 
 			// EditMenuSeparator1
 			// 
 			EditMenuSeparator1.Name = "EditMenuSeparator1";
-			EditMenuSeparator1.Size = new System.Drawing.Size(169, 6);
+			EditMenuSeparator1.Size = new System.Drawing.Size(177, 6);
 			// 
 			// ActionCutMenuItem
 			// 
 			ActionCutMenuItem.Name = "ActionCutMenuItem";
 			ActionCutMenuItem.ShortcutKeys = Keys.Control | Keys.X;
-			ActionCutMenuItem.Size = new System.Drawing.Size(172, 22);
+			ActionCutMenuItem.Size = new System.Drawing.Size(180, 22);
 			ActionCutMenuItem.Text = "Cut";
 			ActionCutMenuItem.Click += CutMenuItem_Click;
 			// 
@@ -359,7 +360,7 @@ namespace NotePadMinusMinus
 			// 
 			ActionCopyMenuItem.Name = "ActionCopyMenuItem";
 			ActionCopyMenuItem.ShortcutKeys = Keys.Control | Keys.C;
-			ActionCopyMenuItem.Size = new System.Drawing.Size(172, 22);
+			ActionCopyMenuItem.Size = new System.Drawing.Size(180, 22);
 			ActionCopyMenuItem.Text = "Copy";
 			ActionCopyMenuItem.Click += CopyMenuItem_Click;
 			// 
@@ -367,7 +368,7 @@ namespace NotePadMinusMinus
 			// 
 			ActionPasteMenuItem.Name = "ActionPasteMenuItem";
 			ActionPasteMenuItem.ShortcutKeys = Keys.Control | Keys.A;
-			ActionPasteMenuItem.Size = new System.Drawing.Size(172, 22);
+			ActionPasteMenuItem.Size = new System.Drawing.Size(180, 22);
 			ActionPasteMenuItem.Text = "Paste";
 			ActionPasteMenuItem.Click += PasteMenuItem_Click;
 			// 
@@ -375,7 +376,7 @@ namespace NotePadMinusMinus
 			// 
 			ActionDeleteMenuItem.Name = "ActionDeleteMenuItem";
 			ActionDeleteMenuItem.ShortcutKeys = Keys.Delete;
-			ActionDeleteMenuItem.Size = new System.Drawing.Size(172, 22);
+			ActionDeleteMenuItem.Size = new System.Drawing.Size(180, 22);
 			ActionDeleteMenuItem.Text = "Delete";
 			ActionDeleteMenuItem.Click += DeleteMenuItem_Click;
 			// 
@@ -383,20 +384,20 @@ namespace NotePadMinusMinus
 			// 
 			ActionSelectAllMenuItem.Name = "ActionSelectAllMenuItem";
 			ActionSelectAllMenuItem.ShortcutKeys = Keys.Control | Keys.A;
-			ActionSelectAllMenuItem.Size = new System.Drawing.Size(172, 22);
+			ActionSelectAllMenuItem.Size = new System.Drawing.Size(180, 22);
 			ActionSelectAllMenuItem.Text = "Selete All";
 			ActionSelectAllMenuItem.Click += SelectMenuItem_Click;
 			// 
 			// EditMenuSeparator2
 			// 
 			EditMenuSeparator2.Name = "EditMenuSeparator2";
-			EditMenuSeparator2.Size = new System.Drawing.Size(169, 6);
+			EditMenuSeparator2.Size = new System.Drawing.Size(177, 6);
 			// 
 			// InsertDateTimeMenuItem
 			// 
 			InsertDateTimeMenuItem.Name = "InsertDateTimeMenuItem";
 			InsertDateTimeMenuItem.ShortcutKeys = Keys.F5;
-			InsertDateTimeMenuItem.Size = new System.Drawing.Size(172, 22);
+			InsertDateTimeMenuItem.Size = new System.Drawing.Size(180, 22);
 			InsertDateTimeMenuItem.Text = "Time/Date";
 			InsertDateTimeMenuItem.Click += InsertDateTime;
 			// 
@@ -404,7 +405,7 @@ namespace NotePadMinusMinus
 			// 
 			CopyToClipboardSubMenu.DropDownItems.AddRange(new ToolStripItem[] { CopyDirectoryWithFileMenuItem, CopyDirectoryOnlyMenuItem, CopyFileMenuItem });
 			CopyToClipboardSubMenu.Name = "CopyToClipboardSubMenu";
-			CopyToClipboardSubMenu.Size = new System.Drawing.Size(172, 22);
+			CopyToClipboardSubMenu.Size = new System.Drawing.Size(180, 22);
 			CopyToClipboardSubMenu.Text = "Copy to Clipboard";
 			// 
 			// CopyDirectoryWithFileMenuItem
@@ -429,32 +430,32 @@ namespace NotePadMinusMinus
 			// EditMenuSeparator3
 			// 
 			EditMenuSeparator3.Name = "EditMenuSeparator3";
-			EditMenuSeparator3.Size = new System.Drawing.Size(169, 6);
+			EditMenuSeparator3.Size = new System.Drawing.Size(177, 6);
 			// 
 			// GoToMenuItem
 			// 
 			GoToMenuItem.Name = "GoToMenuItem";
-			GoToMenuItem.Size = new System.Drawing.Size(172, 22);
+			GoToMenuItem.Size = new System.Drawing.Size(180, 22);
 			GoToMenuItem.Text = "Go To";
 			GoToMenuItem.Click += GoToMenuItem_Click;
 			// 
 			// SearchInWebsiteMenuItem
 			// 
 			SearchInWebsiteMenuItem.Name = "SearchInWebsiteMenuItem";
-			SearchInWebsiteMenuItem.Size = new System.Drawing.Size(172, 22);
+			SearchInWebsiteMenuItem.Size = new System.Drawing.Size(180, 22);
 			SearchInWebsiteMenuItem.Text = "Search In Websites";
 			SearchInWebsiteMenuItem.Click += SearchInWebsiteMenuItem_Click;
 			// 
 			// EditMenuSeparator4
 			// 
 			EditMenuSeparator4.Name = "EditMenuSeparator4";
-			EditMenuSeparator4.Size = new System.Drawing.Size(169, 6);
+			EditMenuSeparator4.Size = new System.Drawing.Size(177, 6);
 			// 
 			// ReadonlyModeMenuItem
 			// 
 			ReadonlyModeMenuItem.CheckOnClick = true;
 			ReadonlyModeMenuItem.Name = "ReadonlyModeMenuItem";
-			ReadonlyModeMenuItem.Size = new System.Drawing.Size(172, 22);
+			ReadonlyModeMenuItem.Size = new System.Drawing.Size(180, 22);
 			ReadonlyModeMenuItem.Text = "Readonly";
 			ReadonlyModeMenuItem.Click += ToggleReadOnlyMode;
 			// 
@@ -621,6 +622,13 @@ namespace NotePadMinusMinus
 			DocInfoText.Size = new System.Drawing.Size(49, 22);
 			DocInfoText.Text = "DocInfo";
 			// 
+			// FindReplaceMenuItem
+			// 
+			FindReplaceMenuItem.Name = "FindReplaceMenuItem";
+			FindReplaceMenuItem.Size = new System.Drawing.Size(180, 22);
+			FindReplaceMenuItem.Text = "Find/replace";
+			FindReplaceMenuItem.Click += FindReplaceMenuItem_Click;
+			// 
 			// MainForm
 			// 
 			AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -714,6 +722,7 @@ namespace NotePadMinusMinus
 		private System.Windows.Forms.ToolStripMenuItem DeletePermanentlyMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem DeleteFileSubMenu;
 		private System.Windows.Forms.ToolStripMenuItem MoveToRecycleBinMenuItem;
+		private ToolStripMenuItem FindReplaceMenuItem;
 	}
 }
 

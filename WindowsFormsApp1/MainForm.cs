@@ -493,6 +493,11 @@ namespace NotePadMinusMinus
 		private void DeleteMenuItem_Click(object sender, EventArgs e) => EditingArea.SelectedText = "";
 		private void SelectMenuItem_Click(object sender, EventArgs e) => EditingArea.SelectAll();
 
+		private void FindReplaceMenuItem_Click(object sender, EventArgs e)
+		{
+			FindReplace findReplace = new(this);
+			findReplace.Show();
+		}
 		private void InsertDateTime(object sender, EventArgs e)
 		{
 			DateTime now = DateTime.Now;
@@ -649,5 +654,6 @@ namespace NotePadMinusMinus
 			Run.Show();
 		}
 		#endregion
+
 	}
 }

@@ -12,7 +12,7 @@
     <_LastSelectedProfileId>C:\Users\chenyeyi\Desktop\np vscode\notepad-minus-minus\WindowsFormsApp1\Properties\PublishProfiles\ClickOnceProfile1.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Update="findreplace.cs">
+    <Compile Update="FindReplace.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Goto.cs">
