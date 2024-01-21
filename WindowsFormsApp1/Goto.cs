@@ -69,16 +69,6 @@ namespace NotePadMinusMinus
             }
         }
 
-        private void IgnoreOverflowCheckBox_Click(object sender, EventArgs e)
-        {
-            if (IgnoreOverflowCheckBox.Checked)
-            {
-                IgnoreOverflowCheckBox.Checked = false;
-            }
-            else
-            {
-                IgnoreOverflowCheckBox.Checked = true;
-            }
-        }
+
     }
 }
