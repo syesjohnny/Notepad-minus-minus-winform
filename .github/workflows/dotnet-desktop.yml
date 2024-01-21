@@ -63,7 +63,7 @@ jobs:
       run: dotnet restore
       
     - name: Build
-      run: dotnet build NotePadMinusMinus.sln --output .\bin\ --configuration Debug --self-contained
+      run: dotnet build NotePadMinusMinus.sln --output .\bin\ --configuration Debug
 
     - uses: actions/upload-artifact@v4
       with:
