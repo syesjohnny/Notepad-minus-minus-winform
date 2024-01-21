@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Windows.Devices.Radios;
 using static System.Windows.Forms.DataFormats;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
@@ -68,23 +69,16 @@ namespace NotePadMinusMinus
             }
         }
 
-        private void OptionLine_Click(object sender, EventArgs e)
+        private void IgnoreOverflowCheckBox_Click(object sender, EventArgs e)
         {
-            if (OptionLine.Checked == false)
+            if (IgnoreOverflowCheckBox.Checked)
             {
-                OptionLine.Checked = true;
-                OptionPos.Checked = false;
+                IgnoreOverflowCheckBox.Checked = false;
+            }
+            else
+            {
+                IgnoreOverflowCheckBox.Checked = true;
             }
         }
-
-        private void OptionPos_Click(object sender, EventArgs e)
-        {
-            if (OptionPos.Checked == false)
-            {
-                OptionPos.Checked = true;
-                OptionLine.Checked = false;
-            }
-        }
-
     }
 }
