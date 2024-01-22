@@ -787,8 +787,22 @@ namespace NotePadMinusMinus
 
         private void DuplicateLineMenuItem_Click(object sender, EventArgs e)
         {
-            
-            
-        }
+			int currentLine = EditingArea.GetLineFromCharIndex(EditingArea.SelectionStart);
+            int lineCharIndex = EditingArea.SelectionStart;
+            string[] lines = EditingArea.Lines;
+            string[] newLines = new string[lines.Length + 1];
+            for (int i = 0; i < newLines.Length; i++)
+            {
+                if (i == currentLine) lineCharIndex += lines[i].Length + 1;
+                if (i > currentLine)
+                {
+					newLines[i] = lines[i - 1];
+                    continue;
+				}
+                newLines[i] = lines[i];
+            }
+            EditingArea.Lines = newLines;
+            EditingArea.SelectionStart = lineCharIndex;
+		}
     }
 }
