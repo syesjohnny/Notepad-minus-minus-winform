@@ -810,6 +810,7 @@ namespace NotePadMinusMinus
         {
             var lol = string.Join(Environment.NewLine, EditingArea.Lines.Distinct());
             EditingArea.Text = lol;
+            EditingArea.Font = new System.Drawing.Font("Calibri", 12, System.Drawing.FontStyle.Regular);
         }
     }
 }

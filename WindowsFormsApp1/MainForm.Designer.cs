@@ -128,6 +128,7 @@ namespace NotePadMinusMinus
             EditingArea.ContextMenuStrip = contextMenuStrip1;
             EditingArea.DetectUrls = false;
             EditingArea.Dock = DockStyle.Fill;
+            EditingArea.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             EditingArea.Location = new System.Drawing.Point(0, 29);
             EditingArea.Margin = new Padding(3, 4, 3, 4);
             EditingArea.Name = "EditingArea";
@@ -210,7 +211,7 @@ namespace NotePadMinusMinus
             // 
             FileMenu.DropDownItems.AddRange(new ToolStripItem[] { NewFileMenuItem, OpenFileMenuItem, SaveFileMenuItem, SaveAsMenuItem, FileMenuSperator1, OpenFileFolderSubMenu, FileMenuSeparator2, NewWindowMenuItem, CloseWindowMenuItem, ExitMenuItem, ReOpenMenuItem, OpenInMSNotepadMenuItem, DeleteFileSubMenu });
             FileMenu.Name = "FileMenu";
-            FileMenu.Size = new System.Drawing.Size(47, 24);
+            FileMenu.Size = new System.Drawing.Size(47, 23);
             FileMenu.Text = "File";
             // 
             // NewFileMenuItem
@@ -340,7 +341,7 @@ namespace NotePadMinusMinus
             // 
             EditMenu.DropDownItems.AddRange(new ToolStripItem[] { ActionUndoMenuItem, ActionRedoMenuItem, EditMenuSeparator1, ActionCutMenuItem, ActionCopyMenuItem, ActionPasteMenuItem, ActionDeleteMenuItem, ActionSelectAllMenuItem, EditMenuSeparator2, InsertDateTimeMenuItem, CopyToClipboardSubMenu, EditMenuSeparator3, GoToMenuItem, FindReplaceMenuItem, SearchInWebsiteMenuItem, EditMenuSeparator4, ReadonlyModeMenuItem, ConvertCaseMenuItem, LineOperationMenuItem });
             EditMenu.Name = "EditMenu";
-            EditMenu.Size = new System.Drawing.Size(50, 24);
+            EditMenu.Size = new System.Drawing.Size(50, 23);
             EditMenu.Text = "Edit";
             // 
             // ActionUndoMenuItem
@@ -593,7 +594,7 @@ namespace NotePadMinusMinus
             // 
             ViewMenu.DropDownItems.AddRange(new ToolStripItem[] { ZoomSubMenu, WordWarpToggleMenuItem, StatusToggleMenuItem, ViewMenuSeparator1, ShowLinksToggleItem, ViewMenuSeparator2, FullScreenToggleMenuItem, AlwaysOnTopToggleMenuItem });
             ViewMenu.Name = "ViewMenu";
-            ViewMenu.Size = new System.Drawing.Size(57, 24);
+            ViewMenu.Size = new System.Drawing.Size(57, 23);
             ViewMenu.Text = "View";
             // 
             // ZoomSubMenu
@@ -687,7 +688,7 @@ namespace NotePadMinusMinus
             // 
             RunMenu.DropDownItems.AddRange(new ToolStripItem[] { RunMenuItem, RunMenuSeparator1, GetPHPHelpMenuItem, WikipediaSearchMenuItem });
             RunMenu.Name = "RunMenu";
-            RunMenu.Size = new System.Drawing.Size(51, 24);
+            RunMenu.Size = new System.Drawing.Size(51, 23);
             RunMenu.Text = "Run";
             // 
             // RunMenuItem
