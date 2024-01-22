@@ -92,6 +92,9 @@ namespace NotePadMinusMinus
             toolStripSeparator3 = new ToolStripSeparator();
             InvertCaseMenuItem = new ToolStripMenuItem();
             RandomCaseMenuItem = new ToolStripMenuItem();
+            LineOperationMenuItem = new ToolStripMenuItem();
+            DuplicateLineMenuItem = new ToolStripMenuItem();
+            removeDuplicateLinesMenuItem = new ToolStripMenuItem();
             ViewMenu = new ToolStripMenuItem();
             ZoomSubMenu = new ToolStripMenuItem();
             ZoomInMenuItem = new ToolStripMenuItem();
@@ -114,8 +117,6 @@ namespace NotePadMinusMinus
             ZoomInfoText = new ToolStripLabel();
             BottomToolStripSperatorLeft = new ToolStripSeparator();
             DocInfoText = new ToolStripLabel();
-            LineOperationMenuItem = new ToolStripMenuItem();
-            DuplicateLineMenuItem = new ToolStripMenuItem();
             contextMenuStrip1.SuspendLayout();
             TopMenuStrip.SuspendLayout();
             toolStrip1.SuspendLayout();
@@ -127,10 +128,10 @@ namespace NotePadMinusMinus
             EditingArea.ContextMenuStrip = contextMenuStrip1;
             EditingArea.DetectUrls = false;
             EditingArea.Dock = DockStyle.Fill;
-            EditingArea.Location = new System.Drawing.Point(0, 30);
+            EditingArea.Location = new System.Drawing.Point(0, 29);
             EditingArea.Margin = new Padding(3, 4, 3, 4);
             EditingArea.Name = "EditingArea";
-            EditingArea.Size = new System.Drawing.Size(971, 503);
+            EditingArea.Size = new System.Drawing.Size(971, 504);
             EditingArea.TabIndex = 0;
             EditingArea.Text = "";
             EditingArea.LinkClicked += OpenLink;
@@ -201,7 +202,7 @@ namespace NotePadMinusMinus
             TopMenuStrip.Location = new System.Drawing.Point(0, 0);
             TopMenuStrip.Name = "TopMenuStrip";
             TopMenuStrip.Padding = new Padding(6, 3, 0, 3);
-            TopMenuStrip.Size = new System.Drawing.Size(971, 30);
+            TopMenuStrip.Size = new System.Drawing.Size(971, 29);
             TopMenuStrip.TabIndex = 1;
             TopMenuStrip.Text = "menuStrip1";
             // 
@@ -382,7 +383,7 @@ namespace NotePadMinusMinus
             // ActionPasteMenuItem
             // 
             ActionPasteMenuItem.Name = "ActionPasteMenuItem";
-            ActionPasteMenuItem.ShortcutKeys = Keys.Control | Keys.A;
+            ActionPasteMenuItem.ShortcutKeys = Keys.Control | Keys.V;
             ActionPasteMenuItem.Size = new System.Drawing.Size(232, 26);
             ActionPasteMenuItem.Text = "Paste";
             ActionPasteMenuItem.Click += PasteMenuItem_Click;
@@ -567,6 +568,27 @@ namespace NotePadMinusMinus
             RandomCaseMenuItem.Text = "Random Case";
             RandomCaseMenuItem.Click += RandomCaseMenuItem_Click;
             // 
+            // LineOperationMenuItem
+            // 
+            LineOperationMenuItem.DropDownItems.AddRange(new ToolStripItem[] { DuplicateLineMenuItem, removeDuplicateLinesMenuItem });
+            LineOperationMenuItem.Name = "LineOperationMenuItem";
+            LineOperationMenuItem.Size = new System.Drawing.Size(232, 26);
+            LineOperationMenuItem.Text = "Line Operations";
+            // 
+            // DuplicateLineMenuItem
+            // 
+            DuplicateLineMenuItem.Name = "DuplicateLineMenuItem";
+            DuplicateLineMenuItem.Size = new System.Drawing.Size(258, 26);
+            DuplicateLineMenuItem.Text = "Duplicate Line";
+            DuplicateLineMenuItem.Click += DuplicateLineMenuItem_Click;
+            // 
+            // removeDuplicateLinesMenuItem
+            // 
+            removeDuplicateLinesMenuItem.Name = "removeDuplicateLinesMenuItem";
+            removeDuplicateLinesMenuItem.Size = new System.Drawing.Size(258, 26);
+            removeDuplicateLinesMenuItem.Text = "Remove Duplicate Lines";
+            removeDuplicateLinesMenuItem.Click += removeDuplicateLinesMenuItem_Click;
+            // 
             // ViewMenu
             // 
             ViewMenu.DropDownItems.AddRange(new ToolStripItem[] { ZoomSubMenu, WordWarpToggleMenuItem, StatusToggleMenuItem, ViewMenuSeparator1, ShowLinksToggleItem, ViewMenuSeparator2, FullScreenToggleMenuItem, AlwaysOnTopToggleMenuItem });
@@ -732,20 +754,6 @@ namespace NotePadMinusMinus
             DocInfoText.Size = new System.Drawing.Size(63, 22);
             DocInfoText.Text = "DocInfo";
             // 
-            // LineOperationMenuItem
-            // 
-            LineOperationMenuItem.DropDownItems.AddRange(new ToolStripItem[] { DuplicateLineMenuItem });
-            LineOperationMenuItem.Name = "LineOperationMenuItem";
-            LineOperationMenuItem.Size = new System.Drawing.Size(232, 26);
-            LineOperationMenuItem.Text = "Line Operations";
-            // 
-            // DuplicateLineMenuItem
-            // 
-            DuplicateLineMenuItem.Name = "DuplicateLineMenuItem";
-            DuplicateLineMenuItem.Size = new System.Drawing.Size(224, 26);
-            DuplicateLineMenuItem.Text = "Duplicate Line";
-            DuplicateLineMenuItem.Click += DuplicateLineMenuItem_Click;
-            // 
             // MainForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
@@ -854,6 +862,7 @@ namespace NotePadMinusMinus
 		private ToolStripSeparator toolStripSeparator3;
         private ToolStripMenuItem LineOperationMenuItem;
         private ToolStripMenuItem DuplicateLineMenuItem;
+        private ToolStripMenuItem removeDuplicateLinesMenuItem;
     }
 }
 

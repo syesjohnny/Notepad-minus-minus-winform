@@ -15,6 +15,7 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.LinkLabel;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 
 namespace NotePadMinusMinus
@@ -496,7 +497,7 @@ namespace NotePadMinusMinus
         private void RedoMenuItem_Click(object sender, EventArgs e) => EditingArea.Redo();
         private void CutMenuItem_Click(object sender, EventArgs e) => EditingArea.Cut();
         private void CopyMenuItem_Click(object sender, EventArgs e) => EditingArea.Copy();
-        private void PasteMenuItem_Click(object sender, EventArgs e) => EditingArea.Paste();
+        private void PasteMenuItem_Click(object sender, EventArgs e) =>EditingArea.Paste();
         private void DeleteMenuItem_Click(object sender, EventArgs e) => EditingArea.SelectedText = "";
         private void SelectMenuItem_Click(object sender, EventArgs e) => EditingArea.SelectAll();
 
@@ -787,7 +788,7 @@ namespace NotePadMinusMinus
 
         private void DuplicateLineMenuItem_Click(object sender, EventArgs e)
         {
-			int currentLine = EditingArea.GetLineFromCharIndex(EditingArea.SelectionStart);
+            int currentLine = EditingArea.GetLineFromCharIndex(EditingArea.SelectionStart);
             int lineCharIndex = EditingArea.SelectionStart;
             string[] lines = EditingArea.Lines;
             string[] newLines = new string[lines.Length + 1];
@@ -796,13 +797,19 @@ namespace NotePadMinusMinus
                 if (i == currentLine) lineCharIndex += lines[i].Length + 1;
                 if (i > currentLine)
                 {
-					newLines[i] = lines[i - 1];
+                    newLines[i] = lines[i - 1];
                     continue;
-				}
+                }
                 newLines[i] = lines[i];
             }
             EditingArea.Lines = newLines;
             EditingArea.SelectionStart = lineCharIndex;
-		}
+        }
+
+        private void removeDuplicateLinesMenuItem_Click(object sender, EventArgs e)
+        {
+            var lol = string.Join(Environment.NewLine, EditingArea.Lines.Distinct());
+            EditingArea.Text = lol;
+        }
     }
 }
