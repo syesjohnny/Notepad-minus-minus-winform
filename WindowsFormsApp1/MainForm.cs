@@ -787,26 +787,7 @@ namespace NotePadMinusMinus
 
         private void DuplicateLineMenuItem_Click(object sender, EventArgs e)
         {
-            int selectionStart = EditingArea.SelectionStart;
-            int lineStart = EditingArea.GetFirstCharIndexOfCurrentLine();
-            int lineEnd = EditingArea.GetFirstCharIndexFromLine(EditingArea.GetLineFromCharIndex(selectionStart) + 1);
-
-            if (lineEnd == -1)
-            {
-                // Last line in the RichTextBox
-                lineEnd = EditingArea.Text.Length;
-                string selectedLine = EditingArea.Text.Substring(lineStart, lineEnd - lineStart);
-                EditingArea.Text = EditingArea.Text.Insert(lineEnd, Environment.NewLine+selectedLine);
-            }
-            else
-            {
-                string selectedLine = EditingArea.Text.Substring(lineStart, lineEnd - lineStart);
-                EditingArea.Text = EditingArea.Text.Insert(lineEnd, Environment.NewLine + selectedLine);
-            }
-
             
-
-            // Insert the duplicated line after the current line
             
         }
     }
