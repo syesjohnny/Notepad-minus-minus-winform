@@ -808,8 +808,7 @@ namespace NotePadMinusMinus
 
         private void removeDuplicateLinesMenuItem_Click(object sender, EventArgs e)
         {
-            var lol = string.Join(Environment.NewLine, EditingArea.Lines.Distinct());
-            EditingArea.Text = lol;
+            EditingArea.Text = string.Join(Environment.NewLine, EditingArea.Lines.Distinct());
             EditingArea.Font = new System.Drawing.Font("Calibri", 12, System.Drawing.FontStyle.Regular);
         }
     }
