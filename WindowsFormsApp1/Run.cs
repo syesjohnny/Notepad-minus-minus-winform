@@ -22,8 +22,10 @@ namespace NotePadMinusMinus
 
 		private void FileSelectorButton_Click(object sender, EventArgs e)
 		{
-			OpenFileDialog openFileDialog = new OpenFileDialog();
-			openFileDialog.Filter = "Executable Files (*.exe; *.com; *.cmd; *.bat)| *.exe; *.com; *.cmd; *.bat | All Files (*.*) | *.* ";
+			OpenFileDialog openFileDialog = new()
+			{
+				Filter = "Executable Files (*.exe; *.com; *.cmd; *.bat)| *.exe; *.com; *.cmd; *.bat | All Files (*.*) | *.* "
+			};
 
 			if (openFileDialog.ShowDialog() == DialogResult.OK)
 			{

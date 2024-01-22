@@ -12,7 +12,7 @@ namespace NotePadMinusMinus
 {
 	public partial class FindReplace : Form
 	{
-		private MainForm _mainForm;
+		private readonly MainForm _mainForm;
 		public FindReplace(MainForm form)
 		{
 			InitializeComponent();
@@ -41,14 +41,14 @@ namespace NotePadMinusMinus
 			}
 			int selectionStart = _mainForm.EditingArea.SelectionStart;
 			int selectionLen = _mainForm.EditingArea.SelectionLength;
-			int searchStringIndexStart = -1;
+			int searchStringIndexStart;
 			if (!BackwardCheckBox.Checked)
 			{
 				searchStringIndexStart = _mainForm.EditingArea.Text.IndexOf(FindInput.Text, selectionStart + selectionLen);
 			}
 			else
 			{
-				searchStringIndexStart = _mainForm.EditingArea.Text.Substring(0, selectionStart).LastIndexOf(FindInput.Text);
+				searchStringIndexStart = _mainForm.EditingArea.Text.Substring(selectionStart).LastIndexOf(FindInput.Text);
 			}
 			if (searchStringIndexStart < 0) goto Failed;
 			_mainForm.EditingArea.SelectionStart = searchStringIndexStart;
