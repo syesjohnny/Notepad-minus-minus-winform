@@ -11,54 +11,63 @@ using static System.Windows.Forms.DataFormats;
 
 namespace NotePadMinusMinus
 {
-    public partial class Preferences : Form
-    {
-        private MainForm _mainForm;
-        public Preferences(MainForm form1)
-        {
-            InitializeComponent();
-            _mainForm = form1;
-        }
+	public partial class Preferences : Form
+	{
+		private MainForm _mainForm;
+		private Panel? CurrentSettingsPanel { get; set; } = null;
+		public IReadOnlyDictionary<string, Panel> AllSettingsPanels { get; }
+		public Preferences(MainForm form1)
+		{
+			InitializeComponent();
+			_mainForm = form1;
+			AllSettingsPanels = new Dictionary<string, Panel>()
+			{
+				{ "Style", StylePanel },
+				{ "Test Tab", TestTabPanel }
+			};
+			foreach (var pair in AllSettingsPanels)
+			{
+				pair.Value.Visible = false;
+			}
+		}
 
-        private void changepanel(object sender, EventArgs e)
-        {
-            stylepanel.Visible = false;
+		private void OnOptionListBoxChange(object? _, EventArgs? _2)
+		{
+			if (OptionListBox.SelectedItem == null)
+			{
+				goto NotSelected;
+			}
 
-            // Show the selected panel based on the ListBox item
-            switch (listBox1.SelectedItem.ToString())
-            {
-                case "Test1":
-                    stylepanel.Visible = true;
-                    break;
+			if (!AllSettingsPanels.TryGetValue(OptionListBox.SelectedItem.ToString()!, out Panel? p))
+			{
+				goto NotSelected;
+			}
+			Panel panel = p!;
 
-                // Add more cases for additional items
+			panel.Visible = true;
+			if (CurrentSettingsPanel != null) CurrentSettingsPanel.Visible = false;
+			CurrentSettingsPanel = panel;
+			return;
+		NotSelected:
+			if (CurrentSettingsPanel != null) CurrentSettingsPanel.Visible = false;
+			CurrentSettingsPanel = null;
+			return;
+		}
 
-                default:
-                    break;
-            }
-        }
-
-        private void themetoggle_CheckedChanged(object sender, EventArgs e)
-        {
-            if (themetoggle.Checked) {
-                _mainForm.TopMenuStrip.BackColor = Color.FromArgb(26, 29, 57);
-                _mainForm.TopMenuStrip.ForeColor = Color.White;
-                _mainForm.toolStrip1.BackColor = Color.FromArgb(26, 29, 57);
-                _mainForm.toolStrip1.ForeColor = Color.White;
-                _mainForm.EditingArea.BackColor = Color.FromArgb(39, 39, 39);
-                _mainForm.EditingArea.ForeColor = Color.White;
-                _mainForm.BackColor= Color.FromArgb(26, 29, 57);
-            }
-            else
-            {
-                _mainForm.TopMenuStrip.BackColor = Color.FromArgb(248, 248, 248);
-                _mainForm.TopMenuStrip.ForeColor = Color.Black;
-                _mainForm.toolStrip1.BackColor = Color.FromArgb(248, 248, 248);
-                _mainForm.toolStrip1.ForeColor = Color.Black;
-                _mainForm.EditingArea.BackColor = Color.FromArgb(249,249,249);
-                _mainForm.EditingArea.ForeColor = Color.Black;
-                _mainForm.BackColor = Color.FromArgb(248, 248, 248);
-            }
-        }
-    }
+		private void ToggleDarkTheme(object sender, EventArgs e)
+		{
+			if (DarkThemeToggle.Checked)
+			{
+				ThemeHelper.ChangeControlTheme(_mainForm, ThemeHelper.DarkDefault, new ToolStripProfessionalRenderer(new DarkToolStripItemColors()));
+				MainForm.ToolStripRender = new ToolStripProfessionalRenderer(new DarkToolStripItemColors());
+				ToolStripManager.Renderer = new ToolStripProfessionalRenderer(new DarkToolStripItemColors());
+			}
+			else
+			{
+				ThemeHelper.ChangeControlTheme(_mainForm, ThemeHelper.WhiteDefault, null);
+				MainForm.ToolStripRender = null;
+				ToolStripManager.Renderer = null;
+			}
+		}
+	}
 }
