@@ -31,7 +31,6 @@ namespace NotePadMinusMinus
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            EditingArea = new RichTextBox();
             contextMenuStrip1 = new ContextMenuStrip(components);
             undoToolStripMenuItem1 = new ToolStripMenuItem();
             redoToolStripMenuItem1 = new ToolStripMenuItem();
@@ -112,33 +111,19 @@ namespace NotePadMinusMinus
             RunMenuSeparator1 = new ToolStripSeparator();
             GetPHPHelpMenuItem = new ToolStripMenuItem();
             WikipediaSearchMenuItem = new ToolStripMenuItem();
-            toolStrip1 = new ToolStrip();
+            SettingMenuItem = new ToolStripMenuItem();
+            preferencesToolStripMenuItem = new ToolStripMenuItem();
+            EditingArea = new RichTextBox();
             CursorPosInfoText = new ToolStripLabel();
             ZoomInfoText = new ToolStripLabel();
             BottomToolStripSperatorLeft = new ToolStripSeparator();
             DocInfoText = new ToolStripLabel();
+            toolStrip1 = new ToolStrip();
+            toolStripSeparator4 = new ToolStripSeparator();
             contextMenuStrip1.SuspendLayout();
             TopMenuStrip.SuspendLayout();
             toolStrip1.SuspendLayout();
             SuspendLayout();
-            // 
-            // EditingArea
-            // 
-            EditingArea.AcceptsTab = true;
-            EditingArea.ContextMenuStrip = contextMenuStrip1;
-            EditingArea.DetectUrls = false;
-            EditingArea.Dock = DockStyle.Fill;
-            EditingArea.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            EditingArea.Location = new System.Drawing.Point(0, 29);
-            EditingArea.Margin = new Padding(3, 4, 3, 4);
-            EditingArea.Name = "EditingArea";
-            EditingArea.Size = new System.Drawing.Size(971, 504);
-            EditingArea.TabIndex = 0;
-            EditingArea.Text = "";
-            EditingArea.LinkClicked += OpenLink;
-            EditingArea.SelectionChanged += EditingAreaOnSelectionChange;
-            EditingArea.TextChanged += OnEditingAreaTextChange;
-            EditingArea.KeyDown += ExitFullscreen;
             // 
             // contextMenuStrip1
             // 
@@ -198,8 +183,9 @@ namespace NotePadMinusMinus
             // 
             // TopMenuStrip
             // 
+            TopMenuStrip.BackColor = System.Drawing.Color.FromArgb(248, 248, 248);
             TopMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
-            TopMenuStrip.Items.AddRange(new ToolStripItem[] { FileMenu, EditMenu, ViewMenu, RunMenu });
+            TopMenuStrip.Items.AddRange(new ToolStripItem[] { FileMenu, EditMenu, ViewMenu, RunMenu, SettingMenuItem });
             TopMenuStrip.Location = new System.Drawing.Point(0, 0);
             TopMenuStrip.Name = "TopMenuStrip";
             TopMenuStrip.Padding = new Padding(6, 3, 0, 3);
@@ -211,7 +197,7 @@ namespace NotePadMinusMinus
             // 
             FileMenu.DropDownItems.AddRange(new ToolStripItem[] { NewFileMenuItem, OpenFileMenuItem, SaveFileMenuItem, SaveAsMenuItem, FileMenuSperator1, OpenFileFolderSubMenu, FileMenuSeparator2, NewWindowMenuItem, CloseWindowMenuItem, ExitMenuItem, ReOpenMenuItem, OpenInMSNotepadMenuItem, DeleteFileSubMenu });
             FileMenu.Name = "FileMenu";
-            FileMenu.Size = new System.Drawing.Size(47, 23);
+            FileMenu.Size = new System.Drawing.Size(47, 24);
             FileMenu.Text = "File";
             // 
             // NewFileMenuItem
@@ -341,7 +327,7 @@ namespace NotePadMinusMinus
             // 
             EditMenu.DropDownItems.AddRange(new ToolStripItem[] { ActionUndoMenuItem, ActionRedoMenuItem, EditMenuSeparator1, ActionCutMenuItem, ActionCopyMenuItem, ActionPasteMenuItem, ActionDeleteMenuItem, ActionSelectAllMenuItem, EditMenuSeparator2, InsertDateTimeMenuItem, CopyToClipboardSubMenu, EditMenuSeparator3, GoToMenuItem, FindReplaceMenuItem, SearchInWebsiteMenuItem, EditMenuSeparator4, ReadonlyModeMenuItem, ConvertCaseMenuItem, LineOperationMenuItem });
             EditMenu.Name = "EditMenu";
-            EditMenu.Size = new System.Drawing.Size(50, 23);
+            EditMenu.Size = new System.Drawing.Size(50, 24);
             EditMenu.Text = "Edit";
             // 
             // ActionUndoMenuItem
@@ -594,7 +580,7 @@ namespace NotePadMinusMinus
             // 
             ViewMenu.DropDownItems.AddRange(new ToolStripItem[] { ZoomSubMenu, WordWarpToggleMenuItem, StatusToggleMenuItem, ViewMenuSeparator1, ShowLinksToggleItem, ViewMenuSeparator2, FullScreenToggleMenuItem, AlwaysOnTopToggleMenuItem });
             ViewMenu.Name = "ViewMenu";
-            ViewMenu.Size = new System.Drawing.Size(57, 23);
+            ViewMenu.Size = new System.Drawing.Size(57, 24);
             ViewMenu.Text = "View";
             // 
             // ZoomSubMenu
@@ -688,7 +674,7 @@ namespace NotePadMinusMinus
             // 
             RunMenu.DropDownItems.AddRange(new ToolStripItem[] { RunMenuItem, RunMenuSeparator1, GetPHPHelpMenuItem, WikipediaSearchMenuItem });
             RunMenu.Name = "RunMenu";
-            RunMenu.Size = new System.Drawing.Size(51, 23);
+            RunMenu.Size = new System.Drawing.Size(51, 24);
             RunMenu.Text = "Run";
             // 
             // RunMenuItem
@@ -718,17 +704,40 @@ namespace NotePadMinusMinus
             WikipediaSearchMenuItem.Text = "Wikipedia Search";
             WikipediaSearchMenuItem.Click += SearchInWikipediaMenuItem_Click;
             // 
-            // toolStrip1
+            // SettingMenuItem
             // 
-            toolStrip1.Dock = DockStyle.Bottom;
-            toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
-            toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { CursorPosInfoText, ZoomInfoText, BottomToolStripSperatorLeft, DocInfoText });
-            toolStrip1.Location = new System.Drawing.Point(0, 508);
-            toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new System.Drawing.Size(971, 25);
-            toolStrip1.TabIndex = 2;
-            toolStrip1.Text = "BottomToolStrip";
+            SettingMenuItem.DropDownItems.AddRange(new ToolStripItem[] { preferencesToolStripMenuItem });
+            SettingMenuItem.Name = "SettingMenuItem";
+            SettingMenuItem.Size = new System.Drawing.Size(73, 24);
+            SettingMenuItem.Text = "Setting";
+            // 
+            // preferencesToolStripMenuItem
+            // 
+            preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
+            preferencesToolStripMenuItem.Size = new System.Drawing.Size(173, 26);
+            preferencesToolStripMenuItem.Text = "Preferences";
+            preferencesToolStripMenuItem.Click += preferencesToolStripMenuItem_Click;
+            // 
+            // EditingArea
+            // 
+            EditingArea.AcceptsTab = true;
+            EditingArea.BackColor = System.Drawing.Color.FromArgb(249, 249, 249);
+            EditingArea.BorderStyle = BorderStyle.None;
+            EditingArea.ContextMenuStrip = contextMenuStrip1;
+            EditingArea.DetectUrls = false;
+            EditingArea.Dock = DockStyle.Fill;
+            EditingArea.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            EditingArea.ForeColor = System.Drawing.Color.Black;
+            EditingArea.Location = new System.Drawing.Point(0, 29);
+            EditingArea.Margin = new Padding(3, 4, 3, 4);
+            EditingArea.Name = "EditingArea";
+            EditingArea.Size = new System.Drawing.Size(971, 504);
+            EditingArea.TabIndex = 0;
+            EditingArea.Text = "";
+            EditingArea.LinkClicked += OpenLink;
+            EditingArea.SelectionChanged += EditingAreaOnSelectionChange;
+            EditingArea.TextChanged += OnEditingAreaTextChange;
+            EditingArea.KeyDown += ExitFullscreen;
             // 
             // CursorPosInfoText
             // 
@@ -755,6 +764,24 @@ namespace NotePadMinusMinus
             DocInfoText.Size = new System.Drawing.Size(63, 22);
             DocInfoText.Text = "DocInfo";
             // 
+            // toolStrip1
+            // 
+            toolStrip1.BackColor = System.Drawing.Color.FromArgb(248, 248, 248);
+            toolStrip1.Dock = DockStyle.Bottom;
+            toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
+            toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            toolStrip1.Items.AddRange(new ToolStripItem[] { CursorPosInfoText, toolStripSeparator4, ZoomInfoText, BottomToolStripSperatorLeft, DocInfoText });
+            toolStrip1.Location = new System.Drawing.Point(0, 508);
+            toolStrip1.Name = "toolStrip1";
+            toolStrip1.Size = new System.Drawing.Size(971, 25);
+            toolStrip1.TabIndex = 2;
+            toolStrip1.Text = "BottomToolStrip";
+            // 
+            // toolStripSeparator4
+            // 
+            toolStripSeparator4.Name = "toolStripSeparator4";
+            toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
@@ -778,8 +805,7 @@ namespace NotePadMinusMinus
         }
 
         #endregion
-        private System.Windows.Forms.MenuStrip TopMenuStrip;
-		private System.Windows.Forms.ToolStripMenuItem FileMenu;
+        private System.Windows.Forms.ToolStripMenuItem FileMenu;
 		private System.Windows.Forms.ToolStripMenuItem NewFileMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem OpenFileMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem SaveFileMenuItem;
@@ -787,8 +813,6 @@ namespace NotePadMinusMinus
 		private System.Windows.Forms.ToolStripMenuItem ViewMenu;
 		private System.Windows.Forms.ToolStripMenuItem SaveAsMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem ExitMenuItem;
-		private System.Windows.Forms.ToolStrip toolStrip1;
-		private System.Windows.Forms.ToolStripLabel CursorPosInfoText;
 		private System.Windows.Forms.ToolStripMenuItem ActionUndoMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem ActionRedoMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem ActionCutMenuItem;
@@ -803,7 +827,6 @@ namespace NotePadMinusMinus
 		private System.Windows.Forms.ToolStripMenuItem StatusToggleMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem NewWindowMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem CloseWindowMenuItem;
-		private System.Windows.Forms.ToolStripLabel ZoomInfoText;
 		private System.Windows.Forms.ToolStripMenuItem ZoomSubMenu;
 		private System.Windows.Forms.ToolStripMenuItem ZoomInMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem ZoomOutMenuItem;
@@ -814,8 +837,6 @@ namespace NotePadMinusMinus
 		private System.Windows.Forms.ToolStripMenuItem CopyDirectoryWithFileMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem CopyDirectoryOnlyMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem CopyFileMenuItem;
-		private System.Windows.Forms.ToolStripLabel DocInfoText;
-		private System.Windows.Forms.ToolStripSeparator BottomToolStripSperatorLeft;
 		private System.Windows.Forms.ToolStripMenuItem OpenFileFolderSubMenu;
 		private System.Windows.Forms.ToolStripMenuItem OpenInExplorerMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem OpenInCMDMenuItem;
@@ -834,7 +855,6 @@ namespace NotePadMinusMinus
 		private System.Windows.Forms.ToolStripMenuItem GetPHPHelpMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem WikipediaSearchMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem SearchInWebsiteMenuItem;
-		public System.Windows.Forms.RichTextBox EditingArea;
 		private System.Windows.Forms.ToolStripSeparator FileMenuSperator1;
 		private System.Windows.Forms.ToolStripSeparator FileMenuSeparator2;
 		private System.Windows.Forms.ToolStripMenuItem ReadonlyModeMenuItem;
@@ -864,6 +884,16 @@ namespace NotePadMinusMinus
         private ToolStripMenuItem LineOperationMenuItem;
         private ToolStripMenuItem DuplicateLineMenuItem;
         private ToolStripMenuItem removeDuplicateLinesMenuItem;
+        private ToolStripMenuItem SettingMenuItem;
+        private ToolStripMenuItem preferencesToolStripMenuItem;
+        public MenuStrip TopMenuStrip;
+        public RichTextBox EditingArea;
+        private ToolStripLabel CursorPosInfoText;
+        private ToolStripLabel ZoomInfoText;
+        private ToolStripSeparator BottomToolStripSperatorLeft;
+        private ToolStripLabel DocInfoText;
+        public ToolStrip toolStrip1;
+        private ToolStripSeparator toolStripSeparator4;
     }
 }
 

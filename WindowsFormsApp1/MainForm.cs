@@ -44,6 +44,7 @@ namespace NotePadMinusMinus
         #endregion
 
         #region Properties
+
         private FormWindowState PreviousWindowState { get; set; }
         public CloseMode AppCloseMode { get; set; } = CloseMode.CloseAll;
         public string CurrentFilePath
@@ -140,6 +141,7 @@ namespace NotePadMinusMinus
             cutToolStripMenuItem1.Enabled = false;
             ReOpenMenuItem.Enabled = false;
             OpenInMSNotepadMenuItem.Enabled = false;
+            DeleteFileSubMenu.Enabled = false;
 
             SetTitle();
         }
@@ -204,6 +206,7 @@ namespace NotePadMinusMinus
                 CopyDirectoryWithFileMenuItem.Enabled = (CurrentFilePath != "");
                 CopyFileMenuItem.Enabled = (CurrentFilePath != "");
                 CopyDirectoryOnlyMenuItem.Enabled = (CurrentFilePath != "");
+                DeleteFileSubMenu.Enabled = (CurrentFilePath != "");
             }
         }
         private void OpenFileEvent(object sender, EventArgs e)
@@ -256,7 +259,7 @@ namespace NotePadMinusMinus
                         CopyDirectoryWithFileMenuItem.Enabled = (CurrentFilePath != "");
                         CopyFileMenuItem.Enabled = (CurrentFilePath != "");
                         CopyDirectoryOnlyMenuItem.Enabled = (CurrentFilePath != "");
-
+                        DeleteFileSubMenu.Enabled = (CurrentFilePath != "");
                     }
                 }
                 else
@@ -497,7 +500,7 @@ namespace NotePadMinusMinus
         private void RedoMenuItem_Click(object sender, EventArgs e) => EditingArea.Redo();
         private void CutMenuItem_Click(object sender, EventArgs e) => EditingArea.Cut();
         private void CopyMenuItem_Click(object sender, EventArgs e) => EditingArea.Copy();
-        private void PasteMenuItem_Click(object sender, EventArgs e) =>EditingArea.Paste();
+        private void PasteMenuItem_Click(object sender, EventArgs e) => EditingArea.Paste();
         private void DeleteMenuItem_Click(object sender, EventArgs e) => EditingArea.SelectedText = "";
         private void SelectMenuItem_Click(object sender, EventArgs e) => EditingArea.SelectAll();
 
@@ -509,11 +512,7 @@ namespace NotePadMinusMinus
         private void InsertDateTime(object sender, EventArgs e)
         {
             DateTime now = DateTime.Now;
-
-            // 格式化日期和時間字串
             string formattedDateTime = $"{GetPeriod(now)} {now:hh:mm tt yyyy/M/d}";
-
-            // 插入到 RichTextBox 中
             EditingArea.SelectedText = formattedDateTime;
         }
 
@@ -786,6 +785,7 @@ namespace NotePadMinusMinus
         }
         #endregion
 
+        #region Line operations
         private void DuplicateLineMenuItem_Click(object sender, EventArgs e)
         {
             int currentLine = EditingArea.GetLineFromCharIndex(EditingArea.SelectionStart);
@@ -810,6 +810,16 @@ namespace NotePadMinusMinus
         {
             EditingArea.Text = string.Join(Environment.NewLine, EditingArea.Lines.Distinct());
             EditingArea.Font = new System.Drawing.Font("Calibri", 12, System.Drawing.FontStyle.Regular);
+        }
+        #endregion
+
+
+
+
+        private void preferencesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Preferences Preferences = new(this);
+            Preferences.Show();
         }
     }
 }
