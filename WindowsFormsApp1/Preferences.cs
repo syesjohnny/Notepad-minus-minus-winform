@@ -1,18 +1,23 @@
-﻿using System;
+﻿using Dark.Net;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Windows.UI;
+using WindowsFormsApp1;
 using static System.Windows.Forms.DataFormats;
 
 namespace NotePadMinusMinus
 {
 	public partial class Preferences : Form
 	{
+
 		private MainForm _mainForm;
 		private Panel? CurrentSettingsPanel { get; set; } = null;
 		public IReadOnlyDictionary<string, Panel> AllSettingsPanels { get; }
@@ -56,18 +61,19 @@ namespace NotePadMinusMinus
 
 		private void ToggleDarkTheme(object sender, EventArgs e)
 		{
-			if (DarkThemeToggle.Checked)
-			{
-				ThemeHelper.ChangeControlTheme(_mainForm, ThemeHelper.DarkDefault, new ToolStripProfessionalRenderer(new DarkToolStripItemColors()));
-				MainForm.ToolStripRender = new ToolStripProfessionalRenderer(new DarkToolStripItemColors());
-				ToolStripManager.Renderer = new ToolStripProfessionalRenderer(new DarkToolStripItemColors());
-			}
-			else
-			{
-				ThemeHelper.ChangeControlTheme(_mainForm, ThemeHelper.WhiteDefault, null);
-				MainForm.ToolStripRender = null;
-				ToolStripManager.Renderer = null;
-			}
-		}
+            //if (DarkThemeToggle.Checked)
+            //{
+            //	ThemeHelper.ChangeControlTheme(_mainForm, ThemeHelper.DarkDefault, new ToolStripProfessionalRenderer(new DarkToolStripItemColors()));
+            //	MainForm.ToolStripRender = new ToolStripProfessionalRenderer(new DarkToolStripItemColors());
+            //	ToolStripManager.Renderer = new ToolStripProfessionalRenderer(new DarkToolStripItemColors());
+            //         }
+            //else
+            //{
+            //	ThemeHelper.ChangeControlTheme(_mainForm, ThemeHelper.WhiteDefault, null);
+            //	MainForm.ToolStripRender = null;
+            //	ToolStripManager.Renderer = null;
+            //}
+            
+        }
 	}
 }

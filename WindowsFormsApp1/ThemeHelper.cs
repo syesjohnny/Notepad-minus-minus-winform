@@ -59,7 +59,7 @@ public static class ThemeHelper
 			return new()
 			{
 				RichTextBoxForeground = DefaultWhite,
-				RichTextBoxBackground = DefaultDark,
+				RichTextBoxBackground = DefaultLightDark,
 				MenuStripForeground = DefaultWhite,
 				MenuStripBackground = DefaultDark,
 				ToolItemStripBackground = DefaultDark,
@@ -84,7 +84,7 @@ public static class ThemeHelper
 			return new()
 			{
 				RichTextBoxForeground = Color.Black,
-				RichTextBoxBackground = DefaultWhite,
+				RichTextBoxBackground = Color.FromArgb(233, 233, 233),
 				MenuStripForeground = Color.Black,
 				MenuStripBackground = DefaultWhite,
 				ToolItemStripForeground = Color.Black,
@@ -115,10 +115,10 @@ public static class ThemeHelper
 		switch (c)
 		{
 			case MenuStrip menu:
-				menu.ForeColor = color.MenuStripForeground;
+				//menu.ForeColor = color.MenuStripForeground;
 				menu.BackColor = color.MenuStripBackground;
 				// menu.RenderMode = ToolStripRenderMode.Custom;
-				menu.Renderer = render;
+				//menu.Renderer = render;
 				ChangeControlsTheme(menu.Items, color, render); // shit menu.Controls was zero for some reason
 				break;
 			case ToolStripMenuItem item:

@@ -1,23 +1,39 @@
-﻿using NotePadMinusMinus;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
+using Dark.Net;
+using NotePadMinusMinus;
+using static System.Windows.Forms.DataFormats;
 
-namespace WindowsFormsApp1
+namespace darknet_demo_winforms;
+
+internal static class Program
 {
-    internal static class Program
+
+    public static readonly ThemeOptions ThemeOptions = new() {};
+
+    [STAThread]
+    private static void Main()
     {
-        /// <summary>
-        /// 應用程式的主要進入點。
-        /// </summary>
-        [STAThread]
-        static void Main()
-        {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
-        }
+        Application.EnableVisualStyles();
+        Application.SetCompatibleTextRenderingDefault(false);
+
+        IDarkNet darkNet = DarkNet.Instance;
+        Theme processTheme = Theme.Auto;
+        darkNet.SetCurrentProcessTheme(processTheme, ThemeOptions);
+        Console.WriteLine($"Process theme is {processTheme}");
+
+        Form mainForm = new MainForm();
+        Theme windowTheme = Theme.Auto;
+        darkNet.SetWindowThemeForms(mainForm, windowTheme);
+        Console.WriteLine($"Window theme is {windowTheme}");
+
+        Console.WriteLine($"System theme is {(darkNet.UserDefaultAppThemeIsDark ? "Dark" : "Light")}");
+        Console.WriteLine($"Taskbar theme is {(darkNet.UserTaskbarThemeIsDark ? "Dark" : "Light")}");
+
+        darkNet.UserDefaultAppThemeIsDarkChanged += (_, isSystemDarkTheme) => Console.WriteLine($"System theme is {(isSystemDarkTheme ? "Dark" : "Light")}");
+        darkNet.UserTaskbarThemeIsDarkChanged += (_, isTaskbarDarkTheme) => Console.WriteLine($"Taskbar theme is {(isTaskbarDarkTheme ? "Dark" : "Light")}");
+
+        Application.Run(mainForm);
     }
+
 }
