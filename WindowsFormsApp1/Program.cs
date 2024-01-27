@@ -22,10 +22,7 @@ internal static class Program
         darkNet.SetCurrentProcessTheme(processTheme, ThemeOptions);
         Console.WriteLine($"Process theme is {processTheme}");
 
-        Form mainForm = new MainForm();
-        Theme windowTheme = Theme.Auto;
-        darkNet.SetWindowThemeForms(mainForm, windowTheme);
-        Console.WriteLine($"Window theme is {windowTheme}");
+        // Console.WriteLine($"Window theme is {windowTheme}");
 
         Console.WriteLine($"System theme is {(darkNet.UserDefaultAppThemeIsDark ? "Dark" : "Light")}");
         Console.WriteLine($"Taskbar theme is {(darkNet.UserTaskbarThemeIsDark ? "Dark" : "Light")}");
@@ -33,7 +30,7 @@ internal static class Program
         darkNet.UserDefaultAppThemeIsDarkChanged += (_, isSystemDarkTheme) => Console.WriteLine($"System theme is {(isSystemDarkTheme ? "Dark" : "Light")}");
         darkNet.UserTaskbarThemeIsDarkChanged += (_, isTaskbarDarkTheme) => Console.WriteLine($"Taskbar theme is {(isTaskbarDarkTheme ? "Dark" : "Light")}");
 
-        Application.Run(mainForm);
+        Application.Run(new MainFormContainer());
     }
 
 }

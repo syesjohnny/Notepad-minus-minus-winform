@@ -43,6 +43,7 @@ namespace NotePadMinusMinus
         private int _atChar = 0;
         private FileSaveChangeFlag _saveChangeFlag = FileSaveChangeFlag.NoChange;
         private string _currentFilePath = "";
+        private MainFormContainer _container;
         #endregion
 
         #region Properties
@@ -112,9 +113,10 @@ namespace NotePadMinusMinus
         #endregion
 
         #region Constructor
-        public MainForm()
+        public MainForm(MainFormContainer container)
         {
             InitializeComponent();
+            _container = container;
             DarkNet.Instance.EffectiveCurrentProcessThemeIsDarkChanged += (_, isDarkTheme) => RenderTheme(isDarkTheme);
             RenderTheme(DarkNet.Instance.EffectiveCurrentProcessThemeIsDark);
             CursorPosInfo = (1, 1, 1);
@@ -146,6 +148,7 @@ namespace NotePadMinusMinus
             OpenInMSNotepadMenuItem.Enabled = false;
             DeleteFileSubMenu.Enabled = false;
 
+            this.FormClosed += (_, _2) => _container.OnCloseFormChecking(this);
             SetTitle();
             IDarkNet darkNet = DarkNet.Instance;
             if ((darkNet.UserDefaultAppThemeIsDark ? "Dark" : "Light")=="Dark")
@@ -664,8 +667,9 @@ namespace NotePadMinusMinus
         #region Windows
         private void OpenNewWindow(object sender, EventArgs e)
         {
-            MainForm newForm = new();
+            MainForm newForm = new(_container);
             DarkNet.Instance.SetWindowThemeForms(newForm, Theme.Auto);
+            _container.AddNewForm(newForm);
             newForm.Show();
         }
         private void GoToMenuItem_Click(object sender, EventArgs e)
