@@ -112,7 +112,8 @@ public static class ThemeHelper
 	}
 	public static void ChangeControlTheme(object c, ThemeColors color, ToolStripRenderer? render)
 	{
-		switch (c)
+        Control.CheckForIllegalCrossThreadCalls = false;
+        switch (c)
 		{
 			case MenuStrip menu:
 				//menu.ForeColor = color.MenuStripForeground;

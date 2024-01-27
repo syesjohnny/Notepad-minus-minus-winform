@@ -147,6 +147,18 @@ namespace NotePadMinusMinus
             DeleteFileSubMenu.Enabled = false;
 
             SetTitle();
+            IDarkNet darkNet = DarkNet.Instance;
+            if ((darkNet.UserDefaultAppThemeIsDark ? "Dark" : "Light")=="Dark")
+            {
+                darkmode(true);
+            }
+            else
+            {
+                darkmode(false);
+            }
+            Theme theme = Theme.Auto;
+            DarkNet.Instance.SetCurrentProcessTheme(theme, Program.ThemeOptions);
+            darkNet.UserDefaultAppThemeIsDarkChanged += (_, isSystemDarkTheme) => changetheme(((darkNet.UserDefaultAppThemeIsDark ? "Dark" : "Light") == "Dark"),$"{theme}");
         }
         #endregion
 
@@ -167,6 +179,40 @@ namespace NotePadMinusMinus
         {
             BackColor = isDarkTheme ? Color.FromArgb(19, 19, 19) : Color.White;
             ForeColor = isDarkTheme ? Color.White : Color.Black;
+        }
+
+        private void darkmode(bool isDarkTheme)
+        {
+            if (isDarkTheme)
+            {
+                Theme theme = Theme.Dark;
+                DarkNet.Instance.SetCurrentProcessTheme(theme, Program.ThemeOptions);
+                ThemeHelper.ChangeControlTheme(this, ThemeHelper.DarkDefault, new ToolStripProfessionalRenderer(new DarkToolStripItemColors()));
+                ToolStripManager.Renderer = new ToolStripProfessionalRenderer(new CustomColorTable());
+            }
+            else
+            {
+                Theme theme = Theme.Light;
+                DarkNet.Instance.SetCurrentProcessTheme(theme, Program.ThemeOptions);
+                ThemeHelper.ChangeControlTheme(this, ThemeHelper.WhiteDefault, null);
+                ToolStripRender = null;
+                ToolStripManager.Renderer = null;
+            }
+        }
+
+        private void changetheme(bool isDarkTheme, string theme)
+        {
+            if (theme == "Auto")
+            {
+                if (isDarkTheme)
+                {
+                    darkmode(true);
+                }
+                else
+                {
+                    darkmode(false);
+                }
+            }
         }
         #endregion
 
@@ -839,13 +885,10 @@ namespace NotePadMinusMinus
         {
             darkModeToolStripMenuItem1.Checked = true;
             lightModeToolStripMenuItem.Checked = false;
-            Theme theme = Theme.Dark;
-            DarkNet.Instance.SetCurrentProcessTheme(theme, Program.ThemeOptions);
-            ThemeHelper.ChangeControlTheme(this, ThemeHelper.DarkDefault, new ToolStripProfessionalRenderer(new DarkToolStripItemColors()));
             //ToolStripRender = new ToolStripProfessionalRenderer(new DarkToolStripItemColors());
 
             //ToolStripManager.Renderer = new ToolStripProfessionalRenderer(new DarkToolStripItemColors());
-            ToolStripManager.Renderer = new ToolStripProfessionalRenderer(new CustomColorTable());
+            darkmode(true);
         }
 
 
@@ -854,11 +897,7 @@ namespace NotePadMinusMinus
         {
             darkModeToolStripMenuItem1.Checked = false;
             lightModeToolStripMenuItem.Checked = true;
-            Theme theme = Theme.Light;
-            DarkNet.Instance.SetCurrentProcessTheme(theme, Program.ThemeOptions);
-            ThemeHelper.ChangeControlTheme(this, ThemeHelper.WhiteDefault, null);
-            ToolStripRender = null;
-            ToolStripManager.Renderer = null;
+            darkmode(false);
         }
     }
     public class CustomColorTable : ProfessionalColorTable
