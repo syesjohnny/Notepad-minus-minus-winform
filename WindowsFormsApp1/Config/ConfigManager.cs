@@ -14,12 +14,16 @@ public static class ConfigManager
 #else
 	public static readonly FileInfo SaveFileLocatione = new(Environment.ExpandEnvironmentVariables(@"%HOME%/.local/NotePadMinusMinus/Settings.json"));
 #endif
-
+	public static bool IsFirstLaunch { get; private set; }
 	public static Config Config { get; set; }
 
 	static ConfigManager()
 	{
-		if (!SaveFileLocation.Directory!.Exists) SaveFileLocation.Directory!.Create();
+		if (!SaveFileLocation.Directory!.Exists)
+		{
+			IsFirstLaunch = true;
+			SaveFileLocation.Directory!.Create();
+		}
 		try
 		{
 			Config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(SaveFileLocation.FullName))!;

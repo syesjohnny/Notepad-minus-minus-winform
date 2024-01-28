@@ -735,14 +735,14 @@ namespace NotePadMinusMinus
             darkModeToolStripMenuItem1.Name = "darkModeToolStripMenuItem1";
             darkModeToolStripMenuItem1.Size = new System.Drawing.Size(173, 26);
             darkModeToolStripMenuItem1.Text = "Dark Mode";
-            darkModeToolStripMenuItem1.Click += darkModeToolStripMenuItem1_Click;
+            darkModeToolStripMenuItem1.Click += EnableDarkMode_Click;
             // 
             // lightModeToolStripMenuItem
             // 
             lightModeToolStripMenuItem.Name = "lightModeToolStripMenuItem";
             lightModeToolStripMenuItem.Size = new System.Drawing.Size(173, 26);
             lightModeToolStripMenuItem.Text = "Light Mode";
-            lightModeToolStripMenuItem.Click += lightModeToolStripMenuItem_Click;
+            lightModeToolStripMenuItem.Click += DisableDarkMode_Click;
             // 
             // EditingArea
             // 
