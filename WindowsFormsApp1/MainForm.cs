@@ -151,7 +151,7 @@ namespace NotePadMinusMinus
             this.FormClosed += (_, _2) => _container.OnCloseFormChecking(this);
             SetTitle();
             IDarkNet darkNet = DarkNet.Instance;
-            if ((darkNet.UserDefaultAppThemeIsDark ? "Dark" : "Light")=="Dark")
+            if ((darkNet.UserDefaultAppThemeIsDark ? "Dark" : "Light") == "Dark")
             {
                 darkmode(true);
             }
@@ -161,7 +161,7 @@ namespace NotePadMinusMinus
             }
             Theme theme = Theme.Auto;
             DarkNet.Instance.SetCurrentProcessTheme(theme, Program.ThemeOptions);
-            darkNet.UserDefaultAppThemeIsDarkChanged += (_, isSystemDarkTheme) => changetheme(((darkNet.UserDefaultAppThemeIsDark ? "Dark" : "Light") == "Dark"),$"{theme}");
+            darkNet.UserDefaultAppThemeIsDarkChanged += (_, isSystemDarkTheme) => changetheme(((darkNet.UserDefaultAppThemeIsDark ? "Dark" : "Light") == "Dark"), $"{theme}");
         }
         #endregion
 
