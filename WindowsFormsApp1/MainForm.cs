@@ -190,6 +190,9 @@ namespace NotePadMinusMinus
 
 		private void ToggleDarkMode()
 		{
+			// 調整dark mode: ConfigManager.Config.DarkMode = true/false
+			// 然後呼叫 ToggleDarkMode(), ok?
+			// 舉個例子 line 897 DisableDarkMode_Click()
 			if (ConfigManager.Config.DarkMode)
 			{
 				Theme theme = Theme.Dark;
@@ -204,22 +207,6 @@ namespace NotePadMinusMinus
 				ThemeHelper.ChangeControlTheme(this, ThemeHelper.WhiteDefault, null);
 				ToolStripRender = null;
 				ToolStripManager.Renderer = null;
-			}
-		}
-
-		private void ChangeTheme(bool isDarkTheme, string theme)
-		{
-			if (theme == "Auto")
-			{
-				if (isDarkTheme)
-				{
-					ConfigManager.Config.DarkMode = true;
-				}
-				else
-				{
-					ConfigManager.Config.DarkMode = false;
-				}
-				ToggleDarkMode();
 			}
 		}
 		#endregion
