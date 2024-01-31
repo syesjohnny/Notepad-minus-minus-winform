@@ -1,7 +1,7 @@
 [![](https://img.shields.io/github/license/johnny263/notepad-minus-minus?style=flat-square)](https://github.com/johnny263/notepad-minus-minus/master/LICENSE)
 [![Discord](https://img.shields.io/discord/1165154972665659412?style=flat-square&logo=discord&label=Discord)](https://discord.gg/gEYbTt4wwv)
 ## What is this?
-This is an open-source notepad based on notepad++ project (WIP)
+Notepad-- is an free open-source notepad application based on notepad++ (WIP)
 [**Full Changelog**](Changelog.md)
 > [!NOTE]
 > This project are still very WIP, if you find any issues/questions/suggestions feel free to ask in [Issues](https://github.com/johnny263/Notepad-minus-minus/issues) or [Discussions](https://github.com/johnny263/Notepad-minus-minus/discussions)
