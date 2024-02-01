@@ -7,10 +7,10 @@ Notepad-- is an free open-source notepad application based on notepad++ (WIP)
 > This project are still very WIP, if you find any issues/questions/suggestions feel free to ask in [Issues](https://github.com/johnny263/Notepad-minus-minus/issues) or [Discussions](https://github.com/johnny263/Notepad-minus-minus/discussions)
 
 ## Owner
-[@johnny263](https://github.com/johnny263) [@yt6983138](https://github.com/yt6983138)
+[@syesjohnny](https://github.com/syesjohnny) [@yt6983138](https://github.com/yt6983138)
 
 ## Collaborator
-[@yt6983138](https://github.com/yt6983138) [@johnny263](https://github.com/johnny263)
+[@yt6983138](https://github.com/yt6983138) [@johnny263](https://github.com/syesjohnny)
 
 ## Contributing
 ### Suggestions and bug reports
