@@ -164,44 +164,27 @@ namespace NotePadMinusMinus
             }
         }
         public static DiscordRPC DiscordRpc;
-        static void Main()
-        {
-            DiscordRpc = new DiscordRPC("1199263314107179071");
+        //static void Main()
+        //{
+            
 
-            // If you want to have everything logged.
-            DiscordRpc.Logger = new ConsoleLogger();
-            // It is required to initialize.                
-            DiscordRpc.Initialize();
-
-            DiscordRpc.SetPresence(new RichPresence()
-            {
-                Details = "Edit File",
-                State = string.IsNullOrEmpty(CurrentFilePath) ? "Unnamed" : Path.GetFileName(CurrentFilePath),
-
-                Assets = new Assets()
-                {
-                    LargeImageKey = "notepadfull",
-                    LargeImageText = "Notepad--",
-                    SmallImageKey = "oig4_-_",
-                    SmallImageText = "OWO"
-                },
-
-                Timestamps = Timestamps.Now,
-
-                Buttons = new NetDiscordRpc.RPC.Button[]
-                {
-                new() { Label = "Notepad Minus Minus Github", Url = "https://github.com/syesjohnny/notepad-minus-minus" }
-                }
-            });
-
-            DiscordRpc.Invoke();
-
-            // When using a console application this will prevent it from stopping it.
-            Console.ReadKey(true);
-        }
+        //    // When using a console application this will prevent it from stopping it.
+        //    Console.ReadKey(true);
+        //}
         #endregion
 
         #region Constructor
+        static MainForm()
+        {
+            // initalize static discord rpc
+			DiscordRpc = new DiscordRPC("1199263314107179071");
+
+			// If you want to have everything logged.
+			DiscordRpc.Logger = new ConsoleLogger();
+			// It is required to initialize.                
+			DiscordRpc.Initialize();
+		}
+
         public MainForm(MainFormContainer container)
         {
             InitializeComponent();
@@ -263,11 +246,37 @@ namespace NotePadMinusMinus
             }
 
 ;           darkNet.UserDefaultAppThemeIsDarkChanged += (_, isSystemDarkTheme) => { autotheme(); };
-        }
-        #endregion
 
-        #region Misc
-        private void SetTitle()
+			#region Discord rpc
+
+			DiscordRpc.SetPresence(new RichPresence()
+			{
+				Details = "Edit File",
+				State = string.IsNullOrEmpty(CurrentFilePath) ? "Unnamed" : Path.GetFileName(CurrentFilePath),
+
+				Assets = new Assets()
+				{
+					LargeImageKey = "notepadfull",
+					LargeImageText = "Notepad--",
+					SmallImageKey = "oig4_-_",
+					SmallImageText = "OWO"
+				},
+
+				Timestamps = Timestamps.Now,
+
+				Buttons = new NetDiscordRpc.RPC.Button[]
+				{
+				new() { Label = "Notepad Minus Minus Github", Url = "https://github.com/syesjohnny/notepad-minus-minus" }
+				}
+			});
+
+			DiscordRpc.Invoke();
+			#endregion
+		}
+		#endregion
+
+		#region Misc
+		private void SetTitle()
         {
             bool isEmpty = string.IsNullOrEmpty(CurrentFilePath);
             this.Text = string.Format(
