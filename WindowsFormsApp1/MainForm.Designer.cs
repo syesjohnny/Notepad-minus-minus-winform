@@ -31,6 +31,7 @@ namespace NotePadMinusMinus
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             contextMenuStrip1 = new ContextMenuStrip(components);
             undoToolStripMenuItem1 = new ToolStripMenuItem();
             redoToolStripMenuItem1 = new ToolStripMenuItem();
@@ -94,6 +95,7 @@ namespace NotePadMinusMinus
             LineOperationMenuItem = new ToolStripMenuItem();
             DuplicateLineMenuItem = new ToolStripMenuItem();
             removeDuplicateLinesMenuItem = new ToolStripMenuItem();
+            AutoSaveMenuItem = new ToolStripMenuItem();
             ViewMenu = new ToolStripMenuItem();
             ZoomSubMenu = new ToolStripMenuItem();
             ZoomInMenuItem = new ToolStripMenuItem();
@@ -113,9 +115,10 @@ namespace NotePadMinusMinus
             WikipediaSearchMenuItem = new ToolStripMenuItem();
             SettingMenuItem = new ToolStripMenuItem();
             preferencesToolStripMenuItem = new ToolStripMenuItem();
-            darkModeToolStripMenuItem = new ToolStripMenuItem();
-            darkModeToolStripMenuItem1 = new ToolStripMenuItem();
-            lightModeToolStripMenuItem = new ToolStripMenuItem();
+            DarkModeMenuItem = new ToolStripMenuItem();
+            darkModeSub = new ToolStripMenuItem();
+            lightModeSub = new ToolStripMenuItem();
+            AutoSub = new ToolStripMenuItem();
             EditingArea = new RichTextBox();
             CursorPosInfoText = new ToolStripLabel();
             ZoomInfoText = new ToolStripLabel();
@@ -329,7 +332,7 @@ namespace NotePadMinusMinus
             // 
             // EditMenu
             // 
-            EditMenu.DropDownItems.AddRange(new ToolStripItem[] { ActionUndoMenuItem, ActionRedoMenuItem, EditMenuSeparator1, ActionCutMenuItem, ActionCopyMenuItem, ActionPasteMenuItem, ActionDeleteMenuItem, ActionSelectAllMenuItem, EditMenuSeparator2, InsertDateTimeMenuItem, CopyToClipboardSubMenu, EditMenuSeparator3, GoToMenuItem, FindReplaceMenuItem, SearchInWebsiteMenuItem, EditMenuSeparator4, ReadonlyModeMenuItem, ConvertCaseMenuItem, LineOperationMenuItem });
+            EditMenu.DropDownItems.AddRange(new ToolStripItem[] { ActionUndoMenuItem, ActionRedoMenuItem, EditMenuSeparator1, ActionCutMenuItem, ActionCopyMenuItem, ActionPasteMenuItem, ActionDeleteMenuItem, ActionSelectAllMenuItem, EditMenuSeparator2, InsertDateTimeMenuItem, CopyToClipboardSubMenu, EditMenuSeparator3, GoToMenuItem, FindReplaceMenuItem, SearchInWebsiteMenuItem, EditMenuSeparator4, ReadonlyModeMenuItem, ConvertCaseMenuItem, LineOperationMenuItem, AutoSaveMenuItem });
             EditMenu.Name = "EditMenu";
             EditMenu.Size = new System.Drawing.Size(50, 24);
             EditMenu.Text = "Edit";
@@ -580,6 +583,14 @@ namespace NotePadMinusMinus
             removeDuplicateLinesMenuItem.Text = "Remove Duplicate Lines";
             removeDuplicateLinesMenuItem.Click += removeDuplicateLinesMenuItem_Click;
             // 
+            // AutoSaveMenuItem
+            // 
+            AutoSaveMenuItem.CheckOnClick = true;
+            AutoSaveMenuItem.Name = "AutoSaveMenuItem";
+            AutoSaveMenuItem.Size = new System.Drawing.Size(232, 26);
+            AutoSaveMenuItem.Text = "Auto Save";
+            AutoSaveMenuItem.Click += autoSaveToolStripMenuItem_Click;
+            // 
             // ViewMenu
             // 
             ViewMenu.DropDownItems.AddRange(new ToolStripItem[] { ZoomSubMenu, WordWarpToggleMenuItem, StatusToggleMenuItem, ViewMenuSeparator1, ShowLinksToggleItem, ViewMenuSeparator2, FullScreenToggleMenuItem, AlwaysOnTopToggleMenuItem });
@@ -686,32 +697,32 @@ namespace NotePadMinusMinus
             // 
             RunMenuItem.Name = "RunMenuItem";
             RunMenuItem.ShortcutKeys = Keys.F5;
-            RunMenuItem.Size = new System.Drawing.Size(224, 26);
+            RunMenuItem.Size = new System.Drawing.Size(213, 26);
             RunMenuItem.Text = "Run";
             RunMenuItem.Click += RunMenuItem_Click;
             // 
             // RunMenuSeparator1
             // 
             RunMenuSeparator1.Name = "RunMenuSeparator1";
-            RunMenuSeparator1.Size = new System.Drawing.Size(221, 6);
+            RunMenuSeparator1.Size = new System.Drawing.Size(210, 6);
             // 
             // GetPHPHelpMenuItem
             // 
             GetPHPHelpMenuItem.Name = "GetPHPHelpMenuItem";
-            GetPHPHelpMenuItem.Size = new System.Drawing.Size(224, 26);
+            GetPHPHelpMenuItem.Size = new System.Drawing.Size(213, 26);
             GetPHPHelpMenuItem.Text = "Get PHP Help";
             GetPHPHelpMenuItem.Click += GetPHPHelpMenuItem_Click;
             // 
             // WikipediaSearchMenuItem
             // 
             WikipediaSearchMenuItem.Name = "WikipediaSearchMenuItem";
-            WikipediaSearchMenuItem.Size = new System.Drawing.Size(224, 26);
+            WikipediaSearchMenuItem.Size = new System.Drawing.Size(213, 26);
             WikipediaSearchMenuItem.Text = "Wikipedia Search";
             WikipediaSearchMenuItem.Click += SearchInWikipediaMenuItem_Click;
             // 
             // SettingMenuItem
             // 
-            SettingMenuItem.DropDownItems.AddRange(new ToolStripItem[] { preferencesToolStripMenuItem, darkModeToolStripMenuItem });
+            SettingMenuItem.DropDownItems.AddRange(new ToolStripItem[] { preferencesToolStripMenuItem, DarkModeMenuItem });
             SettingMenuItem.Name = "SettingMenuItem";
             SettingMenuItem.Size = new System.Drawing.Size(73, 24);
             SettingMenuItem.Text = "Setting";
@@ -719,30 +730,37 @@ namespace NotePadMinusMinus
             // preferencesToolStripMenuItem
             // 
             preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-            preferencesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            preferencesToolStripMenuItem.Size = new System.Drawing.Size(173, 26);
             preferencesToolStripMenuItem.Text = "Preferences";
             preferencesToolStripMenuItem.Click += preferencesToolStripMenuItem_Click;
             // 
-            // darkModeToolStripMenuItem
+            // DarkModeMenuItem
             // 
-            darkModeToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { darkModeToolStripMenuItem1, lightModeToolStripMenuItem });
-            darkModeToolStripMenuItem.Name = "darkModeToolStripMenuItem";
-            darkModeToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            darkModeToolStripMenuItem.Text = "Dark Mode";
+            DarkModeMenuItem.DropDownItems.AddRange(new ToolStripItem[] { darkModeSub, lightModeSub, AutoSub });
+            DarkModeMenuItem.Name = "DarkModeMenuItem";
+            DarkModeMenuItem.Size = new System.Drawing.Size(173, 26);
+            DarkModeMenuItem.Text = "Dark Mode";
             // 
-            // darkModeToolStripMenuItem1
+            // darkModeSub
             // 
-            darkModeToolStripMenuItem1.Name = "darkModeToolStripMenuItem1";
-            darkModeToolStripMenuItem1.Size = new System.Drawing.Size(173, 26);
-            darkModeToolStripMenuItem1.Text = "Dark Mode";
-            darkModeToolStripMenuItem1.Click += EnableDarkMode_Click;
+            darkModeSub.Name = "darkModeSub";
+            darkModeSub.Size = new System.Drawing.Size(173, 26);
+            darkModeSub.Text = "Dark Mode";
+            darkModeSub.Click += EnableDarkMode_Click;
             // 
-            // lightModeToolStripMenuItem
+            // lightModeSub
             // 
-            lightModeToolStripMenuItem.Name = "lightModeToolStripMenuItem";
-            lightModeToolStripMenuItem.Size = new System.Drawing.Size(173, 26);
-            lightModeToolStripMenuItem.Text = "Light Mode";
-            lightModeToolStripMenuItem.Click += DisableDarkMode_Click;
+            lightModeSub.Name = "lightModeSub";
+            lightModeSub.Size = new System.Drawing.Size(173, 26);
+            lightModeSub.Text = "Light Mode";
+            lightModeSub.Click += DisableDarkMode_Click;
+            // 
+            // AutoSub
+            // 
+            AutoSub.Name = "AutoSub";
+            AutoSub.Size = new System.Drawing.Size(173, 26);
+            AutoSub.Text = "Auto";
+            AutoSub.Click += autoToolStripMenuItem_Click;
             // 
             // EditingArea
             // 
@@ -823,6 +841,7 @@ namespace NotePadMinusMinus
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(971, 533);
             Controls.Add(MainLayout);
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = TopMenuStrip;
             Margin = new Padding(3, 4, 3, 4);
             Name = "MainForm";
@@ -927,9 +946,11 @@ namespace NotePadMinusMinus
 		private ToolStripLabel DocInfoText;
 		public ToolStrip BottomToolStrip;
 		private TableLayoutPanel MainLayout;
-        private ToolStripMenuItem darkModeToolStripMenuItem;
-        private ToolStripMenuItem darkModeToolStripMenuItem1;
-        private ToolStripMenuItem lightModeToolStripMenuItem;
+        private ToolStripMenuItem DarkModeMenuItem;
+        private ToolStripMenuItem darkModeSub;
+        private ToolStripMenuItem lightModeSub;
+        private ToolStripMenuItem AutoSub;
+        private ToolStripMenuItem AutoSaveMenuItem;
     }
 }
 

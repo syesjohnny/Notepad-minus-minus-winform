@@ -20,105 +20,94 @@
 			base.Dispose(disposing);
 		}
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			OptionListBox = new System.Windows.Forms.ListBox();
-			StylePanel = new System.Windows.Forms.Panel();
-			TestTabPanel = new System.Windows.Forms.Panel();
-			TestTabPanelCheck = new System.Windows.Forms.CheckBox();
-			DarkThemeToggle = new System.Windows.Forms.CheckBox();
-			ColorSelect = new System.Windows.Forms.ColorDialog();
-			StylePanel.SuspendLayout();
-			TestTabPanel.SuspendLayout();
-			SuspendLayout();
-			// 
-			// OptionListBox
-			// 
-			OptionListBox.FormattingEnabled = true;
-			OptionListBox.ItemHeight = 15;
-			OptionListBox.Items.AddRange(new object[] { "Style", "Test Tab" });
-			OptionListBox.Location = new System.Drawing.Point(9, 9);
-			OptionListBox.Margin = new System.Windows.Forms.Padding(2);
-			OptionListBox.Name = "OptionListBox";
-			OptionListBox.Size = new System.Drawing.Size(118, 334);
-			OptionListBox.TabIndex = 0;
-			OptionListBox.SelectedIndexChanged += OnOptionListBoxChange;
-			// 
-			// StylePanel
-			// 
-			StylePanel.Controls.Add(DarkThemeToggle);
-			StylePanel.Controls.Add(TestTabPanel);
-			StylePanel.Location = new System.Drawing.Point(131, 9);
-			StylePanel.Margin = new System.Windows.Forms.Padding(2);
-			StylePanel.Name = "StylePanel";
-			StylePanel.Size = new System.Drawing.Size(474, 333);
-			StylePanel.TabIndex = 1;
-			// 
-			// TestTabPanel
-			// 
-			TestTabPanel.Controls.Add(TestTabPanelCheck);
-			TestTabPanel.Location = new System.Drawing.Point(0, 0);
-			TestTabPanel.Margin = new System.Windows.Forms.Padding(2);
-			TestTabPanel.Name = "TestTabPanel";
-			TestTabPanel.Size = new System.Drawing.Size(474, 333);
-			TestTabPanel.TabIndex = 3;
-			TestTabPanel.Visible = false;
-			// 
-			// TestTabPanelCheck
-			// 
-			TestTabPanelCheck.AutoSize = true;
-			TestTabPanelCheck.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-			TestTabPanelCheck.Location = new System.Drawing.Point(20, 22);
-			TestTabPanelCheck.Margin = new System.Windows.Forms.Padding(2);
-			TestTabPanelCheck.Name = "TestTabPanelCheck";
-			TestTabPanelCheck.Size = new System.Drawing.Size(46, 19);
-			TestTabPanelCheck.TabIndex = 2;
-			TestTabPanelCheck.Text = "Test";
-			TestTabPanelCheck.UseVisualStyleBackColor = true;
-			// 
-			// DarkThemeToggle
-			// 
-			DarkThemeToggle.AutoSize = true;
-			DarkThemeToggle.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-			DarkThemeToggle.Location = new System.Drawing.Point(20, 22);
-			DarkThemeToggle.Margin = new System.Windows.Forms.Padding(2);
-			DarkThemeToggle.Name = "DarkThemeToggle";
-			DarkThemeToggle.Size = new System.Drawing.Size(84, 19);
-			DarkThemeToggle.TabIndex = 2;
-			DarkThemeToggle.Text = "Dark Mode";
-			DarkThemeToggle.UseVisualStyleBackColor = true;
-			DarkThemeToggle.CheckedChanged += ToggleDarkTheme;
-			// 
-			// Preferences
-			// 
-			AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-			AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			ClientSize = new System.Drawing.Size(622, 355);
-			Controls.Add(StylePanel);
-			Controls.Add(OptionListBox);
-			Margin = new System.Windows.Forms.Padding(2);
-			Name = "Preferences";
-			Text = "Preferences";
-			StylePanel.ResumeLayout(false);
-			StylePanel.PerformLayout();
-			TestTabPanel.ResumeLayout(false);
-			TestTabPanel.PerformLayout();
-			ResumeLayout(false);
-		}
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            OptionListBox = new System.Windows.Forms.ListBox();
+            ColorSelect = new System.Windows.Forms.ColorDialog();
+            SettingTabPanel = new System.Windows.Forms.Panel();
+            loadsetting = new System.Windows.Forms.Button();
+            savesetting = new System.Windows.Forms.Button();
+            Hint = new System.Windows.Forms.Label();
+            SettingTabPanel.SuspendLayout();
+            SuspendLayout();
+            // 
+            // OptionListBox
+            // 
+            OptionListBox.FormattingEnabled = true;
+            OptionListBox.ItemHeight = 19;
+            OptionListBox.Items.AddRange(new object[] { "Settings" });
+            OptionListBox.Location = new System.Drawing.Point(12, 11);
+            OptionListBox.Name = "OptionListBox";
+            OptionListBox.Size = new System.Drawing.Size(151, 403);
+            OptionListBox.TabIndex = 0;
+            OptionListBox.SelectedIndexChanged += OnOptionListBoxChange;
+            // 
+            // SettingTabPanel
+            // 
+            SettingTabPanel.Controls.Add(loadsetting);
+            SettingTabPanel.Controls.Add(savesetting);
+            SettingTabPanel.Location = new System.Drawing.Point(169, 14);
+            SettingTabPanel.Name = "SettingTabPanel";
+            SettingTabPanel.Size = new System.Drawing.Size(609, 400);
+            SettingTabPanel.TabIndex = 3;
+            SettingTabPanel.Visible = false;
+            // 
+            // loadsetting
+            // 
+            loadsetting.Location = new System.Drawing.Point(18, 61);
+            loadsetting.Name = "loadsetting";
+            loadsetting.Size = new System.Drawing.Size(118, 29);
+            loadsetting.TabIndex = 1;
+            loadsetting.Text = "Load Settings";
+            loadsetting.UseVisualStyleBackColor = true;
+            loadsetting.Click += loadsetting_Click;
+            // 
+            // savesetting
+            // 
+            savesetting.Location = new System.Drawing.Point(18, 15);
+            savesetting.Name = "savesetting";
+            savesetting.Size = new System.Drawing.Size(118, 29);
+            savesetting.TabIndex = 0;
+            savesetting.Text = "Save Settings";
+            savesetting.UseVisualStyleBackColor = true;
+            // 
+            // Hint
+            // 
+            Hint.AutoSize = true;
+            Hint.Location = new System.Drawing.Point(12, 422);
+            Hint.Name = "Hint";
+            Hint.Size = new System.Drawing.Size(51, 19);
+            Hint.TabIndex = 2;
+            Hint.Text = "label1";
+            // 
+            // Preferences
+            // 
+            AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(800, 450);
+            Controls.Add(Hint);
+            Controls.Add(SettingTabPanel);
+            Controls.Add(OptionListBox);
+            Name = "Preferences";
+            Text = "Preferences";
+            SettingTabPanel.ResumeLayout(false);
+            ResumeLayout(false);
+            PerformLayout();
+        }
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.ListBox OptionListBox;
-		private System.Windows.Forms.Panel StylePanel;
+        private System.Windows.Forms.ListBox OptionListBox;
 		private System.Windows.Forms.ColorDialog ColorSelect;
-		private System.Windows.Forms.CheckBox DarkThemeToggle;
-		private System.Windows.Forms.Panel TestTabPanel;
-		private System.Windows.Forms.CheckBox TestTabPanelCheck;
-	}
+        private System.Windows.Forms.Panel SettingTabPanel;
+        private System.Windows.Forms.Button loadsetting;
+        private System.Windows.Forms.Button savesetting;
+        private System.Windows.Forms.Label Hint;
+    }
 }

@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 namespace NotePadMinusMinus;
 public class Config
 {
-	public bool DarkMode { get; set; } = false;
-	// add more entries here
+	public string DarkMode { get; set; } = "auto";
+	public bool WordWrap {get; set;} = true;
+	public bool Status { get; set; } = true;
+	public bool ShowLinks { get; set; } = false;
+	public bool AutoSave { get; set; } = false;
+    // add more entries here
 }

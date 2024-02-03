@@ -10,9 +10,9 @@ namespace NotePadMinusMinus;
 public static class ConfigManager
 {
 #if WINDOWS
-	public static readonly FileInfo SaveFileLocation = new(Environment.ExpandEnvironmentVariables(@"%APPDATA%\NotePadMinusMinus\Settings.json"));
+	public static readonly FileInfo SaveFileLocation = new(Environment.ExpandEnvironmentVariables(@"%APPDATA%\NotePad--\Settings.json"));
 #else
-	public static readonly FileInfo SaveFileLocatione = new(Environment.ExpandEnvironmentVariables(@"%HOME%/.local/NotePadMinusMinus/Settings.json"));
+	public static readonly FileInfo SaveFileLocatione = new(Environment.ExpandEnvironmentVariables(@"%HOME%/.local/NotePad--/Settings.json"));
 #endif
 	public static bool IsFirstLaunch { get; private set; }
 	public static Config Config { get; set; }
