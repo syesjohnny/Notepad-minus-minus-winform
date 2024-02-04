@@ -1,4 +1,4 @@
-<img src="images/icon.jpg" alt="Notepad--" align="right" width="128px"></img>
+<img src="img/icon.jpg" alt="Notepad--" align="right" width="128px"></img>
 [![](https://img.shields.io/github/license/johnny263/notepad-minus-minus?style=flat-square)](https://github.com/syesjohnny/notepad-minus-minus/master/LICENSE)
 [![Discord](https://img.shields.io/discord/1165154972665659412?style=flat-square&logo=discord&label=Discord)](https://discord.gg/gEYbTt4wwv)
 ![](https://img.shields.io/github/downloads/syesjohnny/Notepad-minus-minus/total?style=flat-square)
