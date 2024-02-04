@@ -20,8 +20,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.AxHost;
 using static System.Windows.Forms.LinkLabel;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 
 namespace NotePadMinusMinus
@@ -69,6 +71,19 @@ namespace NotePadMinusMinus
             {
                 _currentFilePath = value;
                 SetTitle();
+                Console.Write(value);
+                if (string.IsNullOrEmpty(_currentFilePath))
+                {
+                    DiscordRpc.UpdateDetails("Editing File: Unnamed");
+                }
+                else
+                {
+                    DiscordRpc.UpdateDetails($"Editing File: {Path.GetFileName(value)}");
+                }
+                DiscordRpc.UpdateTimestamps(new Timestamps()
+                {
+                    Start = DateTime.UtcNow,
+                });
             }
         }
         public FileSaveChangeFlag SaveChangeFlag
@@ -204,10 +219,10 @@ namespace NotePadMinusMinus
             redoToolStripMenuItem1.Enabled = false;
 
             bool isFilePathEmpty = string.IsNullOrEmpty(CurrentFilePath);
-            CopyDirectoryWithFileMenuItem.Enabled = isFilePathEmpty;
-            CopyFileMenuItem.Enabled = isFilePathEmpty;
-            CopyDirectoryOnlyMenuItem.Enabled = isFilePathEmpty;
             OpenFileFolderSubMenu.Enabled = isFilePathEmpty;
+            ReOpenMenuItem.Enabled = isFilePathEmpty;
+            OpenInMSNotepadMenuItem.Enabled = isFilePathEmpty;
+            DeleteFileSubMenu.Enabled = isFilePathEmpty;
             CopyToClipboardSubMenu.Enabled = isFilePathEmpty;
 
             ActionPasteMenuItem.Enabled = Clipboard.ContainsText();
@@ -251,9 +266,10 @@ namespace NotePadMinusMinus
 
 			DiscordRpc.SetPresence(new RichPresence()
 			{
-				Details = "Edit File",
-				State = string.IsNullOrEmpty(CurrentFilePath) ? "Unnamed" : Path.GetFileName(CurrentFilePath),
 
+				Details = "Editing File: "+ (string.IsNullOrEmpty(CurrentFilePath) ? "Unnamed" : Path.GetFileName(CurrentFilePath)),
+                State = $"{EditingArea.TextLength} characters",
+                
 				Assets = new Assets()
 				{
 					LargeImageKey = "notepadfull",
@@ -287,6 +303,10 @@ namespace NotePadMinusMinus
                 CurrentFilePath,
                 isEmpty ? "" : ")"
             );
+        }
+        private void updateRPC()
+        {
+            DiscordRpc.UpdateState($"{EditingArea.TextLength} characters");
         }
         private void RenderTheme(bool isDarkTheme)
         {
@@ -380,12 +400,11 @@ namespace NotePadMinusMinus
                 CurrentFilePath = saveFileDialog.FileName;
                 EditingArea.SaveFile(saveFileDialog.FileName, RichTextBoxStreamType.PlainText);
                 SaveChangeFlag = 0;
-                CopyDirectoryWithFileMenuItem.Enabled = (CurrentFilePath != "");
-                CopyFileMenuItem.Enabled = (CurrentFilePath != "");
-                CopyDirectoryOnlyMenuItem.Enabled = (CurrentFilePath != "");
-                DeleteFileSubMenu.Enabled = (CurrentFilePath != "");
-                OpenFileFolderSubMenu.Enabled = (CurrentFilePath != "");
-                CopyToClipboardSubMenu.Enabled = (CurrentFilePath != "");
+                OpenFileFolderSubMenu.Enabled = true;
+                ReOpenMenuItem.Enabled = true;
+                OpenInMSNotepadMenuItem.Enabled = true;
+                DeleteFileSubMenu.Enabled = true;
+                CopyToClipboardSubMenu.Enabled = true;
             }
         }
         private void OpenFileEvent(object sender, EventArgs e)
@@ -416,6 +435,7 @@ namespace NotePadMinusMinus
                 int charCount = EditingArea.TextLength;
                 int lineCount = EditingArea.Lines.Length;
                 DocumentLengthInfo = (charCount, lineCount);
+                updateRPC();
             }
         }
         private bool SaveFile()
@@ -435,12 +455,11 @@ namespace NotePadMinusMinus
                     {
                         streamWriter.Write(EditingArea.Text);
                         SaveChangeFlag = 0;
-                        CopyDirectoryWithFileMenuItem.Enabled = (CurrentFilePath != "");
-                        CopyFileMenuItem.Enabled = (CurrentFilePath != "");
-                        CopyDirectoryOnlyMenuItem.Enabled = (CurrentFilePath != "");
-                        DeleteFileSubMenu.Enabled = (CurrentFilePath != "");
-                        OpenFileMenuItem.Enabled = (CurrentFilePath != "");
-                        CopyToClipboardSubMenu.Enabled = (CurrentFilePath != "");
+                        OpenFileFolderSubMenu.Enabled = true;
+                        ReOpenMenuItem.Enabled = true;
+                        OpenInMSNotepadMenuItem.Enabled = true;
+                        DeleteFileSubMenu.Enabled = true;
+                        CopyToClipboardSubMenu.Enabled = true;
                     }
                 }
                 else
@@ -478,6 +497,7 @@ namespace NotePadMinusMinus
             int charCount = EditingArea.TextLength;
             int lineCount = EditingArea.Lines.Length;
             DocumentLengthInfo = (charCount, lineCount);
+            updateRPC();
         }
         private void RemoveFileMenuItem_Click(object sender, EventArgs e)
         {
@@ -491,6 +511,7 @@ namespace NotePadMinusMinus
             int charCount = EditingArea.TextLength;
             int lineCount = EditingArea.Lines.Length;
             DocumentLengthInfo = (charCount, lineCount);
+            updateRPC();
         }
         private void OpenInExplorer(object sender, EventArgs e)
         {
@@ -534,7 +555,7 @@ namespace NotePadMinusMinus
             int charCount = EditingArea.TextLength;
             int lineCount = EditingArea.Lines.Length;
             DocumentLengthInfo = (charCount, lineCount);
-
+            updateRPC();
 
         }
         #endregion
@@ -615,16 +636,14 @@ namespace NotePadMinusMinus
             ActionRedoMenuItem.Enabled = EditingArea.CanRedo;
             redoToolStripMenuItem1.Enabled = EditingArea.CanRedo;
             bool isPathEmpty = string.IsNullOrEmpty(CurrentFilePath);
-            ReOpenMenuItem.Enabled = isPathEmpty;
-            OpenInMSNotepadMenuItem.Enabled = isPathEmpty;
-            CopyDirectoryWithFileMenuItem.Enabled = isPathEmpty;
-            CopyFileMenuItem.Enabled = isPathEmpty;
-            CopyDirectoryOnlyMenuItem.Enabled = isPathEmpty;
-            OpenFileFolderSubMenu.Enabled = isPathEmpty;
-            CopyToClipboardSubMenu.Enabled = isPathEmpty;
-            OpenFileMenuItem.Enabled = isPathEmpty;
+            OpenFileFolderSubMenu.Enabled = !isPathEmpty;
+            ReOpenMenuItem.Enabled = !isPathEmpty;
+            OpenInMSNotepadMenuItem.Enabled = !isPathEmpty;
+            DeleteFileSubMenu.Enabled = !isPathEmpty;
+            CopyToClipboardSubMenu.Enabled = !isPathEmpty;
             ActionPasteMenuItem.Enabled = Clipboard.ContainsText() == true;
             pasteToolStripMenuItem1.Enabled = Clipboard.ContainsText() == true;
+            updateRPC();
         }
         private void EditingAreaOnSelectionChange(object sender, EventArgs e)
         {

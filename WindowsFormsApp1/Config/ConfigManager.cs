@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Newtonsoft.Json;
 
 namespace NotePadMinusMinus;
@@ -41,5 +42,33 @@ public static class ConfigManager
 	public static void WriteConfig()
 	{
 		File.WriteAllText(SaveFileLocation.FullName, JsonConvert.SerializeObject(Config));
+	}
+    public static bool GetConfig()
+	{
+        if (SaveFileLocation.Directory!.Exists)
+        {
+            SaveFileDialog saveFileDialog = new()
+            {
+                Filter = "JavaScript Object Notation Files (*.json)|*.json|All Files (*.*)|*.*",
+                Title = "Save File"
+            };
+
+			if (saveFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				using (StreamWriter streamWriter = new(saveFileDialog.FileName))
+				{
+                    streamWriter.Write(File.ReadAllText(SaveFileLocation.FullName));
+                    return true;
+				}
+			}
+			else
+			{
+				return false;
+			}
+        }
+		else
+		{
+			return false;
+		}
 	}
 }

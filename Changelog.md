@@ -1,6 +1,33 @@
 
 # Change Log
 All notable changes to this project will be documented in this file. 
+## [0.0.3.0] - (Early Access)
+### **Added**
+**Edit**
+- Auto Save
+- Case changer
+- Search in website
+- Config saver ([#5](https://github.com/syesjohnny/Notepad-minus-minus/issues/5))
+- Go to Ignore overflow mode
+- Find/Replace (Experimental)
+- Line operation (Experimental)
+
+**Add Setting With**
+- Preference
+- Dark mode (Experimental)
+
+**misc**
+- Add icon for application
+- Discord RPC
+### **Enhance**
+- Better Visual 
+- Better go to layout
+- Fully Renamed IDs and organize
+### Fixed
+- Visual bug
+- Word warp error ([#1](https://github.com/syesjohnny/Notepad-minus-minus/issues/1))
+- Spelling errors ([#2](https://github.com/syesjohnny/Notepad-minus-minus/issues/2))
+- Closing windows error ([#4](https://github.com/syesjohnny/Notepad-minus-minus/issues/4))
 
 ## [0.0.2.0] - 2024/1/19 (Early Access)
 ### **Added**
@@ -16,7 +43,7 @@ All notable changes to this project will be documented in this file.
 **Add Run With**
 - Run
 - PHP help/Wikipedia Search
-### Changed
+### Enhance
 - some buttons position
 ### Fixed
 - Visual bug
@@ -49,5 +76,5 @@ All notable changes to this project will be documented in this file.
 - Length/Lines
 - Zoom Size
 
-### Changed
+### Enhance
 ### Fixed

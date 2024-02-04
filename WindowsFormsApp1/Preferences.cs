@@ -75,7 +75,19 @@ namespace NotePadMinusMinus
                 Hint.Visible = true;
                 Hint.Text = "Restart Notepad-- to apply changes";
             }
-            
+
+        }
+
+        private void savesetting_Click(object sender, EventArgs e)
+        {
+            if (ConfigManager.GetConfig())
+            {
+
+            }
+            else
+            {
+                MessageBox.Show("test");
+            }
         }
     }
 }

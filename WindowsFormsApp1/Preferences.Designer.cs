@@ -76,6 +76,7 @@
             savesetting.TabIndex = 0;
             savesetting.Text = "Save Settings";
             savesetting.UseVisualStyleBackColor = true;
+            savesetting.Click += savesetting_Click;
             // 
             // Hint
             // 
