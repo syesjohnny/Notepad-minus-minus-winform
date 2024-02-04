@@ -20,130 +20,140 @@
 			base.Dispose(disposing);
 		}
 
-        #region Windows Form Designer generated code
+		#region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
-            OptionListBox = new System.Windows.Forms.ListBox();
-            ColorSelect = new System.Windows.Forms.ColorDialog();
-            SettingTabPanel = new System.Windows.Forms.Panel();
-            discordrpcpanel = new System.Windows.Forms.Panel();
-            showname = new System.Windows.Forms.CheckBox();
-            enablerpc = new System.Windows.Forms.CheckBox();
-            loadsetting = new System.Windows.Forms.Button();
-            savesetting = new System.Windows.Forms.Button();
-            Hint = new System.Windows.Forms.Label();
-            SettingTabPanel.SuspendLayout();
-            discordrpcpanel.SuspendLayout();
-            SuspendLayout();
-            // 
-            // OptionListBox
-            // 
-            OptionListBox.FormattingEnabled = true;
-            OptionListBox.ItemHeight = 19;
-            OptionListBox.Items.AddRange(new object[] { "Settings", "Discord RPC", "Experimentals" });
-            OptionListBox.Location = new System.Drawing.Point(12, 11);
-            OptionListBox.Name = "OptionListBox";
-            OptionListBox.Size = new System.Drawing.Size(151, 403);
-            OptionListBox.TabIndex = 0;
-            OptionListBox.SelectedIndexChanged += OnOptionListBoxChange;
-            // 
-            // SettingTabPanel
-            // 
-            SettingTabPanel.Controls.Add(discordrpcpanel);
-            SettingTabPanel.Controls.Add(loadsetting);
-            SettingTabPanel.Controls.Add(savesetting);
-            SettingTabPanel.Location = new System.Drawing.Point(169, 14);
-            SettingTabPanel.Name = "SettingTabPanel";
-            SettingTabPanel.Size = new System.Drawing.Size(609, 400);
-            SettingTabPanel.TabIndex = 3;
-            SettingTabPanel.Visible = false;
-            // 
-            // discordrpcpanel
-            // 
-            discordrpcpanel.Controls.Add(showname);
-            discordrpcpanel.Controls.Add(enablerpc);
-            discordrpcpanel.Location = new System.Drawing.Point(0, 0);
-            discordrpcpanel.Name = "discordrpcpanel";
-            discordrpcpanel.Size = new System.Drawing.Size(609, 400);
-            discordrpcpanel.TabIndex = 4;
-            // 
-            // showname
-            // 
-            showname.AutoSize = true;
-            showname.Location = new System.Drawing.Point(18, 50);
-            showname.Name = "showname";
-            showname.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            showname.Size = new System.Drawing.Size(144, 23);
-            showname.TabIndex = 1;
-            showname.Text = "Show File Name";
-            showname.UseVisualStyleBackColor = true;
-            // 
-            // enablerpc
-            // 
-            enablerpc.AutoSize = true;
-            enablerpc.Location = new System.Drawing.Point(18, 21);
-            enablerpc.Name = "enablerpc";
-            enablerpc.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            enablerpc.Size = new System.Drawing.Size(77, 23);
-            enablerpc.TabIndex = 0;
-            enablerpc.Text = "Enable";
-            enablerpc.UseVisualStyleBackColor = true;
-            enablerpc.CheckedChanged += enablerpc_CheckedChanged;
-            // 
-            // loadsetting
-            // 
-            loadsetting.Location = new System.Drawing.Point(18, 61);
-            loadsetting.Name = "loadsetting";
-            loadsetting.Size = new System.Drawing.Size(118, 29);
-            loadsetting.TabIndex = 1;
-            loadsetting.Text = "Load Settings";
-            loadsetting.UseVisualStyleBackColor = true;
-            loadsetting.Click += loadsetting_Click;
-            // 
-            // savesetting
-            // 
-            savesetting.Location = new System.Drawing.Point(18, 15);
-            savesetting.Name = "savesetting";
-            savesetting.Size = new System.Drawing.Size(118, 29);
-            savesetting.TabIndex = 0;
-            savesetting.Text = "Save Settings";
-            savesetting.UseVisualStyleBackColor = true;
-            savesetting.Click += savesetting_Click;
-            // 
-            // Hint
-            // 
-            Hint.AutoSize = true;
-            Hint.Location = new System.Drawing.Point(12, 422);
-            Hint.Name = "Hint";
-            Hint.Size = new System.Drawing.Size(51, 19);
-            Hint.TabIndex = 2;
-            Hint.Text = "label1";
-            // 
-            // Preferences
-            // 
-            AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(800, 450);
-            Controls.Add(Hint);
-            Controls.Add(SettingTabPanel);
-            Controls.Add(OptionListBox);
-            Name = "Preferences";
-            Text = "Preferences";
-            SettingTabPanel.ResumeLayout(false);
-            discordrpcpanel.ResumeLayout(false);
-            discordrpcpanel.PerformLayout();
-            ResumeLayout(false);
-            PerformLayout();
-        }
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
+		{
+			this.OptionListBox = new System.Windows.Forms.ListBox();
+			this.ColorSelect = new System.Windows.Forms.ColorDialog();
+			this.SettingTabPanel = new System.Windows.Forms.Panel();
+			this.discordrpcpanel = new System.Windows.Forms.Panel();
+			this.showname = new System.Windows.Forms.CheckBox();
+			this.enablerpc = new System.Windows.Forms.CheckBox();
+			this.loadsetting = new System.Windows.Forms.Button();
+			this.savesetting = new System.Windows.Forms.Button();
+			this.Hint = new System.Windows.Forms.Label();
+			this.SettingTabPanel.SuspendLayout();
+			this.discordrpcpanel.SuspendLayout();
+			this.SuspendLayout();
+			// 
+			// OptionListBox
+			// 
+			this.OptionListBox.FormattingEnabled = true;
+			this.OptionListBox.ItemHeight = 15;
+			this.OptionListBox.Items.AddRange(new object[] { "Settings", "Discord RPC", "Experimentals" });
+			this.OptionListBox.Location = new System.Drawing.Point(9, 9);
+			this.OptionListBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.OptionListBox.Name = "OptionListBox";
+			this.OptionListBox.Size = new System.Drawing.Size(118, 319);
+			this.OptionListBox.TabIndex = 0;
+			this.OptionListBox.SelectedIndexChanged += this.OnOptionListBoxChange;
+			// 
+			// SettingTabPanel
+			// 
+			this.SettingTabPanel.Controls.Add(this.loadsetting);
+			this.SettingTabPanel.Controls.Add(this.savesetting);
+			this.SettingTabPanel.Location = new System.Drawing.Point(131, 9);
+			this.SettingTabPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.SettingTabPanel.Name = "SettingTabPanel";
+			this.SettingTabPanel.Size = new System.Drawing.Size(474, 316);
+			this.SettingTabPanel.TabIndex = 3;
+			this.SettingTabPanel.Visible = false;
+			// 
+			// discordrpcpanel
+			// 
+			this.discordrpcpanel.Controls.Add(this.showname);
+			this.discordrpcpanel.Controls.Add(this.enablerpc);
+			this.discordrpcpanel.Location = new System.Drawing.Point(131, 9);
+			this.discordrpcpanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.discordrpcpanel.Name = "discordrpcpanel";
+			this.discordrpcpanel.Size = new System.Drawing.Size(474, 316);
+			this.discordrpcpanel.TabIndex = 4;
+			this.discordrpcpanel.Visible = false;
+			// 
+			// showname
+			// 
+			this.showname.AutoSize = true;
+			this.showname.Location = new System.Drawing.Point(14, 39);
+			this.showname.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.showname.Name = "showname";
+			this.showname.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+			this.showname.Size = new System.Drawing.Size(111, 19);
+			this.showname.TabIndex = 1;
+			this.showname.Text = "Show File Name";
+			this.showname.UseVisualStyleBackColor = true;
+			// 
+			// enablerpc
+			// 
+			this.enablerpc.AutoSize = true;
+			this.enablerpc.Location = new System.Drawing.Point(14, 17);
+			this.enablerpc.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.enablerpc.Name = "enablerpc";
+			this.enablerpc.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+			this.enablerpc.Size = new System.Drawing.Size(61, 19);
+			this.enablerpc.TabIndex = 0;
+			this.enablerpc.Text = "Enable";
+			this.enablerpc.UseVisualStyleBackColor = true;
+			this.enablerpc.CheckedChanged += this.enablerpc_CheckedChanged;
+			// 
+			// loadsetting
+			// 
+			this.loadsetting.Location = new System.Drawing.Point(14, 48);
+			this.loadsetting.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.loadsetting.Name = "loadsetting";
+			this.loadsetting.Size = new System.Drawing.Size(92, 23);
+			this.loadsetting.TabIndex = 1;
+			this.loadsetting.Text = "Load Settings";
+			this.loadsetting.UseVisualStyleBackColor = true;
+			this.loadsetting.Click += this.loadsetting_Click;
+			// 
+			// savesetting
+			// 
+			this.savesetting.Location = new System.Drawing.Point(14, 12);
+			this.savesetting.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.savesetting.Name = "savesetting";
+			this.savesetting.Size = new System.Drawing.Size(92, 23);
+			this.savesetting.TabIndex = 0;
+			this.savesetting.Text = "Save Settings";
+			this.savesetting.UseVisualStyleBackColor = true;
+			this.savesetting.Click += this.savesetting_Click;
+			// 
+			// Hint
+			// 
+			this.Hint.AutoSize = true;
+			this.Hint.Location = new System.Drawing.Point(9, 333);
+			this.Hint.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.Hint.Name = "Hint";
+			this.Hint.Size = new System.Drawing.Size(38, 15);
+			this.Hint.TabIndex = 2;
+			this.Hint.Text = "label1";
+			// 
+			// Preferences
+			// 
+			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.ClientSize = new System.Drawing.Size(622, 355);
+			this.Controls.Add(this.discordrpcpanel);
+			this.Controls.Add(this.Hint);
+			this.Controls.Add(this.SettingTabPanel);
+			this.Controls.Add(this.OptionListBox);
+			this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.Name = "Preferences";
+			this.Text = "Preferences";
+			this.SettingTabPanel.ResumeLayout(false);
+			this.discordrpcpanel.ResumeLayout(false);
+			this.discordrpcpanel.PerformLayout();
+			this.ResumeLayout(false);
+			this.PerformLayout();
+		}
 
-        #endregion
+		#endregion
 
-        private System.Windows.Forms.ListBox OptionListBox;
+		private System.Windows.Forms.ListBox OptionListBox;
 		private System.Windows.Forms.ColorDialog ColorSelect;
         private System.Windows.Forms.Panel SettingTabPanel;
         private System.Windows.Forms.Button loadsetting;
