@@ -125,6 +125,9 @@ namespace NotePadMinusMinus
             DocInfoText = new ToolStripLabel();
             BottomToolStrip = new ToolStrip();
             MainLayout = new TableLayoutPanel();
+            toolStripMenuItem1 = new ToolStripMenuItem();
+            AboutMenuItem = new ToolStripMenuItem();
+            WhatNewMenuItem = new ToolStripMenuItem();
             contextMenuStrip1.SuspendLayout();
             TopMenuStrip.SuspendLayout();
             BottomToolStrip.SuspendLayout();
@@ -192,7 +195,7 @@ namespace NotePadMinusMinus
             TopMenuStrip.BackColor = System.Drawing.Color.FromArgb(248, 248, 248);
             TopMenuStrip.Dock = DockStyle.Fill;
             TopMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
-            TopMenuStrip.Items.AddRange(new ToolStripItem[] { FileMenu, EditMenu, ViewMenu, RunMenu, SettingMenuItem });
+            TopMenuStrip.Items.AddRange(new ToolStripItem[] { FileMenu, EditMenu, ViewMenu, RunMenu, SettingMenuItem, toolStripMenuItem1 });
             TopMenuStrip.Location = new System.Drawing.Point(0, 0);
             TopMenuStrip.Name = "TopMenuStrip";
             TopMenuStrip.Padding = new Padding(6, 3, 0, 3);
@@ -835,6 +838,25 @@ namespace NotePadMinusMinus
             MainLayout.Size = new System.Drawing.Size(971, 533);
             MainLayout.TabIndex = 3;
             // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { AboutMenuItem, WhatNewMenuItem });
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new System.Drawing.Size(30, 24);
+            toolStripMenuItem1.Text = "?";
+            // 
+            // AboutMenuItem
+            // 
+            AboutMenuItem.Name = "AboutMenuItem";
+            AboutMenuItem.Size = new System.Drawing.Size(224, 26);
+            AboutMenuItem.Text = "About";
+            // 
+            // WhatNewMenuItem
+            // 
+            WhatNewMenuItem.Name = "WhatNewMenuItem";
+            WhatNewMenuItem.Size = new System.Drawing.Size(224, 26);
+            WhatNewMenuItem.Text = "What's New?";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
@@ -951,6 +973,9 @@ namespace NotePadMinusMinus
         private ToolStripMenuItem lightModeSub;
         private ToolStripMenuItem AutoSub;
         private ToolStripMenuItem AutoSaveMenuItem;
+        private ToolStripMenuItem toolStripMenuItem1;
+        private ToolStripMenuItem AboutMenuItem;
+        private ToolStripMenuItem WhatNewMenuItem;
     }
 }
 

@@ -31,17 +31,21 @@
             OptionListBox = new System.Windows.Forms.ListBox();
             ColorSelect = new System.Windows.Forms.ColorDialog();
             SettingTabPanel = new System.Windows.Forms.Panel();
+            discordrpcpanel = new System.Windows.Forms.Panel();
+            showname = new System.Windows.Forms.CheckBox();
+            enablerpc = new System.Windows.Forms.CheckBox();
             loadsetting = new System.Windows.Forms.Button();
             savesetting = new System.Windows.Forms.Button();
             Hint = new System.Windows.Forms.Label();
             SettingTabPanel.SuspendLayout();
+            discordrpcpanel.SuspendLayout();
             SuspendLayout();
             // 
             // OptionListBox
             // 
             OptionListBox.FormattingEnabled = true;
             OptionListBox.ItemHeight = 19;
-            OptionListBox.Items.AddRange(new object[] { "Settings" });
+            OptionListBox.Items.AddRange(new object[] { "Settings", "Discord RPC", "Experimentals" });
             OptionListBox.Location = new System.Drawing.Point(12, 11);
             OptionListBox.Name = "OptionListBox";
             OptionListBox.Size = new System.Drawing.Size(151, 403);
@@ -50,6 +54,7 @@
             // 
             // SettingTabPanel
             // 
+            SettingTabPanel.Controls.Add(discordrpcpanel);
             SettingTabPanel.Controls.Add(loadsetting);
             SettingTabPanel.Controls.Add(savesetting);
             SettingTabPanel.Location = new System.Drawing.Point(169, 14);
@@ -57,6 +62,38 @@
             SettingTabPanel.Size = new System.Drawing.Size(609, 400);
             SettingTabPanel.TabIndex = 3;
             SettingTabPanel.Visible = false;
+            // 
+            // discordrpcpanel
+            // 
+            discordrpcpanel.Controls.Add(showname);
+            discordrpcpanel.Controls.Add(enablerpc);
+            discordrpcpanel.Location = new System.Drawing.Point(0, 0);
+            discordrpcpanel.Name = "discordrpcpanel";
+            discordrpcpanel.Size = new System.Drawing.Size(609, 400);
+            discordrpcpanel.TabIndex = 4;
+            // 
+            // showname
+            // 
+            showname.AutoSize = true;
+            showname.Location = new System.Drawing.Point(18, 50);
+            showname.Name = "showname";
+            showname.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            showname.Size = new System.Drawing.Size(144, 23);
+            showname.TabIndex = 1;
+            showname.Text = "Show File Name";
+            showname.UseVisualStyleBackColor = true;
+            // 
+            // enablerpc
+            // 
+            enablerpc.AutoSize = true;
+            enablerpc.Location = new System.Drawing.Point(18, 21);
+            enablerpc.Name = "enablerpc";
+            enablerpc.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            enablerpc.Size = new System.Drawing.Size(77, 23);
+            enablerpc.TabIndex = 0;
+            enablerpc.Text = "Enable";
+            enablerpc.UseVisualStyleBackColor = true;
+            enablerpc.CheckedChanged += enablerpc_CheckedChanged;
             // 
             // loadsetting
             // 
@@ -98,6 +135,8 @@
             Name = "Preferences";
             Text = "Preferences";
             SettingTabPanel.ResumeLayout(false);
+            discordrpcpanel.ResumeLayout(false);
+            discordrpcpanel.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -110,5 +149,8 @@
         private System.Windows.Forms.Button loadsetting;
         private System.Windows.Forms.Button savesetting;
         private System.Windows.Forms.Label Hint;
+        private System.Windows.Forms.Panel discordrpcpanel;
+        private System.Windows.Forms.CheckBox showname;
+        private System.Windows.Forms.CheckBox enablerpc;
     }
 }

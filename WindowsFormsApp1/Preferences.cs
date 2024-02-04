@@ -14,12 +14,32 @@ using Windows.UI;
 using WindowsFormsApp1;
 using static System.Windows.Forms.DataFormats;
 using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace NotePadMinusMinus
 {
     public partial class Preferences : Form
     {
-
+        public bool DiscordRPC
+        {
+            get
+            {
+                return ConfigManager.Config.AutoSave;
+            }
+            set
+            {
+                ConfigManager.Config.DiscordRPC = value;
+                enablerpc.Checked = value;
+                if (value)
+                {
+                    _mainForm.RPC();
+                }
+                else
+                {
+                    MainForm.DiscordRpc.ClearPresence();
+                }
+            }
+        }
         private MainForm _mainForm;
         private Panel? CurrentSettingsPanel { get; set; } = null;
         public IReadOnlyDictionary<string, Panel> AllSettingsPanels { get; }
@@ -30,7 +50,8 @@ namespace NotePadMinusMinus
             _mainForm = form1;
             AllSettingsPanels = new Dictionary<string, Panel>()
             {
-                { "Settings", SettingTabPanel }
+                { "Settings", SettingTabPanel },
+                { "Discord RPC", discordrpcpanel }
             };
             foreach (var pair in AllSettingsPanels)
             {
@@ -74,20 +95,24 @@ namespace NotePadMinusMinus
                 ConfigManager.WriteConfig();
                 Hint.Visible = true;
                 Hint.Text = "Restart Notepad-- to apply changes";
+                MessageBox.Show("Restart Notepad-- to apply changes");
             }
 
         }
 
         private void savesetting_Click(object sender, EventArgs e)
         {
-            if (ConfigManager.GetConfig())
+            Hint.Visible = true;
+            Hint.Text = "Unable to get config file";
+            if (!ConfigManager.GetConfig())
             {
+                MessageBox.Show("Unable to get config file");
+            }
+        }
 
-            }
-            else
-            {
-                MessageBox.Show("test");
-            }
+        private void enablerpc_CheckedChanged(object sender, EventArgs e)
+        {
+            DiscordRPC = !DiscordRPC;
         }
     }
 }

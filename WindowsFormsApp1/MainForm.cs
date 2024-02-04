@@ -12,9 +12,11 @@ using System.Data.Common;
 using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -28,25 +30,21 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace NotePadMinusMinus
 {
-	public enum FileSaveChangeFlag
-	{
-		NoChange,
-		Changed
-	}
-	public enum CloseMode
-	{
-		CloseAll,
-		CloseThisWindow
-	}
+    public enum FileSaveChangeFlag
+    {
+        NoChange,
+        Changed
+    }
+    public enum CloseMode
+    {
+        CloseAll,
+        CloseThisWindow
+    }
     public partial class MainForm : Form
     {
         #region BackendFields
 
         private float _zoom = 1;
-        private bool _wordWrap = true;
-        private bool _status = true;
-        private bool _showlink = false;
-        private bool _autosave = false;
         private int _length = 0;
         private int _lineCount = 0;
         private int _atLine = 0;
@@ -138,11 +136,11 @@ namespace NotePadMinusMinus
         {
             get
             {
-                return _wordWrap;
+                return ConfigManager.Config.WordWrap;
             }
             set
             {
-                _wordWrap = value;
+                ConfigManager.Config.WordWrap = value;
                 EditingArea.WordWrap = value;
                 ConfigManager.Config.WordWrap = value;
                 WordWarpToggleMenuItem.Checked = value;
@@ -153,11 +151,11 @@ namespace NotePadMinusMinus
         {
             get
             {
-                return _status;
+                return ConfigManager.Config.Status;
             }
             set
             {
-                _status = value;
+                ConfigManager.Config.Status = value;
                 BottomToolStrip.Visible = value;
                 ConfigManager.Config.Status = value;
                 StatusToggleMenuItem.Checked = value;
@@ -168,37 +166,39 @@ namespace NotePadMinusMinus
         {
             get
             {
-                return _showlink;
+                return ConfigManager.Config.ShowLinks;
             }
             set
             {
-                _showlink = value;
+                ConfigManager.Config.ShowLinks = value;
                 EditingArea.DetectUrls = value;
                 ConfigManager.Config.ShowLinks = value;
                 ShowLinksToggleItem.Checked = value;
             }
         }
-        public static DiscordRPC DiscordRpc;
-        //static void Main()
-        //{
-            
 
-        //    // When using a console application this will prevent it from stopping it.
-        //    Console.ReadKey(true);
-        //}
+        public bool AutoSave
+        {
+            get
+            {
+                return ConfigManager.Config.AutoSave;
+            }
+            set 
+            {
+                ConfigManager.Config.AutoSave = value;
+                AutoSaveMenuItem.Checked = value;
+            }
+        }
+        public static DiscordRPC DiscordRpc;
         #endregion
 
         #region Constructor
         static MainForm()
         {
-            // initalize static discord rpc
-			DiscordRpc = new DiscordRPC("1199263314107179071");
-
-			// If you want to have everything logged.
-			DiscordRpc.Logger = new ConsoleLogger();
-			// It is required to initialize.                
-			DiscordRpc.Initialize();
-		}
+            DiscordRpc = new DiscordRPC("1199263314107179071");
+            DiscordRpc.Logger = new ConsoleLogger();
+            DiscordRpc.Initialize();
+        }
 
         public MainForm(MainFormContainer container)
         {
@@ -212,6 +212,7 @@ namespace NotePadMinusMinus
             WordWrap = ConfigManager.Config.WordWrap;
             Status = ConfigManager.Config.Status;
             ShowLinks = ConfigManager.Config.ShowLinks;
+            AutoSave = ConfigManager.Config.AutoSave;
             EditingArea.MouseWheel += new MouseEventHandler(EditingArea_MouseWheelEvent);
             ActionUndoMenuItem.Enabled = false;
             undoToolStripMenuItem1.Enabled = false;
@@ -239,9 +240,9 @@ namespace NotePadMinusMinus
             OpenFileFolderSubMenu.Enabled = false;
             CopyToClipboardSubMenu.Enabled = false;
             this.FormClosed += (_, _2) => _container.OnCloseFormChecking(this);
-            
+
             SetTitle();
-            
+
             IDarkNet darkNet = DarkNet.Instance;
             if (ConfigManager.IsFirstLaunch)
             {
@@ -258,41 +259,16 @@ namespace NotePadMinusMinus
                 {
                     DarkModeSetting(ConfigManager.Config.DarkMode);
                 }
-            }
+            };
+            darkNet.UserDefaultAppThemeIsDarkChanged += (_, isSystemDarkTheme) => { autotheme(); };
 
-;           darkNet.UserDefaultAppThemeIsDarkChanged += (_, isSystemDarkTheme) => { autotheme(); };
+            RPC();
 
-			#region Discord rpc
+        }
+        #endregion
 
-			DiscordRpc.SetPresence(new RichPresence()
-			{
-
-				Details = "Editing File: "+ (string.IsNullOrEmpty(CurrentFilePath) ? "Unnamed" : Path.GetFileName(CurrentFilePath)),
-                State = $"{EditingArea.TextLength} characters",
-                
-				Assets = new Assets()
-				{
-					LargeImageKey = "notepadfull",
-					LargeImageText = "Notepad--",
-					SmallImageKey = "oig4_-_",
-					SmallImageText = "OWO"
-				},
-
-				Timestamps = Timestamps.Now,
-
-				Buttons = new NetDiscordRpc.RPC.Button[]
-				{
-				new() { Label = "Notepad Minus Minus Github", Url = "https://github.com/syesjohnny/notepad-minus-minus" }
-				}
-			});
-
-			DiscordRpc.Invoke();
-			#endregion
-		}
-		#endregion
-
-		#region Misc
-		private void SetTitle()
+        #region Misc
+        private void SetTitle()
         {
             bool isEmpty = string.IsNullOrEmpty(CurrentFilePath);
             this.Text = string.Format(
@@ -356,6 +332,33 @@ namespace NotePadMinusMinus
                 }
                 DarkModeSetting("auto");
             }
+        }
+
+        public void RPC()
+        {
+            DiscordRpc.SetPresence(new RichPresence()
+            {
+
+                Details = "Editing File: " + (string.IsNullOrEmpty(CurrentFilePath) ? "Unnamed" : Path.GetFileName(CurrentFilePath)),
+                State = $"{EditingArea.TextLength} characters",
+
+                Assets = new Assets()
+                {
+                    LargeImageKey = "notepadfull",
+                    LargeImageText = "Notepad--",
+                    SmallImageKey = "oig4_-_",
+                    SmallImageText = "OWO"
+                },
+
+                Timestamps = Timestamps.Now,
+
+                Buttons = new NetDiscordRpc.RPC.Button[]
+                {
+                new() { Label = "Notepad Minus Minus Github", Url = "https://github.com/syesjohnny/notepad-minus-minus" }
+                }
+            });
+
+            DiscordRpc.Invoke();
         }
         #endregion
 
@@ -1058,6 +1061,7 @@ namespace NotePadMinusMinus
 
         private void autoSaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            AutoSave = !AutoSave;
             if (AutoSaveMenuItem.Checked = true && !(string.IsNullOrEmpty(CurrentFilePath)))
             {
                 SaveFile();
@@ -1065,37 +1069,37 @@ namespace NotePadMinusMinus
         }
     }
     public class CustomColorTable : ProfessionalColorTable
-	{
-		public override Color ImageMarginGradientBegin
-		{
-			get
-			{
-				return Color.FromArgb(39, 39, 39);
-			}
-		}
+    {
+        public override Color ImageMarginGradientBegin
+        {
+            get
+            {
+                return Color.FromArgb(39, 39, 39);
+            }
+        }
 
-		public override Color ImageMarginGradientMiddle
-		{
-			get
-			{
-				return Color.FromArgb(39, 39, 39);
-			}
-		}
+        public override Color ImageMarginGradientMiddle
+        {
+            get
+            {
+                return Color.FromArgb(39, 39, 39);
+            }
+        }
 
-		public override Color ImageMarginGradientEnd
-		{
-			get
-			{
-				return Color.FromArgb(39, 39, 39);
-			}
-		}
+        public override Color ImageMarginGradientEnd
+        {
+            get
+            {
+                return Color.FromArgb(39, 39, 39);
+            }
+        }
 
-		public override Color ToolStripDropDownBackground
-		{
-			get
-			{
-				return Color.FromArgb(39, 39, 39);
-			}
-		}
-	}
+        public override Color ToolStripDropDownBackground
+        {
+            get
+            {
+                return Color.FromArgb(39, 39, 39);
+            }
+        }
+    }
 }
