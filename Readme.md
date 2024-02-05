@@ -27,5 +27,8 @@ We recommend using Visual Studio as the code editor.
 ### Translations
 Not support now
 
+## Contact
+If you have any questions, suggestions, or just want to say hello, feel free to reach out to us at our [Discord](https://discord.gg/gEYbTt4wwv).
+
 ## License
 Notepad-- is licensed under the terms of the [CC0-1.0 license](https://github.com/johnny263/Notepad-minus-minus/blob/master/LICENSE).
