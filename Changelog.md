@@ -13,16 +13,22 @@ All notable changes to this project will be documented in this file.
 - Line operation (Experimental)
 
 **Add Setting With**
-- Preference
-- Dark mode (Experimental)
+- Preference (Experimental)
+- Dark Mode (Experimental)
+- Discord RPC Setting (Experimental)
 
-**misc**
+**Add Help With**
+- About
+- What's New
+
+**Misc**
 - Add icon for application
 - Discord RPC
 ### **Enhance**
 - Better Visual 
 - Better go to layout
 - Fully Renamed IDs and organize
+- Using Installer for install Notepad--
 ### Fixed
 - Visual bug
 - Word warp error ([#1](https://github.com/syesjohnny/Notepad-minus-minus/issues/1))

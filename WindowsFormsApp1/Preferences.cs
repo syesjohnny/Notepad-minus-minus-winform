@@ -20,26 +20,6 @@ namespace NotePadMinusMinus
 {
     public partial class Preferences : Form
     {
-        public bool DiscordRPC
-        {
-            get
-            {
-                return ConfigManager.Config.AutoSave;
-            }
-            set
-            {
-                ConfigManager.Config.DiscordRPC = value;
-                enablerpc.Checked = value;
-                if (value)
-                {
-                    _mainForm.RPC();
-                }
-                else
-                {
-                    MainForm.DiscordRpc.ClearPresence();
-                }
-            }
-        }
         private MainForm _mainForm;
         private Panel? CurrentSettingsPanel { get; set; } = null;
         public IReadOnlyDictionary<string, Panel> AllSettingsPanels { get; }
@@ -50,8 +30,7 @@ namespace NotePadMinusMinus
             _mainForm = form1;
             AllSettingsPanels = new Dictionary<string, Panel>()
             {
-                { "Settings", SettingTabPanel },
-                { "Discord RPC", discordrpcpanel }
+                { "Settings", SettingTabPanel }
             };
             foreach (var pair in AllSettingsPanels)
             {
@@ -108,11 +87,6 @@ namespace NotePadMinusMinus
             {
                 MessageBox.Show("Unable to get config file");
             }
-        }
-
-        private void enablerpc_CheckedChanged(object sender, EventArgs e)
-        {
-            DiscordRPC = !DiscordRPC;
         }
     }
 }

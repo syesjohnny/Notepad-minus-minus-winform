@@ -14,5 +14,6 @@ public class Config
 	public bool AutoSave { get; set; } = false;
 	public bool DiscordRPC { get; set; } = false;
 	public bool RPCShowFileName { get; set; } = true;
+	public bool RPCShowCharacters { get; set; } = true;
     // add more entries here
 }

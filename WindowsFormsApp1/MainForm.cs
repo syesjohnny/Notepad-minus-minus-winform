@@ -4,6 +4,7 @@ using Microsoft.VisualBasic.FileIO;
 using NetDiscordRpc;
 using NetDiscordRpc.Core.Logger;
 using NetDiscordRpc.RPC;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,16 +31,16 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace NotePadMinusMinus
 {
-    public enum FileSaveChangeFlag
-    {
-        NoChange,
-        Changed
-    }
-    public enum CloseMode
-    {
-        CloseAll,
-        CloseThisWindow
-    }
+	public enum FileSaveChangeFlag
+	{
+		NoChange,
+		Changed
+	}
+	public enum CloseMode
+	{
+		CloseAll,
+		CloseThisWindow
+	}
     public partial class MainForm : Form
     {
         #region BackendFields
@@ -70,18 +71,22 @@ namespace NotePadMinusMinus
                 _currentFilePath = value;
                 SetTitle();
                 Console.Write(value);
-                if (string.IsNullOrEmpty(_currentFilePath))
+                if (RPCShowFileName.Checked == true)
                 {
-                    DiscordRpc.UpdateDetails("Editing File: Unnamed");
+                    if (string.IsNullOrEmpty(_currentFilePath))
+                    {
+                        DiscordRpc.UpdateDetails("Editing File: Unnamed");
+                    }
+                    else
+                    {
+                        DiscordRpc.UpdateDetails($"Editing File: {Path.GetFileName(value)}");
+                    }
                 }
                 else
                 {
-                    DiscordRpc.UpdateDetails($"Editing File: {Path.GetFileName(value)}");
+                    DiscordRpc.UpdateDetails("Editing File");
                 }
-                DiscordRpc.UpdateTimestamps(new Timestamps()
-                {
-                    Start = DateTime.UtcNow,
-                });
+                DiscordRpc.UpdateTimestamps(new Timestamps() { Start = DateTime.UtcNow, });
             }
         }
         public FileSaveChangeFlag SaveChangeFlag
@@ -183,12 +188,86 @@ namespace NotePadMinusMinus
             {
                 return ConfigManager.Config.AutoSave;
             }
-            set 
+            set
             {
                 ConfigManager.Config.AutoSave = value;
                 AutoSaveMenuItem.Checked = value;
             }
         }
+        public bool DiscordRPC
+        {
+            get
+            {
+                return ConfigManager.Config.DiscordRPC;
+            }
+            set
+            {
+                ConfigManager.Config.DiscordRPC = value;
+                RPCEnable.Checked = value;
+                if (ConfigManager.Config.DiscordRPC == true)
+                {
+                    RPC();
+                }
+                else
+                {
+                    DiscordRpc.ClearPresence();
+                }
+            }
+        }
+        public bool showfileRPC
+        {
+            get
+            {
+                return ConfigManager.Config.RPCShowFileName;
+            }
+            set
+            {
+                ConfigManager.Config.RPCShowFileName = value;
+                RPCShowFileName.Checked = value;
+                if (RPCEnable.Checked)
+                {
+                    if (value)
+                    {
+                        if (string.IsNullOrEmpty(_currentFilePath))
+                        {
+                            DiscordRpc.UpdateDetails("Editing File: Unnamed");
+                        }
+                        else
+                        {
+                            DiscordRpc.UpdateDetails($"Editing File: {Path.GetFileName(_currentFilePath)}");
+                        }
+                    }
+                    else
+                    {
+                        DiscordRpc.UpdateDetails("Editing File");
+                    }
+                }
+            }
+        }
+        public bool ShowCharacterRPC
+        {
+            get
+            {
+                return ConfigManager.Config.RPCShowCharacters;
+            }
+            set
+            {
+                ConfigManager.Config.RPCShowCharacters = value;
+                ShowCharacterCount.Checked = value;
+                if (RPCEnable.Checked)
+                {
+                    if (value)
+                    {
+                        DiscordRpc.UpdateState($"{EditingArea.TextLength} characters");
+                    }
+                    else
+                    {
+                        DiscordRpc.UpdateState();
+                    }
+                }
+            }
+        }
+
         public static DiscordRPC DiscordRpc;
         #endregion
 
@@ -213,6 +292,10 @@ namespace NotePadMinusMinus
             Status = ConfigManager.Config.Status;
             ShowLinks = ConfigManager.Config.ShowLinks;
             AutoSave = ConfigManager.Config.AutoSave;
+            DiscordRPC = ConfigManager.Config.DiscordRPC;
+            showfileRPC = ConfigManager.Config.RPCShowFileName;
+            ShowCharacterRPC = ConfigManager.Config.RPCShowCharacters;
+
             EditingArea.MouseWheel += new MouseEventHandler(EditingArea_MouseWheelEvent);
             ActionUndoMenuItem.Enabled = false;
             undoToolStripMenuItem1.Enabled = false;
@@ -248,22 +331,29 @@ namespace NotePadMinusMinus
             {
                 ConfigManager.Config.DarkMode = "auto";
                 autotheme();
+                AutoSub.Checked = true;
             }
             else
             {
                 if (ConfigManager.Config.DarkMode == "auto")
                 {
                     autotheme();
+                    AutoSub.Checked = true;
                 }
                 else
                 {
                     DarkModeSetting(ConfigManager.Config.DarkMode);
+                    if (ConfigManager.Config.DarkMode == "dark")
+                    {
+                        darkModeSub.Checked = true;
+                    }
+                    else
+                    {
+                        lightModeSub.Checked = true;
+                    }
                 }
             };
             darkNet.UserDefaultAppThemeIsDarkChanged += (_, isSystemDarkTheme) => { autotheme(); };
-
-            RPC();
-
         }
         #endregion
 
@@ -282,7 +372,14 @@ namespace NotePadMinusMinus
         }
         private void updateRPC()
         {
-            DiscordRpc.UpdateState($"{EditingArea.TextLength} characters");
+            if (ShowCharacterCount.Checked)
+            {
+                DiscordRpc.UpdateState($"{EditingArea.TextLength} characters");
+            }
+            else
+            {
+                DiscordRpc.UpdateState();
+            }
         }
         private void RenderTheme(bool isDarkTheme)
         {
@@ -336,6 +433,7 @@ namespace NotePadMinusMinus
 
         public void RPC()
         {
+
             DiscordRpc.SetPresence(new RichPresence()
             {
 
@@ -354,11 +452,19 @@ namespace NotePadMinusMinus
 
                 Buttons = new NetDiscordRpc.RPC.Button[]
                 {
-                new() { Label = "Notepad Minus Minus Github", Url = "https://github.com/syesjohnny/notepad-minus-minus" }
+                new() { Label = "Notepad-- Github", Url = "https://github.com/syesjohnny/notepad-minus-minus" }
                 }
             });
 
             DiscordRpc.Invoke();
+            if (!ShowCharacterCount.Checked)
+            {
+                DiscordRpc.UpdateState();
+            }
+            if (!RPCShowFileName.Checked)
+            {
+                DiscordRpc.UpdateDetails("Editing File");
+            }
         }
         #endregion
 
@@ -1067,39 +1173,68 @@ namespace NotePadMinusMinus
                 SaveFile();
             }
         }
+
+        private void RPCEnable_Click(object sender, EventArgs e)
+        {
+            DiscordRPC = !DiscordRPC;
+        }
+
+        private void RPCShowFileName_Click(object sender, EventArgs e)
+        {
+            showfileRPC = !showfileRPC;
+        }
+
+        private void ShowCharacterCount_Click(object sender, EventArgs e)
+        {
+            ShowCharacterRPC = !ShowCharacterRPC;
+        }
+
+        private void AboutMenuItem_Click(object sender, EventArgs e)
+        {
+            About About = new();
+            DarkNet.Instance.SetWindowThemeForms(About, Theme.Auto);
+            About.Show();
+        }
+
+        private void WhatNewMenuItem_Click(object sender, EventArgs e)
+        {
+            What_s_New What_s_New = new();
+            DarkNet.Instance.SetWindowThemeForms(What_s_New, Theme.Auto);
+            What_s_New.Show();
+        }
     }
     public class CustomColorTable : ProfessionalColorTable
-    {
-        public override Color ImageMarginGradientBegin
-        {
-            get
-            {
-                return Color.FromArgb(39, 39, 39);
-            }
-        }
+	{
+		public override Color ImageMarginGradientBegin
+		{
+			get
+			{
+				return Color.FromArgb(39, 39, 39);
+			}
+		}
 
-        public override Color ImageMarginGradientMiddle
-        {
-            get
-            {
-                return Color.FromArgb(39, 39, 39);
-            }
-        }
+		public override Color ImageMarginGradientMiddle
+		{
+			get
+			{
+				return Color.FromArgb(39, 39, 39);
+			}
+		}
 
-        public override Color ImageMarginGradientEnd
-        {
-            get
-            {
-                return Color.FromArgb(39, 39, 39);
-            }
-        }
+		public override Color ImageMarginGradientEnd
+		{
+			get
+			{
+				return Color.FromArgb(39, 39, 39);
+			}
+		}
 
-        public override Color ToolStripDropDownBackground
-        {
-            get
-            {
-                return Color.FromArgb(39, 39, 39);
-            }
-        }
-    }
+		public override Color ToolStripDropDownBackground
+		{
+			get
+			{
+				return Color.FromArgb(39, 39, 39);
+			}
+		}
+	}
 }

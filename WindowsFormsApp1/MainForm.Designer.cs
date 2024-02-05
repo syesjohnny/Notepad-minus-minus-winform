@@ -119,15 +119,19 @@ namespace NotePadMinusMinus
             darkModeSub = new ToolStripMenuItem();
             lightModeSub = new ToolStripMenuItem();
             AutoSub = new ToolStripMenuItem();
+            discordRPCToolStripMenuItem = new ToolStripMenuItem();
+            RPCEnable = new ToolStripMenuItem();
+            RPCShowFileName = new ToolStripMenuItem();
+            ShowCharacterCount = new ToolStripMenuItem();
+            toolStripMenuItem1 = new ToolStripMenuItem();
+            AboutMenuItem = new ToolStripMenuItem();
+            WhatNewMenuItem = new ToolStripMenuItem();
             EditingArea = new RichTextBox();
             CursorPosInfoText = new ToolStripLabel();
             ZoomInfoText = new ToolStripLabel();
             DocInfoText = new ToolStripLabel();
             BottomToolStrip = new ToolStrip();
             MainLayout = new TableLayoutPanel();
-            toolStripMenuItem1 = new ToolStripMenuItem();
-            AboutMenuItem = new ToolStripMenuItem();
-            WhatNewMenuItem = new ToolStripMenuItem();
             contextMenuStrip1.SuspendLayout();
             TopMenuStrip.SuspendLayout();
             BottomToolStrip.SuspendLayout();
@@ -725,7 +729,7 @@ namespace NotePadMinusMinus
             // 
             // SettingMenuItem
             // 
-            SettingMenuItem.DropDownItems.AddRange(new ToolStripItem[] { preferencesToolStripMenuItem, DarkModeMenuItem });
+            SettingMenuItem.DropDownItems.AddRange(new ToolStripItem[] { preferencesToolStripMenuItem, DarkModeMenuItem, discordRPCToolStripMenuItem });
             SettingMenuItem.Name = "SettingMenuItem";
             SettingMenuItem.Size = new System.Drawing.Size(73, 24);
             SettingMenuItem.Text = "Setting";
@@ -733,7 +737,7 @@ namespace NotePadMinusMinus
             // preferencesToolStripMenuItem
             // 
             preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-            preferencesToolStripMenuItem.Size = new System.Drawing.Size(173, 26);
+            preferencesToolStripMenuItem.Size = new System.Drawing.Size(179, 26);
             preferencesToolStripMenuItem.Text = "Preferences";
             preferencesToolStripMenuItem.Click += preferencesToolStripMenuItem_Click;
             // 
@@ -741,7 +745,7 @@ namespace NotePadMinusMinus
             // 
             DarkModeMenuItem.DropDownItems.AddRange(new ToolStripItem[] { darkModeSub, lightModeSub, AutoSub });
             DarkModeMenuItem.Name = "DarkModeMenuItem";
-            DarkModeMenuItem.Size = new System.Drawing.Size(173, 26);
+            DarkModeMenuItem.Size = new System.Drawing.Size(179, 26);
             DarkModeMenuItem.Text = "Dark Mode";
             // 
             // darkModeSub
@@ -764,6 +768,57 @@ namespace NotePadMinusMinus
             AutoSub.Size = new System.Drawing.Size(173, 26);
             AutoSub.Text = "Auto";
             AutoSub.Click += autoToolStripMenuItem_Click;
+            // 
+            // discordRPCToolStripMenuItem
+            // 
+            discordRPCToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { RPCEnable, RPCShowFileName, ShowCharacterCount });
+            discordRPCToolStripMenuItem.Name = "discordRPCToolStripMenuItem";
+            discordRPCToolStripMenuItem.Size = new System.Drawing.Size(179, 26);
+            discordRPCToolStripMenuItem.Text = "Discord RPC";
+            // 
+            // RPCEnable
+            // 
+            RPCEnable.CheckOnClick = true;
+            RPCEnable.Name = "RPCEnable";
+            RPCEnable.Size = new System.Drawing.Size(249, 26);
+            RPCEnable.Text = "Enable";
+            RPCEnable.Click += RPCEnable_Click;
+            // 
+            // RPCShowFileName
+            // 
+            RPCShowFileName.CheckOnClick = true;
+            RPCShowFileName.Name = "RPCShowFileName";
+            RPCShowFileName.Size = new System.Drawing.Size(249, 26);
+            RPCShowFileName.Text = "Show File Name";
+            RPCShowFileName.Click += RPCShowFileName_Click;
+            // 
+            // ShowCharacterCount
+            // 
+            ShowCharacterCount.Name = "ShowCharacterCount";
+            ShowCharacterCount.Size = new System.Drawing.Size(249, 26);
+            ShowCharacterCount.Text = "Show Charactes Count";
+            ShowCharacterCount.Click += ShowCharacterCount_Click;
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { AboutMenuItem, WhatNewMenuItem });
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new System.Drawing.Size(30, 24);
+            toolStripMenuItem1.Text = "?";
+            // 
+            // AboutMenuItem
+            // 
+            AboutMenuItem.Name = "AboutMenuItem";
+            AboutMenuItem.Size = new System.Drawing.Size(224, 26);
+            AboutMenuItem.Text = "About";
+            AboutMenuItem.Click += AboutMenuItem_Click;
+            // 
+            // WhatNewMenuItem
+            // 
+            WhatNewMenuItem.Name = "WhatNewMenuItem";
+            WhatNewMenuItem.Size = new System.Drawing.Size(224, 26);
+            WhatNewMenuItem.Text = "What's New?";
+            WhatNewMenuItem.Click += WhatNewMenuItem_Click;
             // 
             // EditingArea
             // 
@@ -837,25 +892,6 @@ namespace NotePadMinusMinus
             MainLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
             MainLayout.Size = new System.Drawing.Size(971, 533);
             MainLayout.TabIndex = 3;
-            // 
-            // toolStripMenuItem1
-            // 
-            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { AboutMenuItem, WhatNewMenuItem });
-            toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new System.Drawing.Size(30, 24);
-            toolStripMenuItem1.Text = "?";
-            // 
-            // AboutMenuItem
-            // 
-            AboutMenuItem.Name = "AboutMenuItem";
-            AboutMenuItem.Size = new System.Drawing.Size(224, 26);
-            AboutMenuItem.Text = "About";
-            // 
-            // WhatNewMenuItem
-            // 
-            WhatNewMenuItem.Name = "WhatNewMenuItem";
-            WhatNewMenuItem.Size = new System.Drawing.Size(224, 26);
-            WhatNewMenuItem.Text = "What's New?";
             // 
             // MainForm
             // 
@@ -976,6 +1012,10 @@ namespace NotePadMinusMinus
         private ToolStripMenuItem toolStripMenuItem1;
         private ToolStripMenuItem AboutMenuItem;
         private ToolStripMenuItem WhatNewMenuItem;
+        private ToolStripMenuItem discordRPCToolStripMenuItem;
+        private ToolStripMenuItem RPCShowFileName;
+        private ToolStripMenuItem RPCEnable;
+        private ToolStripMenuItem ShowCharacterCount;
     }
 }
 
