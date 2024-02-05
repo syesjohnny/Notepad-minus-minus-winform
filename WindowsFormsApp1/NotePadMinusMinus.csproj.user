@@ -9,7 +9,7 @@
     <ErrorReportUrlHistory />
     <FallbackCulture>zh-TW</FallbackCulture>
     <VerifyUploadedFiles>false</VerifyUploadedFiles>
-    <_LastSelectedProfileId>C:\Users\chenyeyi\Desktop\np vscode\notepad-minus-minus\WindowsFormsApp1\Properties\PublishProfiles\ClickOnceProfile1.pubxml</_LastSelectedProfileId>
+    <_LastSelectedProfileId>C:\Users\chenyeyi\Desktop\np vscode\notepad-minus-minus\Notepad-minus-minus\WindowsFormsApp1\Properties\PublishProfiles\ClickOnceProfile6.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
   <ItemGroup>
     <Compile Update="About.cs">

@@ -331,16 +331,26 @@ namespace NotePadMinusMinus
             {
                 ConfigManager.Config.DarkMode = "auto";
                 autotheme();
+                AutoSub.Checked = true;
             }
             else
             {
                 if (ConfigManager.Config.DarkMode == "auto")
                 {
                     autotheme();
+                    AutoSub.Checked = true;
                 }
                 else
                 {
                     DarkModeSetting(ConfigManager.Config.DarkMode);
+                    if (ConfigManager.Config.DarkMode == "dark")
+                    {
+                        darkModeSub.Checked = true;
+                    }
+                    else
+                    {
+                        lightModeSub.Checked = true;
+                    }
                 }
             };
             darkNet.UserDefaultAppThemeIsDarkChanged += (_, isSystemDarkTheme) => { autotheme(); };
