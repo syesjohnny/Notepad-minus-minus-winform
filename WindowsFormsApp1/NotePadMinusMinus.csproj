@@ -21,6 +21,9 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <ApplicationIcon>OIG4.ico</ApplicationIcon>
+    <FileVersion>0.0.3.0</FileVersion>
+    <AssemblyVersion>0.0.3.0</AssemblyVersion>
+    <Version>$(VersionPrefix)</Version>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="DiscordRpcDemo\**" />
@@ -51,5 +54,18 @@
     <PackageReference Include="NetDiscordRpc" Version="1.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

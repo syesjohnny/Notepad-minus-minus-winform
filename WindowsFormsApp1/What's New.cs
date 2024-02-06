@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
+using System.Reflection;
 using System.Drawing;
 using System.Linq;
 using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.PropertyGridInternal;
 
 namespace NotePadMinusMinus
 {
@@ -46,7 +48,7 @@ namespace NotePadMinusMinus
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            SoundPlayer simpleSound = new SoundPlayer("uwusecret.wav");
+            SoundPlayer simpleSound = new SoundPlayer(Properties.Resources.uwusecret);
             simpleSound.Play();
         }
     }
