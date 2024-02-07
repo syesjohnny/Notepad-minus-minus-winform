@@ -33,6 +33,7 @@ We recommend using Visual Studio as the code editor.
 ### Translations
 Not support now
 
+[More Details](Contributing.md)
 ## Contact
 If you have any questions, suggestions, or just want to say hello, feel free to reach out to us at our [Discord](https://discord.gg/gEYbTt4wwv).
 
