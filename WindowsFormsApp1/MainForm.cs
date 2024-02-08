@@ -21,6 +21,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Media.Media3D;
 using System.Xml.Linq;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.AxHost;
@@ -51,7 +52,7 @@ namespace NotePadMinusMinus
         private int _atLine = 0;
         private int _atColumn = 0;
         private int _atChar = 0;
-        private int _selectlength = 0;
+        private int _selected = 0;
         private int _selectlines = 0;
         private FileSaveChangeFlag _saveChangeFlag = FileSaveChangeFlag.NoChange;
         private string _currentFilePath = "";
@@ -139,16 +140,23 @@ namespace NotePadMinusMinus
                 CursorPosInfoText.Text = string.Format("Ln: {0}, Col: {1}, Pos: {2}", _atLine, _atColumn, _atChar);
             }
         }
-        public (int Length, int Sum) SelectionInfo
+        public (int Length, int Lines) SelectionInfo
         {
             get
             {
-                return (_selectlength, _selectlines);
+                return (_selected, _selectlines);
             }
             set
             {
-                (_selectlength, _selectlines) = value;
-                SelectionInfoText.Text = string.Format("Select Length: {0}, Select Lines: {1}", _selectlength, _selectlines);
+                (_selected, _selectlines) = value;
+                if (EditingArea.SelectedText == "")
+                {
+                    SelectionInfoText.Text = "Sel: -, SLn: -";
+                }
+                else
+                {
+                    SelectionInfoText.Text = string.Format("Selected: {0}, Selected Ln: {1}", _selected, _selectlines);
+                }
             }
         }
         public bool WordWrap
@@ -337,8 +345,8 @@ namespace NotePadMinusMinus
             DeleteFileSubMenu.Enabled = false;
             OpenFileFolderSubMenu.Enabled = false;
             CopyToClipboardSubMenu.Enabled = false;
+            EditingArea.AutoWordSelection = false; //fuck the bug
             this.FormClosed += (_, _2) => _container.OnCloseFormChecking(this);
-
             SetTitle();
 
             IDarkNet darkNet = DarkNet.Instance;
@@ -434,6 +442,7 @@ namespace NotePadMinusMinus
             IDarkNet darkNet = DarkNet.Instance;
             if (ConfigManager.Config.DarkMode == "auto")
             {
+
                 if ((darkNet.UserDefaultAppThemeIsDark ? "Dark" : "Light") == "Dark")
                 {
                     DarkModeSetting("dark");
@@ -443,6 +452,7 @@ namespace NotePadMinusMinus
                     DarkModeSetting("light");
                 }
                 DarkModeSetting("auto");
+
             }
         }
 
@@ -788,8 +798,16 @@ namespace NotePadMinusMinus
                 }
             }
 
+            int newlineCount = 0;
+            foreach (char c in EditingArea.SelectedText)
+            {
+                if (c == '\n')
+                {
+                    newlineCount++;
+                }
+            }
             CursorPosInfo = (++lineCounter, ++lineNowLength, EditingArea.SelectionStart + 1);
-            SelectionInfo = (EditingArea.SelectionLength, 1);
+            SelectionInfo = (EditingArea.SelectionLength, newlineCount + 1);
             DocumentLengthInfo = (EditingArea.TextLength, EditingArea.Lines.Length);
             if (EditingArea.SelectionLength > 0)
             {
@@ -1217,6 +1235,18 @@ namespace NotePadMinusMinus
             What_s_New What_s_New = new();
             DarkNet.Instance.SetWindowThemeForms(What_s_New, Theme.Auto);
             What_s_New.Show();
+        }
+
+        private void transparentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (transparentToolStripMenuItem.Checked == true)
+            {
+                Opacity = 0.9;
+            }
+            else
+            {
+                Opacity = 1;
+            }
         }
     }
     public class CustomColorTable : ProfessionalColorTable

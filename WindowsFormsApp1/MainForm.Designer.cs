@@ -108,6 +108,7 @@ namespace NotePadMinusMinus
             ViewMenuSeparator2 = new ToolStripSeparator();
             FullScreenToggleMenuItem = new ToolStripMenuItem();
             AlwaysOnTopToggleMenuItem = new ToolStripMenuItem();
+            transparentToolStripMenuItem = new ToolStripMenuItem();
             RunMenu = new ToolStripMenuItem();
             RunMenuItem = new ToolStripMenuItem();
             RunMenuSeparator1 = new ToolStripSeparator();
@@ -131,7 +132,9 @@ namespace NotePadMinusMinus
             ZoomInfoText = new ToolStripLabel();
             DocInfoText = new ToolStripLabel();
             BottomToolStrip = new ToolStrip();
+            toolStripSeparator5 = new ToolStripSeparator();
             SelectionInfoText = new ToolStripLabel();
+            toolStripSeparator4 = new ToolStripSeparator();
             ByteInfoText = new ToolStripLabel();
             MainLayout = new TableLayoutPanel();
             contextMenuStrip1.SuspendLayout();
@@ -602,7 +605,7 @@ namespace NotePadMinusMinus
             // 
             // ViewMenu
             // 
-            ViewMenu.DropDownItems.AddRange(new ToolStripItem[] { ZoomSubMenu, WordWarpToggleMenuItem, StatusToggleMenuItem, ViewMenuSeparator1, ShowLinksToggleItem, ViewMenuSeparator2, FullScreenToggleMenuItem, AlwaysOnTopToggleMenuItem });
+            ViewMenu.DropDownItems.AddRange(new ToolStripItem[] { ZoomSubMenu, WordWarpToggleMenuItem, StatusToggleMenuItem, ViewMenuSeparator1, ShowLinksToggleItem, ViewMenuSeparator2, FullScreenToggleMenuItem, AlwaysOnTopToggleMenuItem, transparentToolStripMenuItem });
             ViewMenu.Name = "ViewMenu";
             ViewMenu.Size = new System.Drawing.Size(57, 24);
             ViewMenu.Text = "View";
@@ -694,6 +697,14 @@ namespace NotePadMinusMinus
             AlwaysOnTopToggleMenuItem.Text = "Always On top";
             AlwaysOnTopToggleMenuItem.Click += ToggleAlwaysOnTop;
             // 
+            // transparentToolStripMenuItem
+            // 
+            transparentToolStripMenuItem.CheckOnClick = true;
+            transparentToolStripMenuItem.Name = "transparentToolStripMenuItem";
+            transparentToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
+            transparentToolStripMenuItem.Text = "Transparent";
+            transparentToolStripMenuItem.Click += transparentToolStripMenuItem_Click;
+            // 
             // RunMenu
             // 
             RunMenu.BackColor = System.Drawing.Color.FromArgb(248, 248, 248);
@@ -739,7 +750,7 @@ namespace NotePadMinusMinus
             // preferencesToolStripMenuItem
             // 
             preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-            preferencesToolStripMenuItem.Size = new System.Drawing.Size(179, 26);
+            preferencesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             preferencesToolStripMenuItem.Text = "Preferences";
             preferencesToolStripMenuItem.Click += preferencesToolStripMenuItem_Click;
             // 
@@ -747,7 +758,7 @@ namespace NotePadMinusMinus
             // 
             DarkModeMenuItem.DropDownItems.AddRange(new ToolStripItem[] { darkModeSub, lightModeSub, AutoSub });
             DarkModeMenuItem.Name = "DarkModeMenuItem";
-            DarkModeMenuItem.Size = new System.Drawing.Size(179, 26);
+            DarkModeMenuItem.Size = new System.Drawing.Size(224, 26);
             DarkModeMenuItem.Text = "Dark Mode";
             // 
             // darkModeSub
@@ -775,7 +786,7 @@ namespace NotePadMinusMinus
             // 
             discordRPCToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { RPCEnable, RPCShowFileName, ShowCharacterCount });
             discordRPCToolStripMenuItem.Name = "discordRPCToolStripMenuItem";
-            discordRPCToolStripMenuItem.Size = new System.Drawing.Size(179, 26);
+            discordRPCToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             discordRPCToolStripMenuItem.Text = "Discord RPC";
             // 
             // RPCEnable
@@ -869,18 +880,28 @@ namespace NotePadMinusMinus
             BottomToolStrip.Dock = DockStyle.Fill;
             BottomToolStrip.GripStyle = ToolStripGripStyle.Hidden;
             BottomToolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
-            BottomToolStrip.Items.AddRange(new ToolStripItem[] { CursorPosInfoText, ZoomInfoText, DocInfoText, SelectionInfoText, ByteInfoText });
+            BottomToolStrip.Items.AddRange(new ToolStripItem[] { CursorPosInfoText, ZoomInfoText, DocInfoText, toolStripSeparator5, SelectionInfoText, toolStripSeparator4, ByteInfoText });
             BottomToolStrip.Location = new System.Drawing.Point(0, 503);
             BottomToolStrip.Name = "BottomToolStrip";
             BottomToolStrip.Size = new System.Drawing.Size(971, 30);
             BottomToolStrip.TabIndex = 2;
             BottomToolStrip.Text = "BottomToolStrip";
             // 
+            // toolStripSeparator5
+            // 
+            toolStripSeparator5.Name = "toolStripSeparator5";
+            toolStripSeparator5.Size = new System.Drawing.Size(6, 30);
+            // 
             // SelectionInfoText
             // 
             SelectionInfoText.Name = "SelectionInfoText";
             SelectionInfoText.Size = new System.Drawing.Size(99, 27);
             SelectionInfoText.Text = "SelectionInfo";
+            // 
+            // toolStripSeparator4
+            // 
+            toolStripSeparator4.Name = "toolStripSeparator4";
+            toolStripSeparator4.Size = new System.Drawing.Size(6, 30);
             // 
             // ByteInfoText
             // 
@@ -1032,6 +1053,9 @@ namespace NotePadMinusMinus
         private ToolStripMenuItem ShowCharacterCount;
         private ToolStripLabel SelectionInfoText;
         private ToolStripLabel ByteInfoText;
+        private ToolStripSeparator toolStripSeparator5;
+        private ToolStripSeparator toolStripSeparator4;
+        private ToolStripMenuItem transparentToolStripMenuItem;
     }
 }
 

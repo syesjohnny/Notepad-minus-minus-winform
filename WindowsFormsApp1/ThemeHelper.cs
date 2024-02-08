@@ -135,8 +135,8 @@ public static class ThemeHelper
 				ChangeControlsTheme(toolStrip.Items, color, render);
 				break;
 			case ToolStripSeparator separator:
-				separator.BackColor = color.ToolItemStripBackground;
-				separator.ForeColor = color.ToolItemStripForeground;
+				separator.BackColor = Color.Red;
+				separator.ForeColor = Color.Red;
 				break;
 			case RichTextBox richTextBox:
 				richTextBox.ForeColor = color.RichTextBoxForeground;
