@@ -1,6 +1,6 @@
 <img src="img/icon.jpg" alt="Notepad--" align="right" width="128px"></img>
 [![](https://img.shields.io/github/license/johnny263/notepad-minus-minus?style=flat-square)](https://github.com/syesjohnny/notepad-minus-minus/master/LICENSE)
-[![Discord](https://img.shields.io/discord/1165154972665659412?style=flat-square&logo=discord&label=Discord)](https://discord.gg/gEYbTt4wwv)
+[![Discord](https://img.shields.io/discord/1165154972665659412?style=flat-square&logo=discord&label=Discord)](https://discord.gg/GNcq8sabBt)
 ![](https://img.shields.io/github/downloads/syesjohnny/Notepad-minus-minus/total?style=flat-square)
 ## About
 Notepad-- is an free open-source notepad application based on notepad++ (WIP)
@@ -33,8 +33,9 @@ We recommend using Visual Studio as the code editor.
 ### Translations
 Not support now
 
+[More Details](CONTRIBUTING.md)
 ## Contact
-If you have any questions, suggestions, or just want to say hello, feel free to reach out to us at our [Discord](https://discord.gg/gEYbTt4wwv).
+If you have any questions, suggestions, or just want to say hello, feel free to reach out to us at our [Discord](https://discord.gg/GNcq8sabBt).
 
 ## License
 Notepad-- is licensed under the terms of the [CC0-1.0 license](https://github.com/johnny263/Notepad-minus-minus/blob/master/LICENSE).
