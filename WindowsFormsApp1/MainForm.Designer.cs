@@ -131,6 +131,8 @@ namespace NotePadMinusMinus
             ZoomInfoText = new ToolStripLabel();
             DocInfoText = new ToolStripLabel();
             BottomToolStrip = new ToolStrip();
+            SelectionInfoText = new ToolStripLabel();
+            ByteInfoText = new ToolStripLabel();
             MainLayout = new TableLayoutPanel();
             contextMenuStrip1.SuspendLayout();
             TopMenuStrip.SuspendLayout();
@@ -809,14 +811,14 @@ namespace NotePadMinusMinus
             // AboutMenuItem
             // 
             AboutMenuItem.Name = "AboutMenuItem";
-            AboutMenuItem.Size = new System.Drawing.Size(224, 26);
+            AboutMenuItem.Size = new System.Drawing.Size(183, 26);
             AboutMenuItem.Text = "About";
             AboutMenuItem.Click += AboutMenuItem_Click;
             // 
             // WhatNewMenuItem
             // 
             WhatNewMenuItem.Name = "WhatNewMenuItem";
-            WhatNewMenuItem.Size = new System.Drawing.Size(224, 26);
+            WhatNewMenuItem.Size = new System.Drawing.Size(183, 26);
             WhatNewMenuItem.Text = "What's New?";
             WhatNewMenuItem.Click += WhatNewMenuItem_Click;
             // 
@@ -867,12 +869,24 @@ namespace NotePadMinusMinus
             BottomToolStrip.Dock = DockStyle.Fill;
             BottomToolStrip.GripStyle = ToolStripGripStyle.Hidden;
             BottomToolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
-            BottomToolStrip.Items.AddRange(new ToolStripItem[] { CursorPosInfoText, ZoomInfoText, DocInfoText });
+            BottomToolStrip.Items.AddRange(new ToolStripItem[] { CursorPosInfoText, ZoomInfoText, DocInfoText, SelectionInfoText, ByteInfoText });
             BottomToolStrip.Location = new System.Drawing.Point(0, 503);
             BottomToolStrip.Name = "BottomToolStrip";
             BottomToolStrip.Size = new System.Drawing.Size(971, 30);
             BottomToolStrip.TabIndex = 2;
             BottomToolStrip.Text = "BottomToolStrip";
+            // 
+            // SelectionInfoText
+            // 
+            SelectionInfoText.Name = "SelectionInfoText";
+            SelectionInfoText.Size = new System.Drawing.Size(99, 27);
+            SelectionInfoText.Text = "SelectionInfo";
+            // 
+            // ByteInfoText
+            // 
+            ByteInfoText.Name = "ByteInfoText";
+            ByteInfoText.Size = new System.Drawing.Size(66, 27);
+            ByteInfoText.Text = "ByteInfo";
             // 
             // MainLayout
             // 
@@ -1016,6 +1030,8 @@ namespace NotePadMinusMinus
         private ToolStripMenuItem RPCShowFileName;
         private ToolStripMenuItem RPCEnable;
         private ToolStripMenuItem ShowCharacterCount;
+        private ToolStripLabel SelectionInfoText;
+        private ToolStripLabel ByteInfoText;
     }
 }
 

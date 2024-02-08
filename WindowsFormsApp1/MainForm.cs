@@ -51,6 +51,8 @@ namespace NotePadMinusMinus
         private int _atLine = 0;
         private int _atColumn = 0;
         private int _atChar = 0;
+        private int _selectlength = 0;
+        private int _selectlines = 0;
         private FileSaveChangeFlag _saveChangeFlag = FileSaveChangeFlag.NoChange;
         private string _currentFilePath = "";
         private MainFormContainer _container;
@@ -135,6 +137,18 @@ namespace NotePadMinusMinus
             {
                 (_atLine, _atColumn, _atChar) = value;
                 CursorPosInfoText.Text = string.Format("Ln: {0}, Col: {1}, Pos: {2}", _atLine, _atColumn, _atChar);
+            }
+        }
+        public (int Length, int Sum) SelectionInfo
+        {
+            get
+            {
+                return (_selectlength, _selectlines);
+            }
+            set
+            {
+                (_selectlength, _selectlines) = value;
+                SelectionInfoText.Text = string.Format("Select Length: {0}, Select Lines: {1}", _selectlength, _selectlines);
             }
         }
         public bool WordWrap
@@ -286,6 +300,7 @@ namespace NotePadMinusMinus
             DarkNet.Instance.EffectiveCurrentProcessThemeIsDarkChanged += (_, isDarkTheme) => RenderTheme(isDarkTheme);
             RenderTheme(DarkNet.Instance.EffectiveCurrentProcessThemeIsDark);
             CursorPosInfo = (1, 1, 1);
+            SelectionInfo = (0, 0);
             DocumentLengthInfo = (0, 0);
             Zoom = 1;
             WordWrap = ConfigManager.Config.WordWrap;
@@ -774,6 +789,7 @@ namespace NotePadMinusMinus
             }
 
             CursorPosInfo = (++lineCounter, ++lineNowLength, EditingArea.SelectionStart + 1);
+            SelectionInfo = (EditingArea.SelectionLength, 1);
             DocumentLengthInfo = (EditingArea.TextLength, EditingArea.Lines.Length);
             if (EditingArea.SelectionLength > 0)
             {
