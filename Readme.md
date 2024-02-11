@@ -18,7 +18,8 @@ Notepad-- is an free open-source notepad application based on notepad++ (WIP)
 [@syesjohnny](https://github.com/syesjohnny) [@yt6983138](https://github.com/yt6983138)
 
 ## Collaborator
-[@yt6983138](https://github.com/yt6983138) [@syesjohnny](https://github.com/syesjohnny)
+[@syesjohnny](https://github.com/syesjohnny)
+[@yt6983138](https://github.com/yt6983138) 
 
 ## Contributing
 ### Suggestions and bug reports
