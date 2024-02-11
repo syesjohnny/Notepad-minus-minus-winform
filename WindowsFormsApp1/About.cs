@@ -16,6 +16,7 @@ namespace NotePadMinusMinus
         public About()
         {
             InitializeComponent();
+            this.AcceptButton = OKButton;
         }
 
         private void NotepadMinusMinusGithub_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

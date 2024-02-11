@@ -4,35 +4,22 @@ using Microsoft.VisualBasic.FileIO;
 using NetDiscordRpc;
 using NetDiscordRpc.Core.Logger;
 using NetDiscordRpc.RPC;
-using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Data.Common;
 using System.Diagnostics;
-using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
-using System.Drawing.Text;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
+using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Media.Media3D;
-using System.Xml.Linq;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Windows.Forms.AxHost;
-using static System.Windows.Forms.LinkLabel;
+using System.Windows.Forms.Design;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
-
 
 namespace NotePadMinusMinus
 {
-	public enum FileSaveChangeFlag
+    public enum FileSaveChangeFlag
 	{
 		NoChange,
 		Changed
@@ -59,6 +46,13 @@ namespace NotePadMinusMinus
         private MainFormContainer _container;
         #endregion
 
+        #region DLL
+        [DllImport("user32.dll")]
+        static extern bool CreateCaret(IntPtr hWnd, IntPtr hBitmap, int nWidth, int nHeight);
+        [DllImport("user32.dll")]
+        static extern bool ShowCaret(IntPtr hWnd);
+        #endregion
+
         #region Properties
         public static ToolStripProfessionalRenderer? ToolStripRender { get; set; }
         private FormWindowState PreviousWindowState { get; set; }
@@ -74,7 +68,7 @@ namespace NotePadMinusMinus
                 _currentFilePath = value;
                 SetTitle();
                 Console.Write(value);
-                if (RPCShowFileName.Checked == true)
+                if (RPCShowFileName.Checked)
                 {
                     if (string.IsNullOrEmpty(_currentFilePath))
                     {
@@ -226,7 +220,7 @@ namespace NotePadMinusMinus
             {
                 ConfigManager.Config.DiscordRPC = value;
                 RPCEnable.Checked = value;
-                if (ConfigManager.Config.DiscordRPC == true)
+                if (ConfigManager.Config.DiscordRPC)
                 {
                     RPC();
                 }
@@ -291,6 +285,26 @@ namespace NotePadMinusMinus
         }
 
         public static DiscordRPC DiscordRpc;
+        public bool Transparent
+        {
+            get
+            {
+                return ConfigManager.Config.Transparent;
+            }
+            set
+            {
+                ConfigManager.Config.Transparent = value;
+                transparentToolStripMenuItem.Checked = value;
+                if (transparentToolStripMenuItem.Checked)
+                {
+                    base.Opacity = 90;
+                }
+                else
+                {
+                    base.Opacity = 1;
+                }
+            }
+        }
         #endregion
 
         #region Constructor
@@ -300,7 +314,6 @@ namespace NotePadMinusMinus
             DiscordRpc.Logger = new ConsoleLogger();
             DiscordRpc.Initialize();
         }
-
         public MainForm(MainFormContainer container)
         {
             InitializeComponent();
@@ -318,6 +331,7 @@ namespace NotePadMinusMinus
             DiscordRPC = ConfigManager.Config.DiscordRPC;
             showfileRPC = ConfigManager.Config.RPCShowFileName;
             ShowCharacterRPC = ConfigManager.Config.RPCShowCharacters;
+            Transparent = ConfigManager.Config.Transparent;
 
             EditingArea.MouseWheel += new MouseEventHandler(EditingArea_MouseWheelEvent);
             ActionUndoMenuItem.Enabled = false;
@@ -331,6 +345,7 @@ namespace NotePadMinusMinus
             OpenInMSNotepadMenuItem.Enabled = isFilePathEmpty;
             DeleteFileSubMenu.Enabled = isFilePathEmpty;
             CopyToClipboardSubMenu.Enabled = isFilePathEmpty;
+            fileReadonlyToolStripMenuItem.Enabled = isFilePathEmpty;
 
             ActionPasteMenuItem.Enabled = Clipboard.ContainsText();
             pasteToolStripMenuItem1.Enabled = Clipboard.ContainsText();
@@ -345,6 +360,7 @@ namespace NotePadMinusMinus
             DeleteFileSubMenu.Enabled = false;
             OpenFileFolderSubMenu.Enabled = false;
             CopyToClipboardSubMenu.Enabled = false;
+            fileReadonlyToolStripMenuItem.Enabled = false;
             EditingArea.AutoWordSelection = false; //fuck the bug
             this.FormClosed += (_, _2) => _container.OnCloseFormChecking(this);
             SetTitle();
@@ -491,6 +507,7 @@ namespace NotePadMinusMinus
                 DiscordRpc.UpdateDetails("Editing File");
             }
         }
+
         #endregion
 
         #region File operations
@@ -539,6 +556,7 @@ namespace NotePadMinusMinus
                 OpenInMSNotepadMenuItem.Enabled = true;
                 DeleteFileSubMenu.Enabled = true;
                 CopyToClipboardSubMenu.Enabled = true;
+                fileReadonlyToolStripMenuItem.Enabled = true;
             }
         }
         private void OpenFileEvent(object sender, EventArgs e)
@@ -570,6 +588,9 @@ namespace NotePadMinusMinus
                 int lineCount = EditingArea.Lines.Length;
                 DocumentLengthInfo = (charCount, lineCount);
                 updateRPC();
+                FileAttributes attributes = File.GetAttributes(_currentFilePath);
+                fileReadonlyToolStripMenuItem.Checked = ((attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly);
+                SaveChangeFlag = 0;
             }
         }
         private bool SaveFile()
@@ -594,6 +615,7 @@ namespace NotePadMinusMinus
                         OpenInMSNotepadMenuItem.Enabled = true;
                         DeleteFileSubMenu.Enabled = true;
                         CopyToClipboardSubMenu.Enabled = true;
+                        fileReadonlyToolStripMenuItem.Enabled = true;
                     }
                 }
                 else
@@ -728,7 +750,7 @@ namespace NotePadMinusMinus
         #region Editing area events
         private void EditingArea_MouseWheelEvent(object sender, MouseEventArgs e)
         {
-            if (Control.ModifierKeys == Keys.Control)
+            if (System.Windows.Forms.Control.ModifierKeys == Keys.Control)
             {
                 Zoom = EditingArea.ZoomFactor;
             }
@@ -754,7 +776,7 @@ namespace NotePadMinusMinus
                 }
                 else
                 {
-                    if (AutoSaveMenuItem.Checked == true)
+                    if (AutoSaveMenuItem.Checked)
                     {
                         SaveFile();
                         SaveChangeFlag = FileSaveChangeFlag.NoChange;
@@ -775,8 +797,9 @@ namespace NotePadMinusMinus
             OpenInMSNotepadMenuItem.Enabled = !isPathEmpty;
             DeleteFileSubMenu.Enabled = !isPathEmpty;
             CopyToClipboardSubMenu.Enabled = !isPathEmpty;
-            ActionPasteMenuItem.Enabled = Clipboard.ContainsText() == true;
-            pasteToolStripMenuItem1.Enabled = Clipboard.ContainsText() == true;
+            fileReadonlyToolStripMenuItem.Enabled = !isPathEmpty;
+            ActionPasteMenuItem.Enabled = Clipboard.ContainsText();
+            pasteToolStripMenuItem1.Enabled = Clipboard.ContainsText();
             updateRPC();
         }
         private void EditingAreaOnSelectionChange(object sender, EventArgs e)
@@ -808,6 +831,8 @@ namespace NotePadMinusMinus
             }
             CursorPosInfo = (++lineCounter, ++lineNowLength, EditingArea.SelectionStart + 1);
             SelectionInfo = (EditingArea.SelectionLength, newlineCount + 1);
+            ByteInfoText.Text = $"{Encoding.UTF8.GetByteCount(EditingArea.Text)} bytes";
+
             DocumentLengthInfo = (EditingArea.TextLength, EditingArea.Lines.Length);
             if (EditingArea.SelectionLength > 0)
             {
@@ -919,7 +944,7 @@ namespace NotePadMinusMinus
 
         private void ExitFullscreen(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape && FullScreenToggleMenuItem.Checked == true)
+            if (e.KeyCode == Keys.Escape && FullScreenToggleMenuItem.Checked)
             {
                 ToggleFullScreen(null, null);
             }
@@ -1239,14 +1264,26 @@ namespace NotePadMinusMinus
 
         private void transparentToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (transparentToolStripMenuItem.Checked == true)
+            Transparent = !Transparent;
+        }
+
+        private void fileReadonlyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (fileReadonlyToolStripMenuItem.Checked)
             {
-                Opacity = 0.9;
+                File.SetAttributes(_currentFilePath, File.GetAttributes(_currentFilePath) | FileAttributes.ReadOnly);
             }
             else
             {
-                Opacity = 1;
+                File.SetAttributes(_currentFilePath, File.GetAttributes(_currentFilePath) & ~FileAttributes.ReadOnly);
             }
+        }
+
+        private void hTMLXMLTagToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            inserttag inserttag = new(this);
+            DarkNet.Instance.SetWindowThemeForms(inserttag, Theme.Auto);
+            inserttag.Show();
         }
     }
     public class CustomColorTable : ProfessionalColorTable

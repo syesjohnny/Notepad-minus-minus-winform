@@ -15,5 +15,6 @@ public class Config
 	public bool DiscordRPC { get; set; } = false;
 	public bool RPCShowFileName { get; set; } = true;
 	public bool RPCShowCharacters { get; set; } = true;
+	public bool Transparent { get; set; } = false;
     // add more entries here
 }

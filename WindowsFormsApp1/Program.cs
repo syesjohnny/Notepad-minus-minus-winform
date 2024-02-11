@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Windows.Forms.Design;
 using Dark.Net;
 using NotePadMinusMinus;
 using static System.Windows.Forms.DataFormats;
@@ -23,5 +24,4 @@ internal static class Program
 
         Application.Run(new MainFormContainer());
     }
-
 }

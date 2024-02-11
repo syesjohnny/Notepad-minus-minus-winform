@@ -18,6 +18,7 @@ namespace NotePadMinusMinus
 		public Run()
 		{
 			InitializeComponent();
+			this.AcceptButton = RunButton;
 		}
 
 		private void FileSelectorButton_Click(object sender, EventArgs e)

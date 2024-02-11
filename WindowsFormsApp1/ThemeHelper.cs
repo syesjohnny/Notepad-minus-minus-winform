@@ -134,9 +134,12 @@ public static class ThemeHelper
 				toolStrip.Renderer = render;
 				ChangeControlsTheme(toolStrip.Items, color, render);
 				break;
+			case TrackBarMenuItem trackBar:
+				trackBar.BackColor = color.ToolStripBackground;
+                break;
 			case ToolStripSeparator separator:
-				separator.BackColor = Color.Red;
-				separator.ForeColor = Color.Red;
+				separator.BackColor = Color.Red; //test
+				separator.ForeColor = Color.Red; //test cuz it not work
 				break;
 			case RichTextBox richTextBox:
 				richTextBox.ForeColor = color.RichTextBoxForeground;

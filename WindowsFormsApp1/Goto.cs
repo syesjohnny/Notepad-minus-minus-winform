@@ -21,6 +21,8 @@ namespace NotePadMinusMinus
         {
             InitializeComponent();
             _mainForm = form1;
+            this.AcceptButton = GoButton;
+            this.CancelButton = CancelButton;
         }
 
         private void Cancel_Click(object sender, EventArgs e)

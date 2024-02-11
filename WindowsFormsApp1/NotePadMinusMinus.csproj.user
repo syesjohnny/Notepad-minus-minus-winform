@@ -18,6 +18,9 @@
     <Compile Update="FindReplace.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="inserttag.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Goto.cs">
       <SubType>Form</SubType>
     </Compile>

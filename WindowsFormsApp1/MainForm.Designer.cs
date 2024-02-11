@@ -1,14 +1,27 @@
 ﻿using System.Windows.Forms;
+using System.Windows.Forms.Design;
 
 namespace NotePadMinusMinus
 {
-	partial class MainForm
+    [ToolStripItemDesignerAvailability(ToolStripItemDesignerAvailability.MenuStrip | ToolStripItemDesignerAvailability.ContextMenuStrip)]
+    public class TrackBarMenuItem : ToolStripControlHost
+    {
+        private TrackBar trackBar;
+
+        public TrackBarMenuItem() : base(new TrackBar())
+        {
+            this.trackBar = this.Control as TrackBar;
+            this.trackBar.Minimum = 10;
+            this.trackBar.Maximum = 100;
+            this.trackBar.TickStyle = TickStyle.None;
+        }
+    }
+    partial class MainForm
 	{
 		/// <summary>
 		/// 設計工具所需的變數。
 		/// </summary>
 		private System.ComponentModel.IContainer components = null;
-
 		/// <summary>
 		/// 清除任何使用中的資源。
 		/// </summary>
@@ -59,6 +72,7 @@ namespace NotePadMinusMinus
             DeleteFileSubMenu = new ToolStripMenuItem();
             DeletePermanentlyMenuItem = new ToolStripMenuItem();
             MoveToRecycleBinMenuItem = new ToolStripMenuItem();
+            fileReadonlyToolStripMenuItem = new ToolStripMenuItem();
             EditMenu = new ToolStripMenuItem();
             ActionUndoMenuItem = new ToolStripMenuItem();
             ActionRedoMenuItem = new ToolStripMenuItem();
@@ -69,7 +83,6 @@ namespace NotePadMinusMinus
             ActionDeleteMenuItem = new ToolStripMenuItem();
             ActionSelectAllMenuItem = new ToolStripMenuItem();
             EditMenuSeparator2 = new ToolStripSeparator();
-            InsertDateTimeMenuItem = new ToolStripMenuItem();
             CopyToClipboardSubMenu = new ToolStripMenuItem();
             CopyDirectoryWithFileMenuItem = new ToolStripMenuItem();
             CopyDirectoryOnlyMenuItem = new ToolStripMenuItem();
@@ -96,6 +109,9 @@ namespace NotePadMinusMinus
             DuplicateLineMenuItem = new ToolStripMenuItem();
             removeDuplicateLinesMenuItem = new ToolStripMenuItem();
             AutoSaveMenuItem = new ToolStripMenuItem();
+            insertToolStripMenuItem = new ToolStripMenuItem();
+            timeDateToolStripMenuItem = new ToolStripMenuItem();
+            hTMLXMLTagToolStripMenuItem = new ToolStripMenuItem();
             ViewMenu = new ToolStripMenuItem();
             ZoomSubMenu = new ToolStripMenuItem();
             ZoomInMenuItem = new ToolStripMenuItem();
@@ -214,7 +230,7 @@ namespace NotePadMinusMinus
             // 
             // FileMenu
             // 
-            FileMenu.DropDownItems.AddRange(new ToolStripItem[] { NewFileMenuItem, OpenFileMenuItem, SaveFileMenuItem, SaveAsMenuItem, FileMenuSperator1, OpenFileFolderSubMenu, FileMenuSeparator2, NewWindowMenuItem, CloseWindowMenuItem, ExitMenuItem, ReOpenMenuItem, OpenInMSNotepadMenuItem, DeleteFileSubMenu });
+            FileMenu.DropDownItems.AddRange(new ToolStripItem[] { NewFileMenuItem, OpenFileMenuItem, SaveFileMenuItem, SaveAsMenuItem, FileMenuSperator1, OpenFileFolderSubMenu, FileMenuSeparator2, NewWindowMenuItem, CloseWindowMenuItem, ExitMenuItem, ReOpenMenuItem, OpenInMSNotepadMenuItem, DeleteFileSubMenu, fileReadonlyToolStripMenuItem });
             FileMenu.Name = "FileMenu";
             FileMenu.Size = new System.Drawing.Size(47, 24);
             FileMenu.Text = "File";
@@ -342,9 +358,17 @@ namespace NotePadMinusMinus
             MoveToRecycleBinMenuItem.Text = "Move To Recycle Bin";
             MoveToRecycleBinMenuItem.Click += RemoveFileMenuItem_Click;
             // 
+            // fileReadonlyToolStripMenuItem
+            // 
+            fileReadonlyToolStripMenuItem.CheckOnClick = true;
+            fileReadonlyToolStripMenuItem.Name = "fileReadonlyToolStripMenuItem";
+            fileReadonlyToolStripMenuItem.Size = new System.Drawing.Size(296, 26);
+            fileReadonlyToolStripMenuItem.Text = "File Readonly";
+            fileReadonlyToolStripMenuItem.Click += fileReadonlyToolStripMenuItem_Click;
+            // 
             // EditMenu
             // 
-            EditMenu.DropDownItems.AddRange(new ToolStripItem[] { ActionUndoMenuItem, ActionRedoMenuItem, EditMenuSeparator1, ActionCutMenuItem, ActionCopyMenuItem, ActionPasteMenuItem, ActionDeleteMenuItem, ActionSelectAllMenuItem, EditMenuSeparator2, InsertDateTimeMenuItem, CopyToClipboardSubMenu, EditMenuSeparator3, GoToMenuItem, FindReplaceMenuItem, SearchInWebsiteMenuItem, EditMenuSeparator4, ReadonlyModeMenuItem, ConvertCaseMenuItem, LineOperationMenuItem, AutoSaveMenuItem });
+            EditMenu.DropDownItems.AddRange(new ToolStripItem[] { ActionUndoMenuItem, ActionRedoMenuItem, EditMenuSeparator1, ActionCutMenuItem, ActionCopyMenuItem, ActionPasteMenuItem, ActionDeleteMenuItem, ActionSelectAllMenuItem, EditMenuSeparator2, CopyToClipboardSubMenu, EditMenuSeparator3, GoToMenuItem, FindReplaceMenuItem, SearchInWebsiteMenuItem, EditMenuSeparator4, ReadonlyModeMenuItem, ConvertCaseMenuItem, LineOperationMenuItem, AutoSaveMenuItem, insertToolStripMenuItem });
             EditMenu.Name = "EditMenu";
             EditMenu.Size = new System.Drawing.Size(50, 24);
             EditMenu.Text = "Edit";
@@ -414,14 +438,6 @@ namespace NotePadMinusMinus
             // 
             EditMenuSeparator2.Name = "EditMenuSeparator2";
             EditMenuSeparator2.Size = new System.Drawing.Size(229, 6);
-            // 
-            // InsertDateTimeMenuItem
-            // 
-            InsertDateTimeMenuItem.Name = "InsertDateTimeMenuItem";
-            InsertDateTimeMenuItem.ShortcutKeys = Keys.F5;
-            InsertDateTimeMenuItem.Size = new System.Drawing.Size(232, 26);
-            InsertDateTimeMenuItem.Text = "Time/Date";
-            InsertDateTimeMenuItem.Click += InsertDateTime;
             // 
             // CopyToClipboardSubMenu
             // 
@@ -603,6 +619,27 @@ namespace NotePadMinusMinus
             AutoSaveMenuItem.Text = "Auto Save";
             AutoSaveMenuItem.Click += autoSaveToolStripMenuItem_Click;
             // 
+            // insertToolStripMenuItem
+            // 
+            insertToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { timeDateToolStripMenuItem, hTMLXMLTagToolStripMenuItem });
+            insertToolStripMenuItem.Name = "insertToolStripMenuItem";
+            insertToolStripMenuItem.Size = new System.Drawing.Size(232, 26);
+            insertToolStripMenuItem.Text = "Insert";
+            // 
+            // timeDateToolStripMenuItem
+            // 
+            timeDateToolStripMenuItem.Name = "timeDateToolStripMenuItem";
+            timeDateToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
+            timeDateToolStripMenuItem.Text = "Time/Date";
+            timeDateToolStripMenuItem.Click += InsertDateTime;
+            // 
+            // hTMLXMLTagToolStripMenuItem
+            // 
+            hTMLXMLTagToolStripMenuItem.Name = "hTMLXMLTagToolStripMenuItem";
+            hTMLXMLTagToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
+            hTMLXMLTagToolStripMenuItem.Text = "HTML/XML Tag";
+            hTMLXMLTagToolStripMenuItem.Click += hTMLXMLTagToolStripMenuItem_Click;
+            // 
             // ViewMenu
             // 
             ViewMenu.DropDownItems.AddRange(new ToolStripItem[] { ZoomSubMenu, WordWarpToggleMenuItem, StatusToggleMenuItem, ViewMenuSeparator1, ShowLinksToggleItem, ViewMenuSeparator2, FullScreenToggleMenuItem, AlwaysOnTopToggleMenuItem, transparentToolStripMenuItem });
@@ -717,26 +754,26 @@ namespace NotePadMinusMinus
             // 
             RunMenuItem.Name = "RunMenuItem";
             RunMenuItem.ShortcutKeys = Keys.F5;
-            RunMenuItem.Size = new System.Drawing.Size(213, 26);
+            RunMenuItem.Size = new System.Drawing.Size(224, 26);
             RunMenuItem.Text = "Run";
             RunMenuItem.Click += RunMenuItem_Click;
             // 
             // RunMenuSeparator1
             // 
             RunMenuSeparator1.Name = "RunMenuSeparator1";
-            RunMenuSeparator1.Size = new System.Drawing.Size(210, 6);
+            RunMenuSeparator1.Size = new System.Drawing.Size(221, 6);
             // 
             // GetPHPHelpMenuItem
             // 
             GetPHPHelpMenuItem.Name = "GetPHPHelpMenuItem";
-            GetPHPHelpMenuItem.Size = new System.Drawing.Size(213, 26);
+            GetPHPHelpMenuItem.Size = new System.Drawing.Size(224, 26);
             GetPHPHelpMenuItem.Text = "Get PHP Help";
             GetPHPHelpMenuItem.Click += GetPHPHelpMenuItem_Click;
             // 
             // WikipediaSearchMenuItem
             // 
             WikipediaSearchMenuItem.Name = "WikipediaSearchMenuItem";
-            WikipediaSearchMenuItem.Size = new System.Drawing.Size(213, 26);
+            WikipediaSearchMenuItem.Size = new System.Drawing.Size(224, 26);
             WikipediaSearchMenuItem.Text = "Wikipedia Search";
             WikipediaSearchMenuItem.Click += SearchInWikipediaMenuItem_Click;
             // 
@@ -750,7 +787,7 @@ namespace NotePadMinusMinus
             // preferencesToolStripMenuItem
             // 
             preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-            preferencesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            preferencesToolStripMenuItem.Size = new System.Drawing.Size(179, 26);
             preferencesToolStripMenuItem.Text = "Preferences";
             preferencesToolStripMenuItem.Click += preferencesToolStripMenuItem_Click;
             // 
@@ -758,7 +795,7 @@ namespace NotePadMinusMinus
             // 
             DarkModeMenuItem.DropDownItems.AddRange(new ToolStripItem[] { darkModeSub, lightModeSub, AutoSub });
             DarkModeMenuItem.Name = "DarkModeMenuItem";
-            DarkModeMenuItem.Size = new System.Drawing.Size(224, 26);
+            DarkModeMenuItem.Size = new System.Drawing.Size(179, 26);
             DarkModeMenuItem.Text = "Dark Mode";
             // 
             // darkModeSub
@@ -786,7 +823,7 @@ namespace NotePadMinusMinus
             // 
             discordRPCToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { RPCEnable, RPCShowFileName, ShowCharacterCount });
             discordRPCToolStripMenuItem.Name = "discordRPCToolStripMenuItem";
-            discordRPCToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            discordRPCToolStripMenuItem.Size = new System.Drawing.Size(179, 26);
             discordRPCToolStripMenuItem.Text = "Discord RPC";
             // 
             // RPCEnable
@@ -966,7 +1003,6 @@ namespace NotePadMinusMinus
 		private System.Windows.Forms.ToolStripMenuItem ActionPasteMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem ActionDeleteMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem ActionSelectAllMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem InsertDateTimeMenuItem;
 		private System.Windows.Forms.ToolStripSeparator EditMenuSeparator1;
 		private System.Windows.Forms.ToolStripSeparator EditMenuSeparator2;
 		private System.Windows.Forms.ToolStripMenuItem WordWarpToggleMenuItem;
@@ -1056,6 +1092,11 @@ namespace NotePadMinusMinus
         private ToolStripSeparator toolStripSeparator5;
         private ToolStripSeparator toolStripSeparator4;
         private ToolStripMenuItem transparentToolStripMenuItem;
+        private ToolStripMenuItem fileReadonlyToolStripMenuItem;
+        private ToolStripMenuItem insertToolStripMenuItem;
+        private ToolStripMenuItem timeDateToolStripMenuItem;
+        private ToolStripMenuItem hTMLXMLTagToolStripMenuItem;
+        private TrackBarMenuItem OpacitySlider;
     }
 }
 

@@ -19,6 +19,7 @@ namespace NotePadMinusMinus
         public What_s_New()
         {
             InitializeComponent();
+            this.AcceptButton = OK;
         }
 
         private void FullChangeLog_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
